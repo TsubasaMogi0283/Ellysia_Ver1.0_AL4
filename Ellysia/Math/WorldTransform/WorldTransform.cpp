@@ -22,6 +22,7 @@ void WorldTransform::Update(){
 		matWorld_ = Multiply(matWorld_, parent_->matWorld_);
 	}
 
+
 	WorldTransform::Transfer();
 }
 
