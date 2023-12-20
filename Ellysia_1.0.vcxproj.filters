@@ -1,0 +1,540 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <FxCompile Include="Resources\Shader\Object2D\Object2d.PS.hlsl">
+      <Filter>Resource\Object2D</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\Object2D\Object2d.VS.hlsl">
+      <Filter>Resource\Object2D</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\Object3D\Object3d.PS.hlsl">
+      <Filter>Resource\Object3D</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\Object3D\Object3d.VS.hlsl">
+      <Filter>Resource\Object3D</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\Particle3D\Particle3d.PS.hlsl">
+      <Filter>Resource\Particle3D</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\Particle3D\Particle3d.VS.hlsl">
+      <Filter>Resource\Particle3D</Filter>
+    </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Ellysia\Audio\Audio.cpp">
+      <Filter>Ellysia\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="Ellysia\Math\BPMCalculation\BPMSetting.cpp">
+      <Filter>Ellysia\Audio\BPMSetting</Filter>
+    </ClCompile>
+    <ClCompile Include="Ellysia\Camera\Camera.cpp">
+      <Filter>Ellysia\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Object\Collider\Collider.cpp">
+      <Filter>Project\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Object\Collider\CollisionManager.cpp">
+      <Filter>Project\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Ellysia\ConvertFunction\CompileShader\CompileShaderManager.cpp">
+      <Filter>Ellysia\Convert\CompilerShaderManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Ellysia\ConvertFunction\ConvertColor\ConvertColor.cpp">
+      <Filter>Ellysia\Convert\ConvertColor</Filter>
+    </ClCompile>
+    <ClCompile Include="Ellysia\ConvertFunction\ConvertLog\ConvertLog.cpp">
+      <Filter>Ellysia\Convert\ConvertLog</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Object\Enemy\Enemy.cpp">
+      <Filter>Project\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Ellysia\Common\DirectX\DirectXSetup.cpp">
+      <Filter>Ellysia\Common\DirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Object\Enemy\State\IEnemy\IEnemy.cpp">
+      <Filter>Project\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\AllGameScene\GameManager\GameManager.cpp">
+      <Filter>Project\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Ellysia\Polygon\3D\BufferResource\DirectionalLight\CreateDirectionalLight.cpp">
+      <Filter>Ellysia\Polygon\Model\CreateDirectionalLight</Filter>
+    </ClCompile>
+    <ClCompile Include="Ellysia\Polygon\3D\BufferResource\Material\CreateMaterial.cpp">
+      <Filter>Ellysia\Polygon\Model\CreateMaterial</Filter>
+    </ClCompile>
+    <ClCompile Include="External\ImGui\imgui.cpp">
+      <Filter>External\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="External\ImGui\imgui_demo.cpp">
+      <Filter>External\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="External\ImGui\imgui_draw.cpp">
+      <Filter>External\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="External\ImGui\imgui_impl_dx12.cpp">
+      <Filter>External\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="External\ImGui\imgui_impl_win32.cpp">
+      <Filter>External\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="External\ImGui\imgui_tables.cpp">
+      <Filter>External\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="External\ImGui\imgui_widgets.cpp">
+      <Filter>External\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="Ellysia\Input\Input.cpp">
+      <Filter>Ellysia\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Ellysia\ImGuiManager\ImGuiManager.cpp">
+      <Filter>Ellysia\ImGuiManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Ellysia\Polygon\3D\Model\Model.cpp">
+      <Filter>Ellysia\Polygon\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Ellysia\Polygon\3D\BufferResource\Mesh\Mesh.cpp">
+      <Filter>Ellysia\Polygon\Model\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Ellysia\ModelManager\ModelManager.cpp">
+      <Filter>Ellysia\Polygon\Model\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Ellysia\Polygon\3D\Model\ModelObj\ModelObj.cpp">
+      <Filter>Ellysia\Polygon\Model\ModelObj</Filter>
+    </ClCompile>
+    <ClCompile Include="Ellysia\Polygon\3D\Particle3D\Particle3D.cpp">
+      <Filter>Ellysia\Polygon\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="Ellysia\PipelineManager\PipelineManager.cpp">
+      <Filter>Ellysia\Pipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Object\Player\Player.cpp">
+      <Filter>Project\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Object\Player\Bullet\PlayerBullet.cpp">
+      <Filter>Project\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Object\RailCamera\RailCamera.cpp">
+      <Filter>Project\RailCamera</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\AllGameScene\SampleScene\SampleScene.cpp">
+      <Filter>Project\Scene\Sample</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Object\Skydome\Skydome.cpp">
+      <Filter>Project\Skydome</Filter>
+    </ClCompile>
+    <ClCompile Include="Ellysia\Ellysia.cpp">
+      <Filter>Ellysia</Filter>
+    </ClCompile>
+    <ClCompile Include="Ellysia\main.cpp">
+      <Filter>Ellysia</Filter>
+    </ClCompile>
+    <ClCompile Include="Ellysia\Polygon\3D\Sphere\Sphere.cpp">
+      <Filter>Ellysia\Polygon\Sphere</Filter>
+    </ClCompile>
+    <ClCompile Include="Ellysia\Polygon\2D\Sprite\Sprite.cpp">
+      <Filter>Ellysia\Polygon\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="Ellysia\TextureManager\TextureManager.cpp">
+      <Filter>Ellysia\TextureManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Object\Enemy\TimeCall\TimeCall.cpp">
+      <Filter>Project\TimeCall</Filter>
+    </ClCompile>
+    <ClCompile Include="Ellysia\Polygon\3D\BufferResource\Transformation\Transformation.cpp">
+      <Filter>Ellysia\Polygon\Transformation</Filter>
+    </ClCompile>
+    <ClCompile Include="Ellysia\Polygon\2D\Triangle\Triangle.cpp">
+      <Filter>Ellysia\Polygon\Triangle</Filter>
+    </ClCompile>
+    <ClCompile Include="Ellysia\Math\Vector\Calculation\VectorCalculation.cpp">
+      <Filter>Ellysia\Math\Vector</Filter>
+    </ClCompile>
+    <ClCompile Include="Ellysia\Common\Windows\WindowsSetup.cpp">
+      <Filter>Ellysia\Common\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Object\Enemy\State\EnemyApproach\EnemyApproach.cpp">
+      <Filter>Project\Enemy\Approach</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Object\Enemy\Bullet\EnemyBullet.cpp">
+      <Filter>Project\Enemy\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Object\Enemy\State\EnemyLeave\EnemyLeave.cpp">
+      <Filter>Project\Enemy\Leave</Filter>
+    </ClCompile>
+    <ClCompile Include="Ellysia\Math\WorldTransform\WorldTransform.cpp">
+      <Filter>Ellysia\Math\Matrix\WorldTransform</Filter>
+    </ClCompile>
+    <ClCompile Include="Ellysia\Math\Matrix\Calculation\Matrix4x4Calculation.cpp">
+      <Filter>Ellysia\Math\Matrix\Calculation</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Ellysia\Audio\Audio.h">
+      <Filter>Ellysia\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="Ellysia\Math\BPMCalculation\BPMSetting.h">
+      <Filter>Ellysia\Audio\BPMSetting</Filter>
+    </ClInclude>
+    <ClInclude Include="Ellysia\Camera\Camera.h">
+      <Filter>Ellysia\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Object\Collider\Collider.h">
+      <Filter>Project\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Object\Collider\CollisionConfig.h">
+      <Filter>Project\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Object\Collider\CollisionManager.h">
+      <Filter>Project\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Ellysia\ConvertFunction\CompileShader\CompileShaderManager.h">
+      <Filter>Ellysia\Convert\CompilerShaderManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Ellysia\ConvertFunction\ConvertColor\ConvertColor.h">
+      <Filter>Ellysia\Convert\ConvertColor</Filter>
+    </ClInclude>
+    <ClInclude Include="Ellysia\ConvertFunction\ConvertLog\ConvertLog.h">
+      <Filter>Ellysia\Convert\ConvertLog</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Object\Enemy\Enemy.h">
+      <Filter>Project\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Ellysia\Common\DirectX\DirectXSetup.h">
+      <Filter>Ellysia\Common\DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Object\Enemy\State\IEnemy\IEnemy.h">
+      <Filter>Project\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\AllGameScene\GameManager\GameManager.h">
+      <Filter>Project\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\AllGameScene\GameManager\IGameScene.h">
+      <Filter>Project\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Ellysia\Polygon\3D\BufferResource\DirectionalLight\CreateDirectionalLight.h">
+      <Filter>Ellysia\Polygon\Model\CreateDirectionalLight</Filter>
+    </ClInclude>
+    <ClInclude Include="Ellysia\Polygon\3D\BufferResource\Material\CreateMaterial.h">
+      <Filter>Ellysia\Polygon\Model\CreateMaterial</Filter>
+    </ClInclude>
+    <ClInclude Include="External\ImGui\imconfig.h">
+      <Filter>External\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="External\ImGui\imgui.h">
+      <Filter>External\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="External\ImGui\imgui_impl_dx12.h">
+      <Filter>External\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="External\ImGui\imgui_impl_win32.h">
+      <Filter>External\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="External\ImGui\imgui_internal.h">
+      <Filter>External\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="External\ImGui\imstb_textedit.h">
+      <Filter>External\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="External\ImGui\imstb_rectpack.h">
+      <Filter>External\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="External\ImGui\imstb_truetype.h">
+      <Filter>External\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Ellysia\Input\Input.h">
+      <Filter>Ellysia\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Ellysia\ImGuiManager\ImGuiManager.h">
+      <Filter>Ellysia\ImGuiManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Ellysia\Polygon\3D\Model\Model.h">
+      <Filter>Ellysia\Polygon\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Ellysia\Polygon\3D\BufferResource\Mesh\Mesh.h">
+      <Filter>Ellysia\Polygon\Model\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Ellysia\Polygon\3D\BufferResource\ModelData\ModelData.h">
+      <Filter>Ellysia\Polygon\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Ellysia\ModelManager\ModelManager.h">
+      <Filter>Ellysia\Polygon\Model\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Ellysia\Polygon\3D\Model\ModelObj\ModelObj.h">
+      <Filter>Ellysia\Polygon\Model\ModelObj</Filter>
+    </ClInclude>
+    <ClInclude Include="Ellysia\Polygon\3D\Particle3D\Particle3D.h">
+      <Filter>Ellysia\Polygon\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="Ellysia\PipelineManager\PipelineManager.h">
+      <Filter>Ellysia\Pipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Object\Player\Player.h">
+      <Filter>Project\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Object\Player\Bullet\PlayerBullet.h">
+      <Filter>Project\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Object\RailCamera\RailCamera.h">
+      <Filter>Project\RailCamera</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\AllGameScene\SampleScene\SampleScene.h">
+      <Filter>Project\Scene\Sample</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Object\Skydome\Skydome.h">
+      <Filter>Project\Skydome</Filter>
+    </ClInclude>
+    <ClInclude Include="Ellysia\Polygon\3D\Particle3D\Particle.h">
+      <Filter>Ellysia\Polygon\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="Ellysia\Ellysia.h">
+      <Filter>Ellysia</Filter>
+    </ClInclude>
+    <ClInclude Include="Ellysia\Polygon\3D\Sphere\Sphere.h">
+      <Filter>Ellysia\Polygon\Sphere</Filter>
+    </ClInclude>
+    <ClInclude Include="Ellysia\Math\Vector\SphereStruct.h">
+      <Filter>Ellysia\Polygon\Sphere</Filter>
+    </ClInclude>
+    <ClInclude Include="Ellysia\Polygon\2D\Sprite\Sprite.h">
+      <Filter>Ellysia\Polygon\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="Ellysia\Math\Vector\SpritePosition.h">
+      <Filter>Ellysia\Polygon\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="Ellysia\TextureManager\TextureManager.h">
+      <Filter>Ellysia\TextureManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Object\Enemy\TimeCall\TimeCall.h">
+      <Filter>Project\TimeCall</Filter>
+    </ClInclude>
+    <ClInclude Include="Ellysia\Polygon\3D\BufferResource\Transformation\Transformation.h">
+      <Filter>Ellysia\Polygon\Transformation</Filter>
+    </ClInclude>
+    <ClInclude Include="Ellysia\Math\Matrix\TransformationMatrix.h">
+      <Filter>Ellysia\Polygon\Transformation</Filter>
+    </ClInclude>
+    <ClInclude Include="Ellysia\Polygon\2D\Triangle\Triangle.h">
+      <Filter>Ellysia\Polygon\Triangle</Filter>
+    </ClInclude>
+    <ClInclude Include="Ellysia\Math\Vector\Vector2.h">
+      <Filter>Ellysia\Math\Vector</Filter>
+    </ClInclude>
+    <ClInclude Include="Ellysia\Math\Vector\Vector3.h">
+      <Filter>Ellysia\Math\Vector</Filter>
+    </ClInclude>
+    <ClInclude Include="Ellysia\Math\Vector\Vector4.h">
+      <Filter>Ellysia\Math\Vector</Filter>
+    </ClInclude>
+    <ClInclude Include="Ellysia\Math\Vector\Transform.h">
+      <Filter>Ellysia\Math\Vector</Filter>
+    </ClInclude>
+    <ClInclude Include="Ellysia\Math\Vector\Calculation\VectorCalculation.h">
+      <Filter>Ellysia\Math\Vector</Filter>
+    </ClInclude>
+    <ClInclude Include="Ellysia\Common\Windows\WindowsSetup.h">
+      <Filter>Ellysia\Common\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="Ellysia\Math\Vector\VertexData.h">
+      <Filter>Ellysia\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Ellysia\Math\Vector\DirectionalLight.h">
+      <Filter>Ellysia\Polygon\Model\CreateDirectionalLight</Filter>
+    </ClInclude>
+    <ClInclude Include="Ellysia\Polygon\3D\BufferResource\MaterialData\MaterialData.h">
+      <Filter>Ellysia\Polygon\Model\CreateMaterial</Filter>
+    </ClInclude>
+    <ClInclude Include="Ellysia\Math\Vector\Material.h">
+      <Filter>Ellysia\Polygon\Model\CreateMaterial</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Object\Enemy\State\EnemyApproach\EnemyApproach.h">
+      <Filter>Project\Enemy\Approach</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Object\Enemy\Bullet\EnemyBullet.h">
+      <Filter>Project\Enemy\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Object\Enemy\State\EnemyLeave\EnemyLeave.h">
+      <Filter>Project\Enemy\Leave</Filter>
+    </ClInclude>
+    <ClInclude Include="Ellysia\Math\Matrix\Matrix3x3.h">
+      <Filter>Ellysia\Math\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="Ellysia\Math\Matrix\Matrix4x4.h">
+      <Filter>Ellysia\Math\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="Ellysia\Math\WorldTransform\WorldTransform.h">
+      <Filter>Ellysia\Math\Matrix\WorldTransform</Filter>
+    </ClInclude>
+    <ClInclude Include="Ellysia\Math\Matrix\Calculation\Matrix4x4Calculation.h">
+      <Filter>Ellysia\Math\Matrix\Calculation</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Shader\Object2D\Object2d.hlsli">
+      <Filter>Resource\Object2D</Filter>
+    </None>
+    <None Include="Resources\Shader\Object3D\Object3d.hlsli">
+      <Filter>Resource\Object3D</Filter>
+    </None>
+    <None Include="Resources\Shader\Particle3D\Particle3D.hlsli">
+      <Filter>Resource\Particle3D</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Ellysia">
+      <UniqueIdentifier>{58073646-1491-48b6-8507-1112c0e21d4f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ellysia\Camera">
+      <UniqueIdentifier>{90ff2862-192b-458a-b2e0-2f169c8a58bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ellysia\Audio">
+      <UniqueIdentifier>{b5633af8-2003-485c-9533-9c74a4b2a07b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project">
+      <UniqueIdentifier>{47ffcb6e-3779-4918-af12-884e0a83ff5b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project\Collider">
+      <UniqueIdentifier>{28db9927-f0dd-45d8-bd16-f088d2bf1df4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project\Enemy">
+      <UniqueIdentifier>{24518051-bea7-46eb-8db4-09911f1dafc5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project\Scene">
+      <UniqueIdentifier>{733d2b91-3da7-4360-838e-fd10ef029309}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="External">
+      <UniqueIdentifier>{2e2bdade-61ae-441b-a283-d7290f0adc63}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="External\ImGui">
+      <UniqueIdentifier>{ead4921d-ab6b-4d1d-bd0d-b4973dec504c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ellysia\Input">
+      <UniqueIdentifier>{230c892f-96ec-4b88-9a25-bed2c2aab4f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ellysia\ImGuiManager">
+      <UniqueIdentifier>{e165e72f-67bc-4d39-ad44-25f2c85447c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ellysia\Polygon">
+      <UniqueIdentifier>{ee7ea10a-c854-4812-81a6-ee4ce878f44f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ellysia\Polygon\Model">
+      <UniqueIdentifier>{a2e42c34-abeb-48ca-ab25-67704e8623eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ellysia\Polygon\Model\CreateMaterial">
+      <UniqueIdentifier>{c692ccbe-47e6-404f-af84-134556557666}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ellysia\Polygon\Model\CreateDirectionalLight">
+      <UniqueIdentifier>{4f57babd-ecf7-409c-a57c-c3e842d4191b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ellysia\Polygon\Model\Mesh">
+      <UniqueIdentifier>{99b4d56a-abdc-4ce0-bdef-e0418e30a975}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ellysia\Polygon\Model\Manager">
+      <UniqueIdentifier>{65e9b39b-4874-490e-a5d6-9fd0767479f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ellysia\Polygon\Model\ModelObj">
+      <UniqueIdentifier>{6cf4d169-dc13-405f-9fc5-0cb3b4a180f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource">
+      <UniqueIdentifier>{16c6732b-309b-4a65-b68c-825e4023944b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Object2D">
+      <UniqueIdentifier>{4f3da55c-0a25-4dc3-b12c-c037b99156d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Object3D">
+      <UniqueIdentifier>{ad0d24f1-48e0-4519-a345-3f13b395c8a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Particle3D">
+      <UniqueIdentifier>{a5765743-0992-40fd-bf2e-91f2966aeeec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ellysia\Pipeline">
+      <UniqueIdentifier>{7f33c471-0405-424a-be45-0b8e4de29d90}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project\Player">
+      <UniqueIdentifier>{15915731-28ec-4fbf-8ca1-707eae8fb31f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project\RailCamera">
+      <UniqueIdentifier>{8003c4b6-9b7a-4cdb-a451-7ab1fd5a7ffa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project\Scene\Sample">
+      <UniqueIdentifier>{f780ae4f-465c-4c84-b15d-8d4e16d40a89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project\Skydome">
+      <UniqueIdentifier>{28044492-6350-45c4-bc94-ee0d13f8a482}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ellysia\Polygon\Particle">
+      <UniqueIdentifier>{74b35766-9f9c-4398-aeb5-3329532eeccf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project\TimeCall">
+      <UniqueIdentifier>{fbf0a5f8-7af6-413f-a5db-d3fe6200cf93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ellysia\Polygon\Sphere">
+      <UniqueIdentifier>{818f895e-bd48-4821-b83c-a925b9b08e6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ellysia\Common">
+      <UniqueIdentifier>{6f6037d1-d2a9-4c75-a73f-f8301fe1ab80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ellysia\Common\DirectX">
+      <UniqueIdentifier>{d9bcfed7-6148-4c94-9504-a12a485aaed2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ellysia\Common\Windows">
+      <UniqueIdentifier>{3a825cf9-005a-4c91-bb47-d7fc8c58810c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ellysia\Convert">
+      <UniqueIdentifier>{eb600627-0ce9-41f1-a90f-d70f1ec4d74d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ellysia\Convert\CompilerShaderManager">
+      <UniqueIdentifier>{950dcacc-2e16-4a7e-b658-e7f4c7762143}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ellysia\Convert\ConvertColor">
+      <UniqueIdentifier>{5b8436fa-72e8-4ba7-a7d3-273345d9bab0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ellysia\Convert\ConvertLog">
+      <UniqueIdentifier>{cfda491f-bc59-4665-9f7f-d80139d96f56}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ellysia\Polygon\Triangle">
+      <UniqueIdentifier>{58c424c1-f0f9-4d0a-b11b-93641c64fe99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ellysia\Polygon\Sprite">
+      <UniqueIdentifier>{6090b8a2-5ce1-4334-bd80-47487d0806c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project\Enemy\Approach">
+      <UniqueIdentifier>{2b817033-8477-4b26-956e-67f85603613b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project\Enemy\Bullet">
+      <UniqueIdentifier>{402a473c-1499-4264-88c3-90dcff153391}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project\Enemy\Leave">
+      <UniqueIdentifier>{99ed95f6-bfc8-40ac-b9a2-9d3d2edcd4fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ellysia\Audio\BPMSetting">
+      <UniqueIdentifier>{cb6eb41b-5aaa-4470-a172-9dcf83b5f724}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ellysia\Polygon\Transformation">
+      <UniqueIdentifier>{1645c65d-cef2-4e07-b6cd-b6fce3df7518}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ellysia\TextureManager">
+      <UniqueIdentifier>{6ceb865a-62d4-471e-94d1-8cd4fe81b0f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ellysia\Math">
+      <UniqueIdentifier>{9b1f6cc1-09d1-4d92-bbad-86f13817b647}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ellysia\Math\Vector">
+      <UniqueIdentifier>{c7f10d3d-26cf-41f6-bb45-7d599c5bf4fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ellysia\Math\Matrix">
+      <UniqueIdentifier>{e3940728-d06c-414f-b0c8-ad51d2d582ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ellysia\Math\Matrix\WorldTransform">
+      <UniqueIdentifier>{b8e8a6d1-0e26-45f0-a9f2-6cd6fb2ebf6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ellysia\Math\Matrix\Calculation">
+      <UniqueIdentifier>{eb4393d1-d4ed-4b68-a1dd-a57a5905a124}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="External\ImGui\LICENSE.txt">
+      <Filter>External\ImGui</Filter>
+    </Text>
+  </ItemGroup>
+</Project>
