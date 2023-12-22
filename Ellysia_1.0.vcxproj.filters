@@ -31,10 +31,10 @@
       <Filter>Ellysia\Camera</Filter>
     </ClCompile>
     <ClCompile Include="Project\Object\Collider\Collider.cpp">
-      <Filter>Project\Collider</Filter>
+      <Filter>Project\Object\Collider</Filter>
     </ClCompile>
     <ClCompile Include="Project\Object\Collider\CollisionManager.cpp">
-      <Filter>Project\Collider</Filter>
+      <Filter>Project\Object\Collider</Filter>
     </ClCompile>
     <ClCompile Include="Ellysia\ConvertFunction\CompileShader\CompileShaderManager.cpp">
       <Filter>Ellysia\Convert\CompilerShaderManager</Filter>
@@ -46,13 +46,13 @@
       <Filter>Ellysia\Convert\ConvertLog</Filter>
     </ClCompile>
     <ClCompile Include="Project\Object\Enemy\Enemy.cpp">
-      <Filter>Project\Enemy</Filter>
+      <Filter>Project\Object\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="Ellysia\Common\DirectX\DirectXSetup.cpp">
       <Filter>Ellysia\Common\DirectX</Filter>
     </ClCompile>
     <ClCompile Include="Project\Object\Enemy\State\IEnemy\IEnemy.cpp">
-      <Filter>Project\Enemy</Filter>
+      <Filter>Project\Object\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="Project\AllGameScene\GameManager\GameManager.cpp">
       <Filter>Project\Scene</Filter>
@@ -109,19 +109,19 @@
       <Filter>Ellysia\Pipeline</Filter>
     </ClCompile>
     <ClCompile Include="Project\Object\Player\Player.cpp">
-      <Filter>Project\Player</Filter>
+      <Filter>Project\Object\Player</Filter>
     </ClCompile>
     <ClCompile Include="Project\Object\Player\Bullet\PlayerBullet.cpp">
-      <Filter>Project\Player</Filter>
+      <Filter>Project\Object\Player</Filter>
     </ClCompile>
     <ClCompile Include="Project\Object\RailCamera\RailCamera.cpp">
-      <Filter>Project\RailCamera</Filter>
+      <Filter>Project\Object\RailCamera</Filter>
     </ClCompile>
     <ClCompile Include="Project\AllGameScene\SampleScene\SampleScene.cpp">
       <Filter>Project\Scene\Sample</Filter>
     </ClCompile>
     <ClCompile Include="Project\Object\Skydome\Skydome.cpp">
-      <Filter>Project\Skydome</Filter>
+      <Filter>Project\Object\Skydome</Filter>
     </ClCompile>
     <ClCompile Include="Ellysia\Ellysia.cpp">
       <Filter>Ellysia</Filter>
@@ -139,7 +139,7 @@
       <Filter>Ellysia\TextureManager</Filter>
     </ClCompile>
     <ClCompile Include="Project\Object\Enemy\TimeCall\TimeCall.cpp">
-      <Filter>Project\TimeCall</Filter>
+      <Filter>Project\Object\Enemy\TimeCall</Filter>
     </ClCompile>
     <ClCompile Include="Ellysia\Polygon\3D\BufferResource\Transformation\Transformation.cpp">
       <Filter>Ellysia\Polygon\Transformation</Filter>
@@ -154,19 +154,28 @@
       <Filter>Ellysia\Common\Windows</Filter>
     </ClCompile>
     <ClCompile Include="Project\Object\Enemy\State\EnemyApproach\EnemyApproach.cpp">
-      <Filter>Project\Enemy\Approach</Filter>
+      <Filter>Project\Object\Enemy\Approach</Filter>
     </ClCompile>
     <ClCompile Include="Project\Object\Enemy\Bullet\EnemyBullet.cpp">
-      <Filter>Project\Enemy\Bullet</Filter>
+      <Filter>Project\Object\Enemy\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="Project\Object\Enemy\State\EnemyLeave\EnemyLeave.cpp">
-      <Filter>Project\Enemy\Leave</Filter>
+      <Filter>Project\Object\Enemy\Leave</Filter>
     </ClCompile>
     <ClCompile Include="Ellysia\Math\WorldTransform\WorldTransform.cpp">
       <Filter>Ellysia\Math\Matrix\WorldTransform</Filter>
     </ClCompile>
     <ClCompile Include="Ellysia\Math\Matrix\Calculation\Matrix4x4Calculation.cpp">
       <Filter>Ellysia\Math\Matrix\Calculation</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\AllGameScene\SelectScene\SelectScene.cpp">
+      <Filter>Project\Scene\Select</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\AllGameScene\TitleScene\TitleScene.cpp">
+      <Filter>Project\Scene\Title</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\AllGameScene\GameScene\GameScene.cpp">
+      <Filter>Project\Scene\Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -180,13 +189,13 @@
       <Filter>Ellysia\Camera</Filter>
     </ClInclude>
     <ClInclude Include="Project\Object\Collider\Collider.h">
-      <Filter>Project\Collider</Filter>
+      <Filter>Project\Object\Collider</Filter>
     </ClInclude>
     <ClInclude Include="Project\Object\Collider\CollisionConfig.h">
-      <Filter>Project\Collider</Filter>
+      <Filter>Project\Object\Collider</Filter>
     </ClInclude>
     <ClInclude Include="Project\Object\Collider\CollisionManager.h">
-      <Filter>Project\Collider</Filter>
+      <Filter>Project\Object\Collider</Filter>
     </ClInclude>
     <ClInclude Include="Ellysia\ConvertFunction\CompileShader\CompileShaderManager.h">
       <Filter>Ellysia\Convert\CompilerShaderManager</Filter>
@@ -198,13 +207,13 @@
       <Filter>Ellysia\Convert\ConvertLog</Filter>
     </ClInclude>
     <ClInclude Include="Project\Object\Enemy\Enemy.h">
-      <Filter>Project\Enemy</Filter>
+      <Filter>Project\Object\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="Ellysia\Common\DirectX\DirectXSetup.h">
       <Filter>Ellysia\Common\DirectX</Filter>
     </ClInclude>
     <ClInclude Include="Project\Object\Enemy\State\IEnemy\IEnemy.h">
-      <Filter>Project\Enemy</Filter>
+      <Filter>Project\Object\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="Project\AllGameScene\GameManager\GameManager.h">
       <Filter>Project\Scene</Filter>
@@ -270,19 +279,19 @@
       <Filter>Ellysia\Pipeline</Filter>
     </ClInclude>
     <ClInclude Include="Project\Object\Player\Player.h">
-      <Filter>Project\Player</Filter>
+      <Filter>Project\Object\Player</Filter>
     </ClInclude>
     <ClInclude Include="Project\Object\Player\Bullet\PlayerBullet.h">
-      <Filter>Project\Player</Filter>
+      <Filter>Project\Object\Player</Filter>
     </ClInclude>
     <ClInclude Include="Project\Object\RailCamera\RailCamera.h">
-      <Filter>Project\RailCamera</Filter>
+      <Filter>Project\Object\RailCamera</Filter>
     </ClInclude>
     <ClInclude Include="Project\AllGameScene\SampleScene\SampleScene.h">
       <Filter>Project\Scene\Sample</Filter>
     </ClInclude>
     <ClInclude Include="Project\Object\Skydome\Skydome.h">
-      <Filter>Project\Skydome</Filter>
+      <Filter>Project\Object\Skydome</Filter>
     </ClInclude>
     <ClInclude Include="Ellysia\Polygon\3D\Particle3D\Particle.h">
       <Filter>Ellysia\Polygon\Particle</Filter>
@@ -306,7 +315,7 @@
       <Filter>Ellysia\TextureManager</Filter>
     </ClInclude>
     <ClInclude Include="Project\Object\Enemy\TimeCall\TimeCall.h">
-      <Filter>Project\TimeCall</Filter>
+      <Filter>Project\Object\Enemy\TimeCall</Filter>
     </ClInclude>
     <ClInclude Include="Ellysia\Polygon\3D\BufferResource\Transformation\Transformation.h">
       <Filter>Ellysia\Polygon\Transformation</Filter>
@@ -348,13 +357,13 @@
       <Filter>Ellysia\Polygon\Model\CreateMaterial</Filter>
     </ClInclude>
     <ClInclude Include="Project\Object\Enemy\State\EnemyApproach\EnemyApproach.h">
-      <Filter>Project\Enemy\Approach</Filter>
+      <Filter>Project\Object\Enemy\Approach</Filter>
     </ClInclude>
     <ClInclude Include="Project\Object\Enemy\Bullet\EnemyBullet.h">
-      <Filter>Project\Enemy\Bullet</Filter>
+      <Filter>Project\Object\Enemy\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="Project\Object\Enemy\State\EnemyLeave\EnemyLeave.h">
-      <Filter>Project\Enemy\Leave</Filter>
+      <Filter>Project\Object\Enemy\Leave</Filter>
     </ClInclude>
     <ClInclude Include="Ellysia\Math\Matrix\Matrix3x3.h">
       <Filter>Ellysia\Math\Matrix</Filter>
@@ -367,6 +376,15 @@
     </ClInclude>
     <ClInclude Include="Ellysia\Math\Matrix\Calculation\Matrix4x4Calculation.h">
       <Filter>Ellysia\Math\Matrix\Calculation</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\AllGameScene\SelectScene\SelectScene.h">
+      <Filter>Project\Scene\Select</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\AllGameScene\TitleScene\TitleScene.h">
+      <Filter>Project\Scene\Title</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\AllGameScene\GameScene\GameScene.h">
+      <Filter>Project\Scene\Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -392,12 +410,6 @@
     </Filter>
     <Filter Include="Project">
       <UniqueIdentifier>{47ffcb6e-3779-4918-af12-884e0a83ff5b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Project\Collider">
-      <UniqueIdentifier>{28db9927-f0dd-45d8-bd16-f088d2bf1df4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Project\Enemy">
-      <UniqueIdentifier>{24518051-bea7-46eb-8db4-09911f1dafc5}</UniqueIdentifier>
     </Filter>
     <Filter Include="Project\Scene">
       <UniqueIdentifier>{733d2b91-3da7-4360-838e-fd10ef029309}</UniqueIdentifier>
@@ -450,23 +462,11 @@
     <Filter Include="Ellysia\Pipeline">
       <UniqueIdentifier>{7f33c471-0405-424a-be45-0b8e4de29d90}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Project\Player">
-      <UniqueIdentifier>{15915731-28ec-4fbf-8ca1-707eae8fb31f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Project\RailCamera">
-      <UniqueIdentifier>{8003c4b6-9b7a-4cdb-a451-7ab1fd5a7ffa}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Project\Scene\Sample">
       <UniqueIdentifier>{f780ae4f-465c-4c84-b15d-8d4e16d40a89}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Project\Skydome">
-      <UniqueIdentifier>{28044492-6350-45c4-bc94-ee0d13f8a482}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Ellysia\Polygon\Particle">
       <UniqueIdentifier>{74b35766-9f9c-4398-aeb5-3329532eeccf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Project\TimeCall">
-      <UniqueIdentifier>{fbf0a5f8-7af6-413f-a5db-d3fe6200cf93}</UniqueIdentifier>
     </Filter>
     <Filter Include="Ellysia\Polygon\Sphere">
       <UniqueIdentifier>{818f895e-bd48-4821-b83c-a925b9b08e6e}</UniqueIdentifier>
@@ -498,15 +498,6 @@
     <Filter Include="Ellysia\Polygon\Sprite">
       <UniqueIdentifier>{6090b8a2-5ce1-4334-bd80-47487d0806c8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Project\Enemy\Approach">
-      <UniqueIdentifier>{2b817033-8477-4b26-956e-67f85603613b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Project\Enemy\Bullet">
-      <UniqueIdentifier>{402a473c-1499-4264-88c3-90dcff153391}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Project\Enemy\Leave">
-      <UniqueIdentifier>{99ed95f6-bfc8-40ac-b9a2-9d3d2edcd4fc}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Ellysia\Audio\BPMSetting">
       <UniqueIdentifier>{cb6eb41b-5aaa-4470-a172-9dcf83b5f724}</UniqueIdentifier>
     </Filter>
@@ -530,6 +521,45 @@
     </Filter>
     <Filter Include="Ellysia\Math\Matrix\Calculation">
       <UniqueIdentifier>{eb4393d1-d4ed-4b68-a1dd-a57a5905a124}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project\Object">
+      <UniqueIdentifier>{ed929dc8-6a95-4fe9-a6b1-6fc97941df7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project\Object\Enemy">
+      <UniqueIdentifier>{24518051-bea7-46eb-8db4-09911f1dafc5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project\Object\Enemy\Approach">
+      <UniqueIdentifier>{2b817033-8477-4b26-956e-67f85603613b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project\Object\Enemy\Bullet">
+      <UniqueIdentifier>{402a473c-1499-4264-88c3-90dcff153391}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project\Object\Enemy\Leave">
+      <UniqueIdentifier>{99ed95f6-bfc8-40ac-b9a2-9d3d2edcd4fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project\Object\Skydome">
+      <UniqueIdentifier>{28044492-6350-45c4-bc94-ee0d13f8a482}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project\Object\RailCamera">
+      <UniqueIdentifier>{8003c4b6-9b7a-4cdb-a451-7ab1fd5a7ffa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project\Object\Collider">
+      <UniqueIdentifier>{28db9927-f0dd-45d8-bd16-f088d2bf1df4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project\Object\Player">
+      <UniqueIdentifier>{15915731-28ec-4fbf-8ca1-707eae8fb31f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project\Object\Enemy\TimeCall">
+      <UniqueIdentifier>{fbf0a5f8-7af6-413f-a5db-d3fe6200cf93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project\Scene\Title">
+      <UniqueIdentifier>{17ec0f5f-bf7c-43f8-9024-8c5baa491090}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project\Scene\Select">
+      <UniqueIdentifier>{2619e353-ceb1-4252-ab94-19b3095a593b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project\Scene\Game">
+      <UniqueIdentifier>{afe5a36c-00fc-413b-a0f4-a16902eab5d9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
