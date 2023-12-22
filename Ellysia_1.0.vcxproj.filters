@@ -177,6 +177,7 @@
     <ClCompile Include="Project\AllGameScene\GameScene\GameScene.cpp">
       <Filter>Project\Scene\Game</Filter>
     </ClCompile>
+    <ClCompile Include="Ellysia\Math\Easing\Easing.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ellysia\Audio\Audio.h">
@@ -386,6 +387,7 @@
     <ClInclude Include="Project\AllGameScene\GameScene\GameScene.h">
       <Filter>Project\Scene\Game</Filter>
     </ClInclude>
+    <ClInclude Include="Ellysia\Math\Easing\Easing.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Shader\Object2D\Object2d.hlsli">
@@ -560,6 +562,9 @@
     </Filter>
     <Filter Include="Project\Scene\Game">
       <UniqueIdentifier>{afe5a36c-00fc-413b-a0f4-a16902eab5d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ellysia\Math\Easing">
+      <UniqueIdentifier>{450514dd-d7cb-48fd-85dc-00e40ee301fa}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
