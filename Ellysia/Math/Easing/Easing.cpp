@@ -4,15 +4,15 @@
 #include <cmath>
 //定義
 double easeInSine(double x) {
-	return 1.0 - std::cosf((x * std::numbers::pi) / 2.0);
+	return 1.0 - std::cos((x * std::numbers::pi) / 2.0);
 }
 
 double easeOutSine(double x) {
-	return std::sinf((x * std::numbers::pi) / 2.0);
+	return std::sin((x * std::numbers::pi) / 2.0);
 }
 
 double easeInOutSine(double x) {
-	return -(std::cosf(std::numbers::pi * x) - 1.0) / 2.0;
+	return -(std::cos(std::numbers::pi * x) - 1.0) / 2.0;
 }
 
 double easeInBack(double x) {

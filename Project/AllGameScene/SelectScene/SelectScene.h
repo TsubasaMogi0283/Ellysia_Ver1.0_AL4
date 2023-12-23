@@ -39,10 +39,17 @@ private:
 	void Select();
 
 
-	//
+	//フェードイン
+	void FadeIn();
+
+	//フェードアウト
+	void FadeOut();
 	
 
 private:
+	//Back
+	std::unique_ptr<Sprite> back_ = nullptr;
+
 
 	//Icon
 	static const int STAGE_NUMBER_ = 2;
@@ -52,12 +59,27 @@ private:
 
 	int stageNumber_ = 0;
 
+	//Tutorial
+	std::unique_ptr<Sprite> tutorialIcon_ = nullptr;
+	Vector2 tutorialPosition_ = { 0.0f,0.0f };
+
+	//Return
+	std::unique_ptr<Sprite> returnIcon_ = nullptr;
+	Vector2 returnPosition_ = { 0.0f,0.0f };
+
+
+
 
 	//Arrow
 	static const int ARROW_AMOUNT_ = 2;
 	std::unique_ptr<Sprite> arrow_[ARROW_AMOUNT_] = { nullptr };
 	Vector2 arrowPosition_[ARROW_AMOUNT_] = {};
 	Vector4 arrowColor_[ARROW_AMOUNT_] = {0.0f,0.0f,0.0f,0.0f};
+
+
+	bool isFadeIn_ = true;
+	bool isFadeOut_ = false;
+
 
 };
 
