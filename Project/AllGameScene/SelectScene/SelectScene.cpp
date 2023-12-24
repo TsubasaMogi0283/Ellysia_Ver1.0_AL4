@@ -150,6 +150,29 @@ void SelectScene::FadeIn() {
 
 //フェードアウト
 void SelectScene::FadeOut() {
+	back_->SetTransparency(transparency_);
+
+#pragma endregion
+
+#pragma region ステージのアイコン
+	for (int i = 0; i < STAGE_NUMBER_; i++) {
+		stageIcon_[i]->SetTransparency(transparency_);
+
+	}
+
+
+
+	//Tutorial
+	tutorialIcon_->SetTransparency(transparency_);
+	//Return
+	returnIcon_->SetTransparency(transparency_);
+#pragma endregion
+
+#pragma region 矢印
+	for (int i = 0; i < ARROW_AMOUNT_; i++) {
+		arrow_[i]->SetTransparency(transparency_);
+
+	}
 
 }
 
@@ -162,7 +185,9 @@ void SelectScene::Update(GameManager* gameManager) {
 		Select();
 
 	}
-
+	if (isFadeOut_ == true) {
+		transparency_ -= TRANSPARENCY_INTERVAL_;
+	}
 
 
 	

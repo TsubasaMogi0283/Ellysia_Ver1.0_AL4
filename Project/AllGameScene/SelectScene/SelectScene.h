@@ -79,7 +79,7 @@ private:
 
 	bool isFadeIn_ = true;
 	bool isFadeOut_ = false;
-
-
+	float transparency_ = 0.0f;
+	const float TRANSPARENCY_INTERVAL_ = 0.05f;
 };
 
