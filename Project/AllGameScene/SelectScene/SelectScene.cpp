@@ -3,6 +3,9 @@
 #include "GameManager.h"
 
 #include "SampleScene/SampleScene.h"
+#include "TitleScene/TitleScene.h"
+#include "GameScene1.h"
+
 #include "Input.h"
 #include <numbers>
 
@@ -22,36 +25,45 @@ void SelectScene::Initialize() {
 #pragma endregion
 
 #pragma region ステージのアイコン
-	for (int i = 0; i < STAGE_NUMBER_; i++) {
-		stageIcon_[i] = std::make_unique<Sprite>();
-		
-	}
-	
-	uint32_t stageIconTextureHandle[STAGE_NUMBER_] = { 0u };
-	stageIconTextureHandle[0] = TextureManager::GetInstance()->LoadTexture("Resources/Game/Select/Icon/StageIcon1.png");
-	stageIconTextureHandle[1] = TextureManager::GetInstance()->LoadTexture("Resources/Game/Select/Icon/StageIcon2.png");
 
 
-	iconPosition_[0] = {530,200};
-	iconPosition_[1] = { iconPosition_[0].x+ ICON_WIDTH_INTERVAL_,200};
-
-	for (int i = 0; i < STAGE_NUMBER_; i++) {
-		stageIcon_[i].reset(Sprite::Create(stageIconTextureHandle[i], iconPosition_[i]));
-	}
+	cursorPosition_ = { 530, 200 };
 
 
 	//Tutorial
 	tutorialIcon_ = std::make_unique<Sprite>();
-	tutorialPosition_ = { iconPosition_[0].x- ICON_WIDTH_INTERVAL_,200.0f };
+	tutorialPosition_ = { cursorPosition_.x,200.0f };
 	uint32_t tutorialTextureHandle = TextureManager::GetInstance()->LoadTexture("Resources/Game/Select/Icon/StageIconTutorial.png");
 	tutorialIcon_.reset(Sprite::Create(tutorialTextureHandle, tutorialPosition_));
 
 
 	//Return
 	returnIcon_ = std::make_unique<Sprite>();
-	returnPosition_ = { iconPosition_[1].x+ICON_WIDTH_INTERVAL_,200.0f };
+	returnPosition_ = { cursorPosition_.x - ICON_WIDTH_INTERVAL_,200.0f };
 	uint32_t returnTextureHandle = TextureManager::GetInstance()->LoadTexture("Resources/Game/Select/Icon/StageIconReturn.png");
-	returnIcon_.reset(Sprite::Create(returnTextureHandle, returnPosition_));
+	returnIcon_.reset(Sprite::Create(returnTextureHandle, returnPosition_)); 
+
+
+
+	for (int i = 0; i < STAGE_NUMBER_; i++) {
+		stageIcon_[i] = std::make_unique<Sprite>();
+
+	}
+
+	uint32_t stageIconTextureHandle[STAGE_NUMBER_] = { 0u };
+	stageIconTextureHandle[0] = TextureManager::GetInstance()->LoadTexture("Resources/Game/Select/Icon/StageIcon1.png");
+	stageIconTextureHandle[1] = TextureManager::GetInstance()->LoadTexture("Resources/Game/Select/Icon/StageIcon2.png");
+
+	//ICON_WIDTH_INTERVAL_=500.0f
+
+	iconPosition_[0] = { cursorPosition_.x + 1.0f * ICON_WIDTH_INTERVAL_,200 };
+	iconPosition_[1] = { cursorPosition_.x + 2.0f * ICON_WIDTH_INTERVAL_,200 };
+
+	for (int i = 0; i < STAGE_NUMBER_; i++) {
+		stageIcon_[i].reset(Sprite::Create(stageIconTextureHandle[i], iconPosition_[i]));
+	}
+
+	
 
 #pragma endregion
 
@@ -79,7 +91,8 @@ void SelectScene::Initialize() {
 
 void SelectScene::DebugText() {
 	ImGui::Begin("Select");
-
+	ImGui::InputInt("StageNumber", &IconNumber_);
+	ImGui::InputInt("ISFADEOUT", &isFadeOut_);
 	ImGui::End();
 
 
@@ -90,13 +103,42 @@ void SelectScene::DebugText() {
 
 }
 
-void SelectScene::Select() {
-	//ステージ
+//フェードイン
+void SelectScene::FadeIn() {
+	back_->SetTransparency(transparency_);
+
+#pragma endregion
+
+#pragma region ステージのアイコン
 	for (int i = 0; i < STAGE_NUMBER_; i++) {
-		stageIcon_[i]->SetPosition(iconPosition_[i]);
+		stageIcon_[i]->SetTransparency(transparency_);
+
 	}
-	tutorialIcon_->SetPosition(tutorialPosition_);
-	returnIcon_->SetPosition(returnPosition_);
+
+
+
+	//Tutorial
+	tutorialIcon_->SetTransparency(transparency_);
+	//Return
+	returnIcon_->SetTransparency(transparency_);
+#pragma endregion
+
+#pragma region 矢印
+	for (int i = 0; i < ARROW_AMOUNT_; i++) {
+		arrow_[i]->SetTransparency(transparency_);
+
+	}
+	if (transparency_ > 1.0f) {
+		transparency_ = 1.0f;
+		isFadeIn_ = false;
+
+	}
+
+}
+
+
+void SelectScene::Select() {
+	
 
 	//分かりやすく言うとMuseDashの曲選択画面良いなと思ったので再現したい
 	//さすがにそのままはダメなので若干アレンジする
@@ -135,18 +177,64 @@ void SelectScene::Select() {
 
 	
 
+
+	
+	//ステージ
+	for (int i = 0; i < STAGE_NUMBER_; i++) {
+		stageIcon_[i]->SetPosition(iconPosition_[i]);
+	}
+	tutorialIcon_->SetPosition(tutorialPosition_);
+	returnIcon_->SetPosition(returnPosition_);
+
 	//矢印
 	for (int i = 0; i < ARROW_AMOUNT_; i++) {
 		arrow_[i]->SetPosition(arrowPosition_[i]);
 	}
 
 
+
+
+
+	//今指しているステージアイコンに番号をふる
+	//タイトルへ
+	if (cursorPosition_.x == returnPosition_.x) {
+		IconNumber_ = 0;
+	}
+
+	//チュートリアル
+	if (cursorPosition_.x == tutorialPosition_.x) {
+		IconNumber_ = 1;
+	}
+
+	//ステージ1
+	if (cursorPosition_.x == iconPosition_[0].x) {
+		IconNumber_ = 2;
+	}
+	//ステージ2
+	if (cursorPosition_.x == iconPosition_[1].x) {
+		IconNumber_ = 3;
+	}
+
+	if (Input::GetInstance()->IsTriggerKey(DIK_SPACE) == true) {
+		isTrigerSpace_ = true;
+		
+		for (int i = 0; i < STAGE_AMOUNT_; i++) {
+			if (IconNumber_ == i) {
+				nextScene_[i] = true;
+			}
+		}
+		
+
+		
+	}
+	if (isTrigerSpace_ == true) {
+		isFadeOut_ = 1;
+
+	}
+	
+
 }
 
-//フェードイン
-void SelectScene::FadeIn() {
-
-}
 
 //フェードアウト
 void SelectScene::FadeOut() {
@@ -174,29 +262,56 @@ void SelectScene::FadeOut() {
 
 	}
 
+
 }
 
 void SelectScene::Update(GameManager* gameManager) {
 	//デバッグ用
 	DebugText();
 
-	if (isFadeOut_ == false) {
+	if (isFadeIn_ == true) {
+		transparency_ += TRANSPARENCY_INTERVAL_;
+		FadeIn();
+	}
+
+	if (isFadeOut_ == 0 && isFadeIn_==false) {
 		//選択
 		Select();
 
 	}
-	if (isFadeOut_ == true) {
+	if (isFadeOut_ == 1) {
 		transparency_ -= TRANSPARENCY_INTERVAL_;
+		FadeOut();
 	}
 
 
+
+	if (transparency_ < 0.0f) {
+		transparency_ = 0.0f;
+
+		loadingTime_ += 1;
+		if (loadingTime_ > SECOND_ * 2) {
+			//タイトル
+			if (nextScene_[0] == true && IconNumber_ == 0) {
+				gameManager->ChangeScene(new TitleScene());
+			}
+			//ステージ1
+			if (nextScene_[2] == true && IconNumber_ == 2) {
+				gameManager->ChangeScene(new GameScene1());
+			}
+
+
+
+			//ステージ2
+			//if (cursorPosition_.x == iconPosition_[1].x) {
+			//	IconNumber_ = 3;
+			//}
+		}
+		
+	}
 	
 
-
-
-	if (Input::GetInstance()->IsTriggerKey(DIK_SPACE) == true) {
-		gameManager->ChangeScene(new SampleScene());
-	}
+	
 
 }
 

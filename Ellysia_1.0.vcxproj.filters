@@ -177,7 +177,13 @@
     <ClCompile Include="Project\AllGameScene\GameScene\GameScene.cpp">
       <Filter>Project\Scene\Game</Filter>
     </ClCompile>
-    <ClCompile Include="Ellysia\Math\Easing\Easing.cpp" />
+    <ClCompile Include="Ellysia\Math\Easing\Easing.cpp">
+      <Filter>Ellysia\Math\Easing</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\AllGameScene\GameScene\GameScene1\GameScene1.cpp">
+      <Filter>Project\Scene\Game\GameStage1</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\AllGameScene\GameScene\GameScene1\Ready\GameScene1Ready.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ellysia\Audio\Audio.h">
@@ -217,9 +223,6 @@
       <Filter>Project\Object\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="Project\AllGameScene\GameManager\GameManager.h">
-      <Filter>Project\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\AllGameScene\GameManager\IGameScene.h">
       <Filter>Project\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Ellysia\Polygon\3D\BufferResource\DirectionalLight\CreateDirectionalLight.h">
@@ -387,7 +390,19 @@
     <ClInclude Include="Project\AllGameScene\GameScene\GameScene.h">
       <Filter>Project\Scene\Game</Filter>
     </ClInclude>
-    <ClInclude Include="Ellysia\Math\Easing\Easing.h" />
+    <ClInclude Include="Ellysia\Math\Easing\Easing.h">
+      <Filter>Ellysia\Math\Easing</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\AllGameScene\GameManager\IGameScene.h">
+      <Filter>Project\Scene\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\AllGameScene\GameScene\GameScene1\GameScene1.h">
+      <Filter>Project\Scene\Game\GameStage1</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\AllGameScene\GameScene\GameScene1\IGameScene1.h">
+      <Filter>Project\Scene\Game\GameStage1\IGameScene1</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\AllGameScene\GameScene\GameScene1\Ready\GameScene1Ready.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Shader\Object2D\Object2d.hlsli">
@@ -565,6 +580,18 @@
     </Filter>
     <Filter Include="Ellysia\Math\Easing">
       <UniqueIdentifier>{450514dd-d7cb-48fd-85dc-00e40ee301fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project\Scene\Game\GameStage1">
+      <UniqueIdentifier>{64536571-946a-4700-88f1-871638705085}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project\Scene\Game\GameScene2">
+      <UniqueIdentifier>{8a20002e-d7ff-4d55-b23c-80465fa6550c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project\Scene\Game\GameStage1\IGameScene1">
+      <UniqueIdentifier>{ba70162c-f3ba-4e6f-81cf-2de421a105e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project\Scene\Game\GameStage1\GameScene1Ready">
+      <UniqueIdentifier>{78c53609-c15d-44e4-b479-631910c43336}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

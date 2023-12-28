@@ -57,7 +57,7 @@ private:
 	const float ICON_WIDTH_INTERVAL_ = 500.0f;
 	Vector2 iconPosition_[STAGE_NUMBER_] = {};
 
-	int stageNumber_ = 0;
+	int IconNumber_ = 0;
 
 	//Tutorial
 	std::unique_ptr<Sprite> tutorialIcon_ = nullptr;
@@ -68,6 +68,8 @@ private:
 	Vector2 returnPosition_ = { 0.0f,0.0f };
 
 
+	//科ソール的なやつ
+	Vector2 cursorPosition_ = {};
 
 
 	//Arrow
@@ -78,8 +80,17 @@ private:
 
 
 	bool isFadeIn_ = true;
-	bool isFadeOut_ = false;
+	int isFadeOut_ = 0;
 	float transparency_ = 0.0f;
 	const float TRANSPARENCY_INTERVAL_ = 0.05f;
+
+	bool isTrigerSpace_ = false;
+
+	static const int STAGE_AMOUNT_ = 4;
+	bool nextScene_[STAGE_AMOUNT_] = {};
+
+	const int SECOND_ = 60;
+	int loadingTime_ = 0;
+
 };
 

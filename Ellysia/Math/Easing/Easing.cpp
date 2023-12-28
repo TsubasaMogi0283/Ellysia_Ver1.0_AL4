@@ -3,7 +3,7 @@
 #include <numbers>
 #include <cmath>
 //定義
-double easeInSine(double x) {
+double EaseInSine(double x) {
 	return 1.0 - std::cos((x * std::numbers::pi) / 2.0);
 }
 
