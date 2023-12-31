@@ -7,8 +7,10 @@
 #include "Transform.h"
 #include "Model.h"
 
+
 #include <memory>
 
+#include "WorldTransform.h"
 //StatePatternを使う時は必ず前方宣言をするように
 class Gamemanager;
 
@@ -41,6 +43,15 @@ private:
 
 private:
 
+	std::unique_ptr<Model> playerModel_ = nullptr;
+	WorldTransform playerWorldTransform_ = {};
+
+	Vector3 cameraTranslate_ = {};
+	Vector3 cameraRotate_ = {};
+
+
+
+	bool isStart_ = false;
 
 
 
