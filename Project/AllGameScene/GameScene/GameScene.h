@@ -7,6 +7,7 @@
 #include "Model.h"
 
 #include <memory>
+#include "Skydome/Skydome.h"
 
 class GameManager;
 
@@ -34,12 +35,74 @@ public:
 private:
 	void DebugText();
 
+#pragma region 初期化
+	void ExplanationSceneInitialize();
+	void ReadySceneInitialize();
+	void PlaySceneInitialize();
+
+#pragma endregion
+
+#pragma region 更新
+	void ExplanationSceneUpdate();
+	void ReadySceneUpdate();
+	void PlaySceneUpdate();
+
+#pragma endregion
+
+#pragma region 描画
+	void ExplanationSceneDraw();
+	void ReadySceneDraw();
+	void PlaySceneDraw();
 
 
+#pragma endregion
 
 private:
+	enum class Scene {
+		//説明
+		Explanation,
+
+		//カウント
+		Ready,
+
+		//メインのゲーム
+		Play,
+
+		//勝ち
+		Win,
+
+		//負け
+		Lose,
+
+	};
+
+	Scene scene_ = Scene();
 
 
+	//共通部分
+	const int SECOND_ = 60;
+
+	//天球ポインタ
+	std::unique_ptr<Skydome> skydome_ = nullptr;
+
+
+#pragma region 説明
+	static const int EXPLANATION_NUMBER_ = 2;
+	std::unique_ptr<Sprite> explamnationSprite[EXPLANATION_NUMBER_] = { nullptr };
+	uint32_t explanationTextureHandle_[EXPLANATION_NUMBER_] = { 0u };
+	int explanationTextureNumber_ = 0;
+#pragma endregion
+
+
+#pragma region カウントダウン
+	static const int COUNTDOWN_NUMBER_ = 4;
+	std::unique_ptr <Sprite> countDownSprite[COUNTDOWN_NUMBER_] = { nullptr };
+	uint32_t countDownTexture[COUNTDOWN_NUMBER_] = { 0u };
+	
+	
+	int32_t displayNumber_ = 3;
+	int32_t countDownTime_ = displayNumber_*SECOND_;
+#pragma endregion
 
 };
 

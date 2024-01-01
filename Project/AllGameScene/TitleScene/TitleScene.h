@@ -10,6 +10,7 @@
 
 #include <memory>
 
+#include "Skydome/Skydome.h"
 #include "WorldTransform.h"
 //StatePatternを使う時は必ず前方宣言をするように
 class Gamemanager;
@@ -43,6 +44,10 @@ private:
 
 private:
 
+	//天球ポインタ
+	Skydome* skydome_ = nullptr;
+
+
 	std::unique_ptr<Model> playerModel_ = nullptr;
 	WorldTransform playerWorldTransform_ = {};
 
@@ -51,9 +56,14 @@ private:
 
 
 
+	float transparency_ = 0.0f;
+	int32_t loadingTime_ = 0;
+	std::unique_ptr<Sprite> blackSprite_ = nullptr;
+
 	bool isStart_ = false;
 
-
-
+	//タイトル
+	Sprite* titleLogoSprite_ = nullptr;
+	uint32_t titleLogoTexture = 0u;
 };
 
