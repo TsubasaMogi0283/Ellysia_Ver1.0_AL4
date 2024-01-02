@@ -5,6 +5,9 @@
 #include "SampleScene/SampleScene.h"
 #include "Input.h"
 #include "TextureManager.h"
+#include "Camera.h"
+
+
 GameScene::GameScene() {
 
 }
@@ -15,6 +18,8 @@ void GameScene::ExplanationSceneInitialize() {
 	for (int i = 0; i < EXPLANATION_NUMBER_; i++) {
 		explamnationSprite[i].reset(Sprite::Create(explanationTextureHandle_[i], {0.0f,0.0f}));
 	}
+
+	explanationTextureNumber_ = 1;
 	
 }
 void GameScene::ReadySceneInitialize() {
@@ -37,6 +42,19 @@ void GameScene::Initialize() {
 	skydome_ = std::make_unique<Skydome>();
 	skydome_->Initialize();
 
+	//プレイヤー
+	player_ = std::make_unique<Player>();
+	player_->Initialize();
+
+	railCamera_ = std::make_unique<RailCamera>();
+	railCamera_->Initialize(player_->GetWorldPosition(), { 0.0f,0.0f,0.0f });
+	player_->SetParent(&railCamera_->GetWorldTransform());
+
+	cameraTranslate_ = { 0.0f,0.0f,-30.0f };
+	cameraRotate_ = { 0.0f,0.0f,0.0f };
+	Camera::GetInstance()->SetTranslate(cameraTranslate_);
+	Camera::GetInstance()->SetRotate(cameraRotate_);
+
 	//説明
 	ExplanationSceneInitialize();
 	//カウントダウン
@@ -54,13 +72,20 @@ void GameScene::DebugText() {
 
 #pragma region Update用
 void GameScene::ExplanationSceneUpdate(){
-	ImGui::Begin("GExplanation");
+	ImGui::Begin("Explanation");
 
 	ImGui::End();
 
 
-	explanationTextureNumber_ = 1;
-	scene_ = Scene::Ready;
+	if (Input::GetInstance()->IsTriggerKey(DIK_SPACE) == true) {
+		explanationTextureNumber_++;
+	}
+
+	if (explanationTextureNumber_ >= 3) {
+		scene_ = Scene::Ready;
+	}
+	
+	
 }
 
 void GameScene::ReadySceneUpdate(){
@@ -86,14 +111,23 @@ void GameScene::ReadySceneUpdate(){
 		scene_ = Scene::Play;
 	}
 	
-
+	//プレイヤーが動き出す
 	
+	move_ += MOVE_AMOUNT_;
+	player_->SetTranslateZ(move_);
+	player_->SetIsEnableAttack(true);
+	player_->SetIsEnableMove(true);
 }
 
 void GameScene::PlaySceneUpdate(){
 	ImGui::Begin("Play");
 
 	ImGui::End();
+
+	//プレイヤーが動き出す
+	move_ += MOVE_AMOUNT_;
+	player_->SetTranslateZ(move_);
+
 }
 
 #pragma endregion
@@ -105,7 +139,7 @@ void GameScene::Update(GameManager* gameManager) {
 
 	//共通部分
 	skydome_->Update();
-
+	player_->Update();
 
 	switch (scene_) {
 	case Scene::Explanation:
@@ -124,7 +158,7 @@ void GameScene::Update(GameManager* gameManager) {
 		PlaySceneUpdate();
 		break;
 	}
-	if (Input::GetInstance()->IsTriggerKey(DIK_SPACE) == true) {
+	if (Input::GetInstance()->IsTriggerKey(DIK_1) == true) {
 		gameManager->ChangeScene(new SampleScene());
 	}
 
@@ -132,9 +166,11 @@ void GameScene::Update(GameManager* gameManager) {
 
 
 void GameScene::ExplanationSceneDraw(){
-
-	for (int i = 0; i < EXPLANATION_NUMBER_; i++) {
-		explamnationSprite[i].reset(Sprite::Create(explanationTextureHandle_[i], { 0.0f,0.0f }));
+	if (explanationTextureNumber_ == 1) {
+		explamnationSprite[0]->Draw();
+	}
+	if (explanationTextureNumber_ == 2) {
+		explamnationSprite[1]->Draw();
 	}
 	
 }
@@ -154,6 +190,7 @@ void GameScene::PlaySceneDraw()
 void GameScene::Draw() {
 	//共通部分
 	skydome_->Draw();
+	player_->Draw();
 
 	switch (scene_) {
 	case Scene::Explanation:

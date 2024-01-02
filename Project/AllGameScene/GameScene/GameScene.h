@@ -8,6 +8,8 @@
 
 #include <memory>
 #include "Skydome/Skydome.h"
+#include "Player/Player.h"
+#include "RailCamera/RailCamera.h"
 
 class GameManager;
 
@@ -79,12 +81,24 @@ private:
 	Scene scene_ = Scene();
 
 
+	//カメラ
+	Vector3 cameraTranslate_ = {};
+	Vector3 cameraRotate_ = {};
+
+
 	//共通部分
 	const int SECOND_ = 60;
 
 	//天球ポインタ
 	std::unique_ptr<Skydome> skydome_ = nullptr;
 
+	//プレイヤー
+	std::unique_ptr<Player> player_ = nullptr;
+	float move_ = 0.0f;
+	const float MOVE_AMOUNT_ = 0.1f;
+
+	//レールカメラ
+	std::unique_ptr<RailCamera> railCamera_ = nullptr;
 
 #pragma region 説明
 	static const int EXPLANATION_NUMBER_ = 2;

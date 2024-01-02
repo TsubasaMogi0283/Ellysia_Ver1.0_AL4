@@ -52,6 +52,9 @@ public:
 		this->viewMatrix_ = viewMatrix_;
 	}
 
+	void SetMatrix(Matrix4x4 matrix) {
+		this->cameraMatrix_ = matrix;
+	}
 	Matrix4x4 GetProjectionMatrix_();
 
 

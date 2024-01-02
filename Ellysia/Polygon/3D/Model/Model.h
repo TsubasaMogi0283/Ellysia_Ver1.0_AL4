@@ -60,6 +60,9 @@ private:
 public:
 	//WorldTransformつき
 	void Draw(WorldTransform& worldTransform);
+	//TextureHandle&WorldTransformつき
+	void Draw(WorldTransform& worldTransform,uint32_t textureHandle);
+
 
 	//デストラクタ
 	~Model();

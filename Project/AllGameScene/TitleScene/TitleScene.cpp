@@ -39,7 +39,7 @@ void TitleScene::Initialize(){
 	// スプライトの生成
 	titleLogoSprite_ = Sprite::Create(titleLogoTexture, { 0.0f, 0.0f });
 
-	cameraTranslate_ = {0.0f,0.0f,-20.0f};
+	cameraTranslate_ = {0.0f,0.0f,-30.0f};
 	cameraRotate_ = {0.0f,0.0f,0.0f};
 	Camera::GetInstance()->SetTranslate(cameraTranslate_);
 	Camera::GetInstance()->SetRotate(cameraRotate_);

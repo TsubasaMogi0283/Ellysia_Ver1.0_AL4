@@ -48,8 +48,11 @@ void Player::Rotate() {
 }
 
 void Player::Move() {
+
+
+
 	if (input_->IsPushKey(DIK_UP) == true) {
-		worldTransform_.translate_.y += MOVE_AMOUNT_;
+ 		worldTransform_.translate_.y += MOVE_AMOUNT_;
 	}
 	if (input_->IsPushKey(DIK_DOWN) == true) {
 		worldTransform_.translate_.y -= MOVE_AMOUNT_;
@@ -76,22 +79,26 @@ void Player::Move() {
 
 
 void Player::Attack() {
-	if (input_->IsTriggerKey(DIK_SPACE)) {
-		
+	if (isEnableAttack_ == true) {
+		if (input_->IsTriggerKey(DIK_SPACE)) {
 
-		Vector3 velocity = { 0.0f,0.0f,0.8f };
 
-		
-		//Matrix4x4 worldmatrix = MakeAffineMatrix(transform_.scale, transform_.rotate, transform_.translate);
+			Vector3 velocity = { 0.0f,0.0f,0.8f };
 
-		//プレイヤーの向きに合わせて回転させる
-		velocity = TransformNormal(velocity,worldTransform_.matWorld_ );
 
-		PlayerBullet* newBullet = new PlayerBullet();
-		newBullet->Initialize(worldTransform_.translate_,velocity);
-		
-		bullets_.push_back(newBullet);
+			//Matrix4x4 worldmatrix = MakeAffineMatrix(transform_.scale, transform_.rotate, transform_.translate);
+
+			//プレイヤーの向きに合わせて回転させる
+			velocity = TransformNormal(velocity, worldTransform_.matWorld_);
+
+			PlayerBullet* newBullet = new PlayerBullet();
+			newBullet->Initialize(worldTransform_.translate_, velocity);
+
+			bullets_.push_back(newBullet);
+		}
 	}
+
+	
 }
 
 
@@ -135,9 +142,14 @@ void Player::Update() {
 		return false;
 	});
 
-	Rotate();
-	Move();
-	Attack();
+	if (isEnableMove_ == true) {
+		Rotate();
+		Move();
+	}
+	if (isEnableAttack_ == true) {
+		Attack();
+	}
+	
 
 	for (PlayerBullet* bullet : bullets_) {
 		bullet->Update();

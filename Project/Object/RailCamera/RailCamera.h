@@ -2,6 +2,7 @@
 #include "Transform.h"
 #include "Camera.h"
 #include "Matrix4x4.h"
+#include <WorldTransform.h>
 class RailCamera{
 public:
 	//コンストラクタ
@@ -13,17 +14,14 @@ public:
 	//更新
 	void Update();
 
-	Matrix4x4 &GetWorldmatrix() {
-		return worldMatrix_;
+	WorldTransform& GetWorldTransform() {
+		return worldTransform_;
 	}
 
 	//デストラクタ
 	~RailCamera();
 private:
-	Transform transform_ = {};
-
-	Matrix4x4 worldMatrix_ = {};
-
-
+	WorldTransform worldTransform_ = {};
+	Vector3 speed_ = {};
 };
 
