@@ -49,10 +49,6 @@ public:
 		this->worldTransform_.translate_.z = translate;
 	}
 
-	void SetParent(const WorldTransform* parent) {
-		parentedMatrix_ = parent;
-	}
-
 
 	//ワールド座標
 	Vector3 GetWorldPosition()override;

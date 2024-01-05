@@ -14,6 +14,10 @@ public:
 	//更新
 	void Update();
 
+	void SetSpeed(Vector3 speed) {
+		this->speed_ = speed;
+	}
+
 	WorldTransform& GetWorldTransform() {
 		return worldTransform_;
 	}

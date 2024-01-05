@@ -7,9 +7,14 @@
 #include "Model.h"
 
 #include <memory>
+#include <list>
+#include "sstream"
+
 #include "Skydome/Skydome.h"
 #include "Player/Player.h"
 #include "RailCamera/RailCamera.h"
+#include "Enemy/Enemy.h"
+#include "Collider/CollisionManager.h"
 
 class GameManager;
 
@@ -49,12 +54,16 @@ private:
 	void ReadySceneUpdate();
 	void PlaySceneUpdate();
 
+	//衝突判定と応答
+	void CheckAllCollisions();
+
 #pragma endregion
 
 #pragma region 描画
 	void ExplanationSceneDraw();
 	void ReadySceneDraw();
 	void PlaySceneDraw();
+
 
 
 #pragma endregion
@@ -93,12 +102,16 @@ private:
 	std::unique_ptr<Skydome> skydome_ = nullptr;
 
 	//プレイヤー
-	std::unique_ptr<Player> player_ = nullptr;
+	Player* player_ = nullptr;
 	float move_ = 0.0f;
 	const float MOVE_AMOUNT_ = 0.1f;
 
 	//レールカメラ
 	std::unique_ptr<RailCamera> railCamera_ = nullptr;
+
+	static const int amount_ = 6;
+
+	Enemy* enemy_[amount_] = { nullptr };
 
 #pragma region 説明
 	static const int EXPLANATION_NUMBER_ = 2;
@@ -117,6 +130,27 @@ private:
 	int32_t displayNumber_ = 3;
 	int32_t countDownTime_ = displayNumber_*SECOND_;
 #pragma endregion
+
+
+#pragma region プレイ
+
+	Model* enemyModel_ = nullptr;
+
+	std::list<Enemy*> enemyes_;
+
+
+	//敵発生コマンド
+	std::stringstream enemyPopCommands_;
+
+	//待機中フラグ
+	bool isWait_;
+	//待機タイマー
+	int32_t waitingTimer_ = 0;
+
+	std::unique_ptr<CollisionManager> collisionManager_ = nullptr;
+
+#pragma endregion
+
 
 };
 

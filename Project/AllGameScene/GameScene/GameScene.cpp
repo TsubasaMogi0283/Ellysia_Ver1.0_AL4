@@ -6,6 +6,7 @@
 #include "Input.h"
 #include "TextureManager.h"
 #include "Camera.h"
+#include <VectorCalculation.h>
 
 
 GameScene::GameScene() {
@@ -33,8 +34,14 @@ void GameScene::ReadySceneInitialize() {
 		countDownSprite[i].reset(Sprite::Create(countDownTexture[i], { 0.0f, 0.0f }));
 	}
 }
-void GameScene::PlaySceneInitialize() {
 
+
+
+void GameScene::PlaySceneInitialize() {
+	//敵の速度
+
+
+	isWait_ = false;
 }
 
 void GameScene::Initialize() {
@@ -43,12 +50,31 @@ void GameScene::Initialize() {
 	skydome_->Initialize();
 
 	//プレイヤー
-	player_ = std::make_unique<Player>();
+	player_ = new Player();
 	player_->Initialize();
 
-	railCamera_ = std::make_unique<RailCamera>();
-	railCamera_->Initialize(player_->GetWorldPosition(), { 0.0f,0.0f,0.0f });
-	player_->SetParent(&railCamera_->GetWorldTransform());
+
+
+
+	for (int i = 0; i < amount_; i++) {
+		enemy_[i] = new Enemy();
+		enemy_[i]->SetPlayer(player_);
+
+	}
+
+	enemy_[0]->Initialize({ 3.0f,0.0f,40.0f });
+	enemy_[1]->Initialize({ 4.0f,-4.0f,80.0f });
+	enemy_[2]->Initialize({ 2.0f,6.0f,60.0f });
+	enemy_[3]->Initialize({ 2.0f,4.0f,80.0f });
+	enemy_[4]->Initialize({ 4.0f,-5.0f,100.0f });
+	enemy_[5]->Initialize({ 1.0f,-2.0f,120.0f });
+
+
+
+	//railCamera_ = std::make_unique<RailCamera>();
+	//railCamera_->Initialize(player_->GetWorldPosition(), { 0.0f,0.0f,0.0f });
+	//player_->SetParent(&railCamera_->GetWorldTransform());
+	collisionManager_ = std::make_unique <CollisionManager>();
 
 	cameraTranslate_ = { 0.0f,0.0f,-30.0f };
 	cameraRotate_ = { 0.0f,0.0f,0.0f };
@@ -64,17 +90,17 @@ void GameScene::Initialize() {
 }
 
 void GameScene::DebugText() {
+#ifdef _DEBUG
 	ImGui::Begin("Game");
 
 	ImGui::End();
+
+#endif
 }
 
 
 #pragma region Update用
 void GameScene::ExplanationSceneUpdate(){
-	ImGui::Begin("Explanation");
-
-	ImGui::End();
 
 
 	if (Input::GetInstance()->IsTriggerKey(DIK_SPACE) == true) {
@@ -89,9 +115,6 @@ void GameScene::ExplanationSceneUpdate(){
 }
 
 void GameScene::ReadySceneUpdate(){
-	ImGui::Begin("Ready");
-
-	ImGui::End();
 
 	countDownTime_ -= 1;
 	
@@ -112,21 +135,79 @@ void GameScene::ReadySceneUpdate(){
 	}
 	
 	//プレイヤーが動き出す
-	
-	move_ += MOVE_AMOUNT_;
-	player_->SetTranslateZ(move_);
+	//player_->SetTranslateZ(move_);
 	player_->SetIsEnableAttack(true);
 	player_->SetIsEnableMove(true);
 }
 
+
+/// <summary>
+/// 衝突判定と応答
+/// </summary>
+void GameScene::CheckAllCollisions() {
+	//判定対象AとBの座標
+	//資料ではpoAとかやっていたけど分かりずらいから具体的は変数名にする
+	Vector3 playerPos = {};
+	Vector3 enemyPos = {};
+	Vector3 enemyBulletPos = {};
+	Vector3 playerBulletPos = {};
+
+	//自弾リストの取得
+	const std::list<PlayerBullet*>& playerBullets = player_->GetBullets();
+
+	//敵弾リストの取得
+	for (int i = 0; i < amount_; i++) {
+		const std::list<EnemyBullet*>& enemyBullets = enemy_[i]->GetBullets();
+
+		//コライダー
+		std::list<Collider*> colliders;
+
+
+
+		//衝突マネージャのリストをクリアする
+		collisionManager_->ClearList();
+		//コライダーを全て衝突マネージャに登録する
+		collisionManager_->RegisterList(player_);
+		for (int i = 0; i < amount_; i++) {
+			collisionManager_->RegisterList(enemy_[i]);
+		}
+
+		//自弾全てについて
+		for (PlayerBullet* bullet : playerBullets) {
+			//colliders.push_back(bullet);
+			collisionManager_->RegisterList(bullet);
+		}
+		//敵弾全てについて
+		for (EnemyBullet* bullet : enemyBullets) {
+			//colliders.push_back(bullet);
+			collisionManager_->RegisterList(bullet);
+		}
+
+		collisionManager_->CheckAllCollision();
+	}
+
+	//衝突マネージャのリストをクリアする
+	collisionManager_->ClearList();
+}
+
+
+
 void GameScene::PlaySceneUpdate(){
+#ifdef _DEBUG
 	ImGui::Begin("Play");
 
 	ImGui::End();
 
-	//プレイヤーが動き出す
-	move_ += MOVE_AMOUNT_;
-	player_->SetTranslateZ(move_);
+#endif
+
+	CheckAllCollisions();
+	/*for (Enemy* enemy : enemyes_) {
+		enemy->Update();
+	}*/
+
+	for (int i = 0; i < amount_; i++) {
+		enemy_[i]->Update();
+	}
 
 }
 
@@ -140,6 +221,8 @@ void GameScene::Update(GameManager* gameManager) {
 	//共通部分
 	skydome_->Update();
 	player_->Update();
+	Camera::GetInstance()->SetTranslate(cameraTranslate_);
+
 
 	switch (scene_) {
 	case Scene::Explanation:
@@ -184,8 +267,11 @@ void GameScene::ReadySceneDraw(){
 	}
 }
 
-void GameScene::PlaySceneDraw()
-{
+void GameScene::PlaySceneDraw(){
+	for (int i = 0; i < amount_; i++) {
+		enemy_[i]->Draw();
+
+	}
 }
 void GameScene::Draw() {
 	//共通部分
@@ -212,5 +298,11 @@ void GameScene::Draw() {
 }
 
 GameScene::~GameScene() {
+	delete player_;
+	for (int i = 0; i < amount_; i++) {
+		delete enemy_[i];
+		
+
+	}
 
 }

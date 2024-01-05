@@ -35,7 +35,7 @@ Matrix4x4 Camera::GetAffineMatrix(){
 
 Matrix4x4 Camera::GetViewMatrix() {
 	//カメラ行列
-	cameraMatrix_ = MakeAffineMatrix(cameraTransform_.scale, cameraTransform_.rotate, cameraTransform_.translate);
+	cameraMatrix_ = GetAffineMatrix();
 	viewMatrix_ = Inverse(cameraMatrix_);
 	return viewMatrix_;
 }
