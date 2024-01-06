@@ -83,6 +83,10 @@ void GameScene::Initialize() {
 	uint32_t blackTextureHandle = TextureManager::GetInstance()->LoadTexture("Resources/Black.png");
 	black_.reset(Sprite::Create(blackTextureHandle, { 0.0f,0.0f }));
 
+	//WhiteOut
+	white_ = std::make_unique<Sprite>();
+	uint32_t whiteTextureHandle = TextureManager::GetInstance()->LoadTexture("Resources/White.png");
+	black_.reset(Sprite::Create(whiteTextureHandle, { 0.0f,0.0f }));
 
 
 	//railCamera_ = std::make_unique<RailCamera>();
@@ -219,6 +223,12 @@ void GameScene::PlaySceneUpdate(){
 		enemy_[i]->Update();
 	}
 
+	//勝ち
+	if (countDown_->GetTime() < 0) {
+		scene_ = Scene::Win;
+	}
+
+
 	//負け
 	if (player_->GetIsDead() == true) {
 		scene_ = Scene::Lose;
@@ -251,6 +261,7 @@ void GameScene::LoseSceneUpdate() {
 	blackTransparency_ += 0.01f;
 	black_->SetTransparency(blackTransparency_);
 	if (blackTransparency_ > 1.0f) {
+		blackTransparency_ = 1.0f;
 		loseLodingTime_ += 1;
 	}
 
@@ -265,6 +276,23 @@ void GameScene::WinSceneUpdate() {
 #endif
 	for (int i = 0; i < amount_; i++) {
 		enemy_[i]->SetSpeedOffset(0.0f);
+	}
+
+	white_->SetTransparency(whiteTransparency_);
+
+	finishDisplayTime_ += 1;
+	if (finishDisplayTime_ > SECOND_ * 2) {
+		whiteTransparency_ += 0.05f;
+
+		if (whiteTransparency_ > 1.0f) {
+			whiteTransparency_ = 1.0f;
+
+
+
+		}
+
+
+
 	}
 
 }

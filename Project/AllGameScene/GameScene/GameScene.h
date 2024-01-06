@@ -99,6 +99,9 @@ private:
 	std::unique_ptr<Sprite> black_ = nullptr;
 	float blackTransparency_ = 0.0f;
 
+	//WhiteOut
+	std::unique_ptr<Sprite> white_ = nullptr;
+	float whiteTransparency_ = 0.0f;
 
 
 	//カメラ
@@ -174,6 +177,13 @@ private:
 	int loseLodingTime_ = 0;
 
 #pragma endregion
+
+
+#pragma region 勝ち
+	int finishDisplayTime_ = 0;
+
+#pragma endregion
+
 
 };
 
