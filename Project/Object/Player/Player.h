@@ -67,6 +67,9 @@ public:
 		worldTransform_.parent_ = parent;
 	}
 
+	bool GetIsDead() {
+		return isDead_;
+	}
 
 	//弾リストを取得
 	const std::list<PlayerBullet*> GetBullets()  {
@@ -100,6 +103,8 @@ private:
 	std::list<PlayerBullet*>bullets_;
 
 	Vector4 color_ = { 1.0f,1.0f,1.0f,1.0f };
+
+	bool isDead_ = false;
 
 	//弾
 	bool isEnableAttack_ = false;

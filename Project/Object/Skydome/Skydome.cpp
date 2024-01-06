@@ -13,7 +13,7 @@ void Skydome::Initialize(){
 	const float SCALE_SIZE = 200.0f;
 	worldTransform_.Initialize();
 	worldTransform_.scale_ = { SCALE_SIZE, SCALE_SIZE, SCALE_SIZE };
-	worldTransform_.rotate_ = {0.0f,0.0f,0.0f};
+	worldTransform_.rotate_ = {0.0f,0.0f,3.0f};
 	worldTransform_.translate_ = {0.0f,0.0f,0.0f};
 
 

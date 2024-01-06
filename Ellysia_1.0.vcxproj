@@ -145,6 +145,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="Project\AllGameScene\TitleScene\TitleScene.cpp" />
     <ClCompile Include="Project\Object\Collider\Collider.cpp" />
     <ClCompile Include="Project\Object\Collider\CollisionManager.cpp" />
+    <ClCompile Include="Project\Object\CountDown\CountDown.cpp" />
     <ClCompile Include="Project\Object\Enemy\Bullet\EnemyBullet.cpp" />
     <ClCompile Include="Project\Object\Enemy\Enemy.cpp" />
     <ClCompile Include="Project\Object\Enemy\State\EnemyApproach\EnemyApproach.cpp" />
@@ -246,6 +247,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="Project\Object\Collider\Collider.h" />
     <ClInclude Include="Project\Object\Collider\CollisionConfig.h" />
     <ClInclude Include="Project\Object\Collider\CollisionManager.h" />
+    <ClInclude Include="Project\Object\CountDown\CountDown.h" />
     <ClInclude Include="Project\Object\Enemy\Bullet\EnemyBullet.h" />
     <ClInclude Include="Project\Object\Enemy\Enemy.h" />
     <ClInclude Include="Project\Object\Enemy\State\EnemyApproach\EnemyApproach.h" />

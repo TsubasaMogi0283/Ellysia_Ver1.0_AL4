@@ -18,9 +18,9 @@ void Player::Initialize() {
 	worldTransform_.rotate_ = { 0.0f,0.0f,0.0f };
 	worldTransform_.translate_ = { 0.0f,0.0f,0.0f };
 
-	
+	isDead_ = false;
 
-	radius_ = 1.0f;
+	radius_ = 0.8f;
 	input_ = Input::GetInstance();
 
 	SetCollisionAttribute(COLLISION_ATTRIBUTE_PLAYER);
@@ -28,7 +28,7 @@ void Player::Initialize() {
 }
 
 void Player::OnCollision(){
-
+	isDead_ = true;
 }
 
 
@@ -118,13 +118,6 @@ Vector3 Player::GetWorldPosition() {
 void Player::Update() {
 
 	model_->SetColor(color_);
-	ImGui::Begin("Model");
-	ImGui::SliderFloat3("Scale", &worldTransform_.scale_.x, 1.0f, 10.0f);
-	ImGui::SliderFloat3("Rotate", &worldTransform_.rotate_.x, 0.0f, 10.0f);
-	ImGui::SliderFloat3("Translate", &worldTransform_.translate_.x, -10.0f, 10.0f);
-	ImGui::SliderFloat4("Color", &color_.x, 0.0f, 1.0f);
-	ImGui::End();
-
 	model_->SetScale(worldTransform_.scale_);
 	model_->SetRotate(worldTransform_.rotate_);
 	model_->SetTranslate(worldTransform_.translate_);
@@ -134,33 +127,40 @@ void Player::Update() {
 
 
 	//デスフラグの立った玉を削除
-	bullets_.remove_if([](PlayerBullet* bullet) {
-		if (bullet->IsDead()) {
-			delete bullet;
-			return true;
-		}
-		return false;
-	});
+	if (isDead_ == false) {
+		bullets_.remove_if([](PlayerBullet* bullet) {
+			if (bullet->IsDead()) {
+				delete bullet;
+				return true;
+			}
+			return false;
+			});
 
-	if (isEnableMove_ == true) {
-		Rotate();
-		Move();
-	}
-	if (isEnableAttack_ == true) {
-		Attack();
+		if (isEnableMove_ == true) {
+			Rotate();
+			Move();
+		}
+		if (isEnableAttack_ == true) {
+			Attack();
+		}
+		for (PlayerBullet* bullet : bullets_) {
+			bullet->Update();
+		}
 	}
 	
+	
 
-	for (PlayerBullet* bullet : bullets_) {
-		bullet->Update();
-	}
+	
 
 }
 
 //描画
 void Player::Draw() {
 	
-	model_->Draw(worldTransform_);
+	if (isDead_ == false) {
+		model_->Draw(worldTransform_);
+
+	}
 	
 	for (PlayerBullet* bullet : bullets_) {
 		bullet->Draw();

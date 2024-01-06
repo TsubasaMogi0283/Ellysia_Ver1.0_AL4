@@ -72,6 +72,14 @@ public:
 		return isDead_;
 	}
 
+	void SetSpeedOffset(float speed) {
+		this->speedOffset_ = speed;
+	}
+
+	void SetPlayerLose(bool isDead) {
+		this->playerLose_ = isDead_;
+	}
+
 	//ワールド座標
 	Vector3 GetWorldPosition()override;
 
@@ -111,7 +119,8 @@ private:
 	std::list<TimeCall*> timedCalls_;
 
 
-
+	bool playerLose_ = false;
+	float speedOffset_=1.0f;
 
 	Player* player_ = nullptr;
 

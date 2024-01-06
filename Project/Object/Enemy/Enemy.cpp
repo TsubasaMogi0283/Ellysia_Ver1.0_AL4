@@ -22,7 +22,7 @@ void Enemy::Initialize(const Vector3& position){
 
 
 	//state_ = new EnemyApproach();
-	radius_ = 1.0f;
+	radius_ = 0.5f;
 	//num = state_->GetState();
 
 	SetCollisionAttribute(COLLISION_ATTRIBUTE_ENEMY);
@@ -75,7 +75,6 @@ void Enemy::OnCollision(){
 	isDead_ = true;
 
 
-
 }
 
 void Enemy::FireAndReset() {
@@ -99,18 +98,12 @@ Vector3 Enemy::GetWorldPosition() {
 }
 
 void Enemy::Update(){
-	worldTransform_.translate_.z -= 0.1f;
+
+
+	worldTransform_.translate_.z -= 0.1f* speedOffset_;
 	//離脱になるまで発射
 	shotTime_ -= 1;
 
-	//復活
-	if (isDead_ == true) {
-		respornTime_ += 1;
-		if (respornTime_ > 60*4) {
-			isDead_ = false;
-		}
-
-	}
 	
 
 	if (shotTime_ == 0) {

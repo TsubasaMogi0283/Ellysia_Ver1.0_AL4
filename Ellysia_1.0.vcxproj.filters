@@ -184,6 +184,9 @@
       <Filter>Project\Scene\Game\GameStage1</Filter>
     </ClCompile>
     <ClCompile Include="Project\AllGameScene\GameScene\GameScene1\Ready\GameScene1Ready.cpp" />
+    <ClCompile Include="Project\Object\CountDown\CountDown.cpp">
+      <Filter>Project\Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ellysia\Audio\Audio.h">
@@ -403,6 +406,9 @@
       <Filter>Project\Scene\Game\GameStage1\IGameScene1</Filter>
     </ClInclude>
     <ClInclude Include="Project\AllGameScene\GameScene\GameScene1\Ready\GameScene1Ready.h" />
+    <ClInclude Include="Project\Object\CountDown\CountDown.h">
+      <Filter>Project\Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Shader\Object2D\Object2d.hlsli">

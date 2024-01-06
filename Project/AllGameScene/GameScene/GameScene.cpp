@@ -9,6 +9,8 @@
 #include <VectorCalculation.h>
 
 
+#include <cmath>
+
 GameScene::GameScene() {
 
 }
@@ -42,6 +44,11 @@ void GameScene::PlaySceneInitialize() {
 
 
 	isWait_ = false;
+
+	countDown_ = std::make_unique<CountDown>();
+	countDown_->Initialize();
+
+
 }
 
 void GameScene::Initialize() {
@@ -62,12 +69,19 @@ void GameScene::Initialize() {
 
 	}
 
-	enemy_[0]->Initialize({ 3.0f,0.0f,40.0f });
+	enemy_[0]->Initialize({ 3.0f,0.0f,70.0f });
 	enemy_[1]->Initialize({ 4.0f,-4.0f,80.0f });
 	enemy_[2]->Initialize({ 2.0f,6.0f,60.0f });
 	enemy_[3]->Initialize({ 2.0f,4.0f,80.0f });
 	enemy_[4]->Initialize({ 4.0f,-5.0f,100.0f });
 	enemy_[5]->Initialize({ 1.0f,-2.0f,120.0f });
+
+
+
+	//BlackOut
+	black_ = std::make_unique<Sprite>();
+	uint32_t blackTextureHandle = TextureManager::GetInstance()->LoadTexture("Resources/Black.png");
+	black_.reset(Sprite::Create(blackTextureHandle, { 0.0f,0.0f }));
 
 
 
@@ -193,12 +207,8 @@ void GameScene::CheckAllCollisions() {
 
 
 void GameScene::PlaySceneUpdate(){
-#ifdef _DEBUG
-	ImGui::Begin("Play");
 
-	ImGui::End();
-
-#endif
+	countDown_->Update();
 
 	CheckAllCollisions();
 	/*for (Enemy* enemy : enemyes_) {
@@ -207,6 +217,54 @@ void GameScene::PlaySceneUpdate(){
 
 	for (int i = 0; i < amount_; i++) {
 		enemy_[i]->Update();
+	}
+
+	//負け
+	if (player_->GetIsDead() == true) {
+		scene_ = Scene::Lose;
+	}
+
+}
+
+void GameScene::LoseSceneUpdate() {
+
+#ifdef _DEBUG
+	ImGui::Begin("Lose");
+
+	ImGui::End();
+
+#endif
+
+
+	theta_ += 1.0f;
+	cameraTranslate_.x += std::sinf(theta_) * 0.5f;
+
+	
+
+	for (int i = 0; i < amount_; i++) {
+		enemy_[i]->Update();
+	}
+	for (int i = 0; i < amount_; i++) {
+		enemy_[i]->SetSpeedOffset(0.5f);
+	}
+	
+	blackTransparency_ += 0.01f;
+	black_->SetTransparency(blackTransparency_);
+	if (blackTransparency_ > 1.0f) {
+		loseLodingTime_ += 1;
+	}
+
+}
+
+void GameScene::WinSceneUpdate() {
+#ifdef _DEBUG
+	ImGui::Begin("Win");
+
+	ImGui::End();
+
+#endif
+	for (int i = 0; i < amount_; i++) {
+		enemy_[i]->SetSpeedOffset(0.0f);
 	}
 
 }
@@ -240,7 +298,23 @@ void GameScene::Update(GameManager* gameManager) {
 	case Scene::Play:
 		PlaySceneUpdate();
 		break;
+
+
+	case Scene::Lose:
+		LoseSceneUpdate();
+
+		break;
+
+	case Scene::Win:
+		WinSceneUpdate();
+		break;
+
 	}
+
+	if (loseLodingTime_ > SECOND_ * 2) {
+		//gameManager->ChangeScene(new LoseScene());
+	}
+
 	if (Input::GetInstance()->IsTriggerKey(DIK_1) == true) {
 		gameManager->ChangeScene(new SampleScene());
 	}
@@ -268,15 +342,30 @@ void GameScene::ReadySceneDraw(){
 }
 
 void GameScene::PlaySceneDraw(){
-	for (int i = 0; i < amount_; i++) {
-		enemy_[i]->Draw();
-
-	}
+	countDown_->Draw();
 }
+
+void GameScene::LoseSceneDraw(){
+	black_->Draw();
+
+}
+
+void GameScene::WinSceneDraw(){
+
+
+
+}
+
+
+
 void GameScene::Draw() {
 	//共通部分
 	skydome_->Draw();
 	player_->Draw();
+	for (int i = 0; i < amount_; i++) {
+		enemy_[i]->Draw();
+
+	}
 
 	switch (scene_) {
 	case Scene::Explanation:
@@ -294,6 +383,18 @@ void GameScene::Draw() {
 	case Scene::Play:
 		PlaySceneDraw();
 		break;
+
+
+	case Scene::Lose:
+		LoseSceneDraw();
+
+		break;
+
+	case Scene::Win:
+		WinSceneDraw();
+		break;
+
+
 	}
 }
 

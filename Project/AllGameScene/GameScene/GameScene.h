@@ -15,6 +15,7 @@
 #include "RailCamera/RailCamera.h"
 #include "Enemy/Enemy.h"
 #include "Collider/CollisionManager.h"
+#include <CountDown/CountDown.h>
 
 class GameManager;
 
@@ -54,6 +55,10 @@ private:
 	void ReadySceneUpdate();
 	void PlaySceneUpdate();
 
+	void LoseSceneUpdate();
+	void WinSceneUpdate();
+
+
 	//衝突判定と応答
 	void CheckAllCollisions();
 
@@ -64,7 +69,8 @@ private:
 	void ReadySceneDraw();
 	void PlaySceneDraw();
 
-
+	void LoseSceneDraw();
+	void WinSceneDraw();
 
 #pragma endregion
 
@@ -88,6 +94,11 @@ private:
 	};
 
 	Scene scene_ = Scene();
+
+	//BlackOut
+	std::unique_ptr<Sprite> black_ = nullptr;
+	float blackTransparency_ = 0.0f;
+
 
 
 	//カメラ
@@ -149,8 +160,20 @@ private:
 
 	std::unique_ptr<CollisionManager> collisionManager_ = nullptr;
 
+	//カウントダウン
+	std::unique_ptr<CountDown> countDown_ = nullptr;
+
+
 #pragma endregion
 
+
+
+#pragma region 負け
+	float theta_ = 0.0f;
+
+	int loseLodingTime_ = 0;
+
+#pragma endregion
 
 };
 
