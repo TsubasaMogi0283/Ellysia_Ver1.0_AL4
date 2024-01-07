@@ -11,6 +11,7 @@
 #include "LoseScene/LoseScene.h"
 #include "WinScene/WinScene.h"
 #include <cmath>
+#include <fstream>
 
 GameScene::GameScene() {
 
@@ -43,6 +44,7 @@ void GameScene::ReadySceneInitialize() {
 void GameScene::PlaySceneInitialize() {
 	//敵の速度
 
+	//LoadEnemyPopData();
 
 	isWait_ = false;
 
@@ -179,54 +181,251 @@ void GameScene::ReadySceneUpdate(){
 	
 }
 
+void GameScene::GenerateEnemy(Vector3 position) {
+	//生成
+	//enemy_ = new Enemy();
+	//
+	//enemy_->Initialize(position);
+	//enemy_->SetPlayer(player_);
+	//
+	//
+	//enemyes_.push_back(enemy_);
+}
+
+
+////敵発生データの読み込み
+//void GameScene::LoadEnemyPopData() {
+//	////ファイルを開く
+//	std::ifstream file;
+//
+//	file.open("Resources/enemyPop.csv");
+//	assert(file.is_open());
+//
+//	//ファイルの内容を文字列ストリームにコピー
+//	//enemyPopCommands_ << file.rdbuf();
+//
+//	//ファイルを閉じる
+//	file.close();
+//}
+//
+////敵発生コマンドの更新
+//void GameScene::UpdateEnemyPopCommands() {
+//
+//
+//	//待機処理
+//	if (isWait_ == true) {
+//		waitingTimer_--;
+//		if (waitingTimer_ <= 0) {
+//			//待機完了
+//			isWait_ = false;
+//		}
+//	}
+//
+//
+//
+//	//1行分の文字列を入れる変数
+//	std::string line;
+//
+//	//コマンド実行ループ
+//	while (getline(enemyPopCommands_, line)) {
+//		//1行分の文字列をストリームに変呼応して解析しやすくする
+//		std::istringstream line_stream(line);
+//
+//		std::string word;
+//		//「,」区切りの先頭文字列を取得
+//		getline(line_stream, word, ',');
+//
+//
+//		//"//"から始まる行はコメント
+//		if (word.find("//") == 0) {
+//			//コメント行を飛ばす
+//			continue;
+//		}
+//
+//		//POPコマンド
+//		if (word.find("POP") == 0) {
+//			//x座標
+//			getline(line_stream, word, ',');
+//			float x = (float)std::atof(word.c_str());
+//
+//			//y座標
+//			getline(line_stream, word, ',');
+//			float y = (float)std::atof(word.c_str());
+//
+//			//z座標
+//			getline(line_stream, word, ',');
+//			float z = (float)std::atof(word.c_str());
+//
+//			//敵を発生させる
+//			GenerateEnemy({ x,y,z });
+//
+//		}
+//		else if (word.find("WAIT") == 0) {
+//			getline(line_stream, word, ',');
+//
+//			//待ち時間
+//			int32_t waitTime = atoi(word.c_str());
+//
+//			//待機開始
+//			isWait_ = true;
+//			//待機タイマー
+//			waitingTimer_ = waitTime;
+//
+//
+//
+//			//コマンドループを抜ける
+//			break;
+//
+//
+//		}
+//
+//
+//	}
+//
+//
+//
+//}
+
+
+
+
 
 /// <summary>
 /// 衝突判定と応答
 /// </summary>
 void GameScene::CheckAllCollisions() {
-	//判定対象AとBの座標
-	//資料ではpoAとかやっていたけど分かりずらいから具体的は変数名にする
-	Vector3 playerPos = {};
-	Vector3 enemyPos = {};
-	Vector3 enemyBulletPos = {};
-	Vector3 playerBulletPos = {};
+	////判定対象AとBの座標
+	////資料ではpoAとかやっていたけど分かりずらいから具体的は変数名にする
+	//Vector3 playerPos = {};
+	//Vector3 enemyPos = {};
+	//Vector3 enemyBulletPos = {};
+	//Vector3 playerBulletPos = {};
 
+	////自弾リストの取得
+	//const std::list<PlayerBullet*>& playerBullets = player_->GetBullets();
+
+	////敵弾リストの取得
+	//for (int i = 0; i < amount_; i++) {
+	//	const std::list<EnemyBullet*>& enemyBullets = enemy_->GetBullets();
+
+	//	//コライダー
+	//	std::list<Collider*> colliders;
+
+
+
+	//	//衝突マネージャのリストをクリアする
+	//	collisionManager_->ClearList();
+	//	//コライダーを全て衝突マネージャに登録する
+	//	collisionManager_->RegisterList(player_);
+	//	for (int i = 0; i < amount_; i++) {
+	//		collisionManager_->RegisterList(enemy_);
+	//	}
+
+	//	//自弾全てについて
+	//	for (PlayerBullet* bullet : playerBullets) {
+	//		//colliders.push_back(bullet);
+	//		collisionManager_->RegisterList(bullet);
+	//	}
+	//	//敵弾全てについて
+	//	for (EnemyBullet* bullet : enemyBullets) {
+	//		//colliders.push_back(bullet);
+	//		collisionManager_->RegisterList(bullet);
+	//	}
+
+	//	collisionManager_->CheckAllCollision();
+	//}
+
+	////衝突マネージャのリストをクリアする
+	//collisionManager_->ClearList();
+
+
+
+	Vector3 playerPos = {};
+
+	//判定対象AとBの座標
+	//自弾
+	Vector3 posC={};
+	Vector3 posD={};
 	//自弾リストの取得
 	const std::list<PlayerBullet*>& playerBullets = player_->GetBullets();
-
 	//敵弾リストの取得
+	//const std::list<EnemyBullet*>& enemyBullets = enemy_->GetBullets();
+
+#pragma region プレイヤーと敵の当たり判定
 	for (int i = 0; i < amount_; i++) {
-		const std::list<EnemyBullet*>& enemyBullets = enemy_[i]->GetBullets();
-
-		//コライダー
-		std::list<Collider*> colliders;
+		if (enemy_[i]->IsDead() == false) {
+			posC = enemy_[i]->GetWorldPosition();
 
 
 
-		//衝突マネージャのリストをクリアする
-		collisionManager_->ClearList();
-		//コライダーを全て衝突マネージャに登録する
-		collisionManager_->RegisterList(player_);
-		for (int i = 0; i < amount_; i++) {
-			collisionManager_->RegisterList(enemy_[i]);
+			//自弾の座標
+			playerPos = player_->GetWorldPosition();
+
+
+
+			//座標CとDの距離を求める
+			float distanceCD = Length(Subtract(playerPos, posC));
+
+			if (distanceCD < enemy_[i]->GetRadius() + player_->GetRadius()) {
+				//敵キャラの衝突時コールバックを呼び出す
+				enemy_[i]->OnCollision();
+
+
+
+				//自弾の衝突時コールバックを呼び出す
+				player_->OnCollision();
+
+
+
+
+			}
+
 		}
 
-		//自弾全てについて
-		for (PlayerBullet* bullet : playerBullets) {
-			//colliders.push_back(bullet);
-			collisionManager_->RegisterList(bullet);
-		}
-		//敵弾全てについて
-		for (EnemyBullet* bullet : enemyBullets) {
-			//colliders.push_back(bullet);
-			collisionManager_->RegisterList(bullet);
-		}
+	}
+#pragma endregion
 
-		collisionManager_->CheckAllCollision();
+
+#pragma region 自弾と敵キャラの当たり判定
+	
+			//敵キャラの位置
+	
+	for (int i = 0; i < amount_; i++) {
+		if (enemy_[i]->IsDead() == false) {
+			posC = enemy_[i]->GetWorldPosition();
+
+
+
+			//自キャラと敵弾全ての当たり判定
+			for (PlayerBullet* playerBullet : playerBullets) {
+				//自弾の座標
+				posD = playerBullet->GetWorldPosition();
+
+
+
+				//座標CとDの距離を求める
+				float distanceCD = Length(Subtract(posD, posC));
+
+				if (distanceCD < enemy_[i]->GetRadius() + playerBullet->GetRadius()) {
+					//敵キャラの衝突時コールバックを呼び出す
+					enemy_[i]->OnCollision();
+
+
+
+					//自弾の衝突時コールバックを呼び出す
+					playerBullet->OnCollision();
+
+
+
+				}
+
+
+			}
+		}
 	}
 
-	//衝突マネージャのリストをクリアする
-	collisionManager_->ClearList();
+
+#pragma endregion
 }
 
 
@@ -237,14 +436,25 @@ void GameScene::PlaySceneUpdate(){
 
 	countDown_->Update();
 
+	//UpdateEnemyPopCommands();
 	CheckAllCollisions();
-	/*for (Enemy* enemy : enemyes_) {
-		enemy->Update();
-	}*/
-
+	//for (Enemy* enemy : enemyes_) {
+	//	enemy->Update();
+	//}
 	for (int i = 0; i < amount_; i++) {
 		enemy_[i]->Update();
+
 	}
+
+
+	/*enemyes_.remove_if([](Enemy* enemy) {
+		if (enemy->IsDead()) {
+			delete enemy;
+			return true;
+		}
+		return false;
+	});*/
+	
 
 	//勝ち
 	if (countDown_->GetTime() < 0) {
@@ -253,7 +463,7 @@ void GameScene::PlaySceneUpdate(){
 
 
 	//負け
-	if (player_->GetIsDead() == true) {
+	if (player_->GetIsDead() == true && countDown_->GetTime() > 0) {
 		scene_ = Scene::Lose;
 	}
 
@@ -276,11 +486,9 @@ void GameScene::LoseSceneUpdate() {
 
 	for (int i = 0; i < amount_; i++) {
 		enemy_[i]->Update();
+		enemy_[i]->SetSpeedOffset(1.0f);
 	}
-	for (int i = 0; i < amount_; i++) {
-		enemy_[i]->SetSpeedOffset(0.5f);
-	}
-	
+
 	blackTransparency_ += 0.01f;
 	black_->SetTransparency(blackTransparency_);
 	if (blackTransparency_ > 1.0f) {
@@ -371,7 +579,7 @@ void GameScene::Update(GameManager* gameManager) {
 
 	}
 
-	if (loseLodingTime_ > SECOND_ * 2) {
+	if (loseLodingTime_ > SECOND_ * 3) {
 		gameManager->ChangeScene(new LoseScene());
 	}
 	if (winLoadingTime_ > SECOND_ * 2) {
@@ -406,7 +614,6 @@ void GameScene::PlaySceneDraw(){
 	countDown_->Draw();
 	for (int i = 0; i < amount_; i++) {
 		enemy_[i]->Draw();
-
 	}
 
 }
@@ -415,7 +622,6 @@ void GameScene::LoseSceneDraw(){
 	black_->Draw();
 	for (int i = 0; i < amount_; i++) {
 		enemy_[i]->Draw();
-
 	}
 }
 
@@ -471,8 +677,6 @@ GameScene::~GameScene() {
 	delete player_;
 	for (int i = 0; i < amount_; i++) {
 		delete enemy_[i];
-		
-
 	}
 
 }

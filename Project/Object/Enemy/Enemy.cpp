@@ -4,7 +4,7 @@
 #include "Matrix4x4.h"
 #include "VectorCalculation.h"
 #include <Collider/CollisionConfig.h>
-
+#include "ImGuiManager.h"
 
 
 Enemy::Enemy(){
@@ -28,7 +28,7 @@ void Enemy::Initialize(const Vector3& position){
 	SetCollisionAttribute(COLLISION_ATTRIBUTE_ENEMY);
 	SetCollisionMask(COLLISION_ATTRIBUTE_PLAYER);
 
-	FireAndReset();
+	//FireAndReset();
 }
 
 void Enemy::Fire() {
@@ -98,7 +98,7 @@ Vector3 Enemy::GetWorldPosition() {
 }
 
 void Enemy::Update(){
-
+	
 
 	worldTransform_.translate_.z -= 0.3f* speedOffset_;
 	//離脱になるまで発射
@@ -112,19 +112,19 @@ void Enemy::Update(){
 
 	}
 	//範囲forでリストの全要素について回す
-	for (TimeCall* timedCall : timedCalls_) {
+	/*for (TimeCall* timedCall : timedCalls_) {
 		timedCall->Update();
-	}
+	}*/
 
 
 	//デスフラグの立った玉を削除
-	bullets_.remove_if([](EnemyBullet* bullet) {
+	/*bullets_.remove_if([](EnemyBullet* bullet) {
 		if (bullet->IsDead()) {
 			delete bullet;
 			return true;
 		}
 		return false;
-	});
+	});*/
 
 	//更新
 	/*for (EnemyBullet* bullet : bullets_) {
@@ -136,23 +136,25 @@ void Enemy::Update(){
 
 	//終了したタイマーを削除
 	//リストを削除するなら「remove_if」だよ！
-	timedCalls_.remove_if([](TimeCall* timedCall) {
+	/*timedCalls_.remove_if([](TimeCall* timedCall) {
         if (timedCall->IsFinished()) {
             delete timedCall;
             return true;
         }
         return false;
-    });
+    });*/
 
 	//state_->Update(this);
 
 }
 
 void Enemy::Draw(){
-
 	if (isDead_ == false) {
 		model_->Draw(worldTransform_);
+
 	}
+	
+
 	
 	//for (EnemyBullet* bullet : bullets_) {
 	//	bullet->Draw();

@@ -62,6 +62,17 @@ private:
 	//衝突判定と応答
 	void CheckAllCollisions();
 
+
+	/*void LoadEnemyPopData();
+	void UpdateEnemyPopCommands();*/
+
+	//敵発生用関数
+	void GenerateEnemy(Vector3 position);
+
+
+
+
+
 #pragma endregion
 
 #pragma region 描画
@@ -124,7 +135,7 @@ private:
 	std::unique_ptr<RailCamera> railCamera_ = nullptr;
 
 	static const int amount_ = 20;
-
+	//Enemy* enemy_ = nullptr;
 	Enemy* enemy_[amount_] = { nullptr };
 
 #pragma region 説明
@@ -150,11 +161,11 @@ private:
 
 	Model* enemyModel_ = nullptr;
 
-	std::list<Enemy*> enemyes_;
+	//std::list<Enemy*> enemyes_;
 
 
 	//敵発生コマンド
-	std::stringstream enemyPopCommands_;
+	//std::stringstream enemyPopCommands_;
 
 	//待機中フラグ
 	bool isWait_;
@@ -165,6 +176,9 @@ private:
 
 	//カウントダウン
 	std::unique_ptr<CountDown> countDown_ = nullptr;
+
+
+
 
 
 #pragma endregion
