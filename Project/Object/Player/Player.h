@@ -45,6 +45,10 @@ public:
 		return worldTransform_.translate_;
 	}
 	
+	void SetTranslate(Vector3 translate) {
+		this->worldTransform_.translate_ = translate;
+	}
+
 	void SetTranslateZ(float translate) {
 		this->worldTransform_.translate_.z = translate;
 	}

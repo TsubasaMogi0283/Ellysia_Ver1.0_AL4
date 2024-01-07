@@ -46,7 +46,7 @@ private:
 	Vector2 countDownBackSize_ = {};
 
 	//ゲームの時間
-	const int timer_ = 30;
+	const int timer_ = 10;
 	int gameTime_ = 60 * timer_;
 
 	//表示されている時間

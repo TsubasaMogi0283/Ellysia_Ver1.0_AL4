@@ -107,8 +107,8 @@ private:
 	//カメラ
 	Vector3 cameraTranslate_ = {};
 	Vector3 cameraRotate_ = {};
-
-
+	float cameraAccel_ = 0.05f;
+	float cameraVelocity_ = 0.0f;
 	//共通部分
 	const int SECOND_ = 60;
 
@@ -181,6 +181,9 @@ private:
 
 #pragma region 勝ち
 	int finishDisplayTime_ = 0;
+	int winLoadingTime_ = 0;
+
+	std::unique_ptr<Sprite> finish_ = nullptr;
 
 #pragma endregion
 

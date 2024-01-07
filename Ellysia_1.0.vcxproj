@@ -140,9 +140,11 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="Project\AllGameScene\GameScene\GameScene.cpp" />
     <ClCompile Include="Project\AllGameScene\GameScene\GameScene1\GameScene1.cpp" />
     <ClCompile Include="Project\AllGameScene\GameScene\GameScene1\Ready\GameScene1Ready.cpp" />
+    <ClCompile Include="Project\AllGameScene\LoseScene\LoseScene.cpp" />
     <ClCompile Include="Project\AllGameScene\SampleScene\SampleScene.cpp" />
     <ClCompile Include="Project\AllGameScene\SelectScene\SelectScene.cpp" />
     <ClCompile Include="Project\AllGameScene\TitleScene\TitleScene.cpp" />
+    <ClCompile Include="Project\AllGameScene\WinScene\WinScene.cpp" />
     <ClCompile Include="Project\Object\Collider\Collider.cpp" />
     <ClCompile Include="Project\Object\Collider\CollisionManager.cpp" />
     <ClCompile Include="Project\Object\CountDown\CountDown.cpp" />
@@ -241,9 +243,11 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="Project\AllGameScene\GameScene\GameScene1\GameScene1.h" />
     <ClInclude Include="Project\AllGameScene\GameScene\GameScene1\IGameScene1.h" />
     <ClInclude Include="Project\AllGameScene\GameScene\GameScene1\Ready\GameScene1Ready.h" />
+    <ClInclude Include="Project\AllGameScene\LoseScene\LoseScene.h" />
     <ClInclude Include="Project\AllGameScene\SampleScene\SampleScene.h" />
     <ClInclude Include="Project\AllGameScene\SelectScene\SelectScene.h" />
     <ClInclude Include="Project\AllGameScene\TitleScene\TitleScene.h" />
+    <ClInclude Include="Project\AllGameScene\WinScene\WinScene.h" />
     <ClInclude Include="Project\Object\Collider\Collider.h" />
     <ClInclude Include="Project\Object\Collider\CollisionConfig.h" />
     <ClInclude Include="Project\Object\Collider\CollisionManager.h" />

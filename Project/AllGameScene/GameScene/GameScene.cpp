@@ -8,7 +8,8 @@
 #include "Camera.h"
 #include <VectorCalculation.h>
 
-
+#include "LoseScene/LoseScene.h"
+#include "WinScene/WinScene.h"
 #include <cmath>
 
 GameScene::GameScene() {
@@ -61,7 +62,7 @@ void GameScene::Initialize() {
 	player_->Initialize();
 
 
-
+	whiteTransparency_ = 0.0f;
 
 	for (int i = 0; i < amount_; i++) {
 		enemy_[i] = new Enemy();
@@ -86,7 +87,13 @@ void GameScene::Initialize() {
 	//WhiteOut
 	white_ = std::make_unique<Sprite>();
 	uint32_t whiteTextureHandle = TextureManager::GetInstance()->LoadTexture("Resources/White.png");
-	black_.reset(Sprite::Create(whiteTextureHandle, { 0.0f,0.0f }));
+	white_.reset(Sprite::Create(whiteTextureHandle, { 0.0f,0.0f }));
+
+	//Finish
+	finish_ = std::make_unique<Sprite>();
+	uint32_t finishTextureHandle = TextureManager::GetInstance()->LoadTexture("Resources/Finish/Finish.png");
+	finish_.reset(Sprite::Create(finishTextureHandle, { 0.0f,0.0f }));
+
 
 
 	//railCamera_ = std::make_unique<RailCamera>();
@@ -154,8 +161,8 @@ void GameScene::ReadySceneUpdate(){
 	
 	//プレイヤーが動き出す
 	//player_->SetTranslateZ(move_);
-	player_->SetIsEnableAttack(true);
-	player_->SetIsEnableMove(true);
+	player_->SetTranslate({ 0.0f,-3.0f,0.0f });
+	
 }
 
 
@@ -211,6 +218,8 @@ void GameScene::CheckAllCollisions() {
 
 
 void GameScene::PlaySceneUpdate(){
+	player_->SetIsEnableAttack(true);
+	player_->SetIsEnableMove(true);
 
 	countDown_->Update();
 
@@ -263,6 +272,8 @@ void GameScene::LoseSceneUpdate() {
 	if (blackTransparency_ > 1.0f) {
 		blackTransparency_ = 1.0f;
 		loseLodingTime_ += 1;
+
+
 	}
 
 }
@@ -279,21 +290,28 @@ void GameScene::WinSceneUpdate() {
 	}
 
 	white_->SetTransparency(whiteTransparency_);
+	
+
 
 	finishDisplayTime_ += 1;
+
+
+
 	if (finishDisplayTime_ > SECOND_ * 2) {
-		whiteTransparency_ += 0.05f;
+		whiteTransparency_ += 0.005f;
+		cameraVelocity_ += cameraAccel_;
+		
+		cameraTranslate_.z += cameraVelocity_;
 
-		if (whiteTransparency_ > 1.0f) {
+		if (whiteTransparency_ > 1.0f){
 			whiteTransparency_ = 1.0f;
-
-
-
+			winLoadingTime_ += 1;
+			//finishDisplayTime_ += 1;
 		}
 
-
-
 	}
+
+	Camera::GetInstance()->SetTranslate(cameraTranslate_);
 
 }
 
@@ -340,12 +358,13 @@ void GameScene::Update(GameManager* gameManager) {
 	}
 
 	if (loseLodingTime_ > SECOND_ * 2) {
-		//gameManager->ChangeScene(new LoseScene());
+		gameManager->ChangeScene(new LoseScene());
+	}
+	if (winLoadingTime_ > SECOND_ * 2) {
+		gameManager->ChangeScene(new WinScene());
 	}
 
-	if (Input::GetInstance()->IsTriggerKey(DIK_1) == true) {
-		gameManager->ChangeScene(new SampleScene());
-	}
+
 
 }
 
@@ -371,17 +390,28 @@ void GameScene::ReadySceneDraw(){
 
 void GameScene::PlaySceneDraw(){
 	countDown_->Draw();
+	for (int i = 0; i < amount_; i++) {
+		enemy_[i]->Draw();
+
+	}
+
 }
 
 void GameScene::LoseSceneDraw(){
 	black_->Draw();
+	for (int i = 0; i < amount_; i++) {
+		enemy_[i]->Draw();
 
+	}
 }
 
 void GameScene::WinSceneDraw(){
+	white_->Draw();
 
-
-
+	if (finishDisplayTime_ > 0 && finishDisplayTime_ <= SECOND_ * 2) {
+		finish_->Draw();
+	}
+	
 }
 
 
@@ -390,10 +420,7 @@ void GameScene::Draw() {
 	//共通部分
 	skydome_->Draw();
 	player_->Draw();
-	for (int i = 0; i < amount_; i++) {
-		enemy_[i]->Draw();
-
-	}
+	
 
 	switch (scene_) {
 	case Scene::Explanation:

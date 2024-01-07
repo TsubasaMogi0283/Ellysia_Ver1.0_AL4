@@ -187,6 +187,12 @@
     <ClCompile Include="Project\Object\CountDown\CountDown.cpp">
       <Filter>Project\Object</Filter>
     </ClCompile>
+    <ClCompile Include="Project\AllGameScene\LoseScene\LoseScene.cpp">
+      <Filter>Project\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\AllGameScene\WinScene\WinScene.cpp">
+      <Filter>Project\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ellysia\Audio\Audio.h">
@@ -408,6 +414,12 @@
     <ClInclude Include="Project\AllGameScene\GameScene\GameScene1\Ready\GameScene1Ready.h" />
     <ClInclude Include="Project\Object\CountDown\CountDown.h">
       <Filter>Project\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\AllGameScene\LoseScene\LoseScene.h">
+      <Filter>Project\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\AllGameScene\WinScene\WinScene.h">
+      <Filter>Project\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -6,6 +6,9 @@ CountDown::CountDown(){
 }
 
 void CountDown::Initialize(){
+	gameTime_ = 60 * timer_;
+	displayTime_ = gameTime_ / 60;
+
 	//カウントダウン
 	numberTextureHandle[0] = TextureManager::LoadTexture("Resources/Number/0.png");
 	numberTextureHandle[1] = TextureManager::LoadTexture("Resources/Number/1.png");
