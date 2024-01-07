@@ -65,5 +65,10 @@ private:
 	//タイトル
 	Sprite* titleLogoSprite_ = nullptr;
 	uint32_t titleLogoTexture = 0u;
+
+	//ボタン
+	XINPUT_STATE joyState_;
+	int triggerButtonTime_ = 0;
+
 };
 

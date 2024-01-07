@@ -42,9 +42,9 @@ private:
 	int32_t loadingTime_ = 0;
 
 	//コントローラー
-	XINPUT_STATE joyState{};
+	XINPUT_STATE joyState_{};
 
-	int triggerButtonBTime=0;
+	int triggerButtonTime=0;
 
 
 

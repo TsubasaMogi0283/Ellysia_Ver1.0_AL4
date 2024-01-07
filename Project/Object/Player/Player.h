@@ -114,5 +114,10 @@ private:
 	bool isEnableAttack_ = false;
 	bool isEnableMove_ = false;
 
+
+	//ボタン
+	XINPUT_STATE joyState_;
+	int triggerButtonTime_=0;
+
 };
 

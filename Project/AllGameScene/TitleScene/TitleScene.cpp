@@ -64,7 +64,17 @@ void TitleScene::Update(GameManager* gameManager){
 	blackSprite_->SetTransparency(transparency_);
 	
 
-	if (Input::GetInstance()->IsTriggerKey(DIK_SPACE) == true) {
+	if (Input::GetInstance()->GetJoystickState(joyState_)) {
+		if (joyState_.Gamepad.wButtons & XINPUT_GAMEPAD_B) {
+			triggerButtonTime_ += 1;
+		}
+	}
+	if ((joyState_.Gamepad.wButtons & XINPUT_GAMEPAD_B) == 0) {
+		triggerButtonTime_ = 0;
+	}
+
+
+	if ((Input::GetInstance()->IsTriggerKey(DIK_SPACE) == true)|| triggerButtonTime_ == 1) {
 		isStart_ = true;
 		//gameManager->ChangeScene(new GameScene());
 	}

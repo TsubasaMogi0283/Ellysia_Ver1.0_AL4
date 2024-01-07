@@ -56,17 +56,20 @@ void WinScene::Update(GameManager* gamaManager){
 			}
 		}
 
-		if (Input::GetInstance()->GetJoystickState(joyState)) {
+		if (Input::GetInstance()->GetJoystickState(joyState_)) {
 
 			//Bボタン
-			if (joyState.Gamepad.wButtons & XINPUT_GAMEPAD_B) {
-				triggerButtonBTime += 1;
+			if (joyState_.Gamepad.wButtons & XINPUT_GAMEPAD_B) {
+				triggerButtonTime += 1;
 
+			}
+			if ((joyState_.Gamepad.wButtons & XINPUT_GAMEPAD_B) == 0) {
+				triggerButtonTime = 0;
 			}
 
 		}
 
-		if (Input::GetInstance()->IsTriggerKey(DIK_SPACE) == true || triggerButtonBTime == 1) {
+		if (Input::GetInstance()->IsTriggerKey(DIK_SPACE) == true || triggerButtonTime == 1) {
 			isFadeOut_ = true;
 			//decideSE_->PlayWave(decideSEHandle_, false);
 			//bgm_->StopWave(selectBGMHandle_);

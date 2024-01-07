@@ -48,21 +48,28 @@ void Player::Rotate() {
 }
 
 void Player::Move() {
+	Vector3 move = { 0.0f,0.0f,0.0f };
+	//左スティック
+	if (Input::GetInstance()->GetJoystickState(joyState_)) {
+		move.x += (float)joyState_.Gamepad.sThumbLX / SHRT_MAX * MOVE_AMOUNT_;
+		move.y += (float)joyState_.Gamepad.sThumbLY / SHRT_MAX * MOVE_AMOUNT_;
 
-
+	}
 
 	if (input_->IsPushKey(DIK_UP) == true) {
- 		worldTransform_.translate_.y += MOVE_AMOUNT_;
+		move.y += MOVE_AMOUNT_;
 	}
 	if (input_->IsPushKey(DIK_DOWN) == true) {
-		worldTransform_.translate_.y -= MOVE_AMOUNT_;
+		move.y -= MOVE_AMOUNT_;
 	}
 	if (input_->IsPushKey(DIK_RIGHT) == true) {
-		worldTransform_.translate_.x += MOVE_AMOUNT_;
+		move.x += MOVE_AMOUNT_;
 	}
 	if (input_->IsPushKey(DIK_LEFT) == true) {
-		worldTransform_.translate_.x -= MOVE_AMOUNT_;
+		move.x -= MOVE_AMOUNT_;
 	}
+
+	worldTransform_.translate_ = Add(worldTransform_.translate_, move);
 
 	const float MOVE_LIMIT_X = 17.0f;
 	const float MOVE_LIMIT_Y = 7.0f;
@@ -79,8 +86,21 @@ void Player::Move() {
 
 
 void Player::Attack() {
+
+
+	
+
 	if (isEnableAttack_ == true) {
-		if (input_->IsTriggerKey(DIK_SPACE)) {
+		if (Input::GetInstance()->GetJoystickState(joyState_)) {
+			if (joyState_.Gamepad.wButtons & XINPUT_GAMEPAD_B) {
+				triggerButtonTime_ += 1;
+			}
+		}
+		if ((joyState_.Gamepad.wButtons & XINPUT_GAMEPAD_B) == 0) {
+			triggerButtonTime_ = 0;
+		}
+
+		if ((input_->IsTriggerKey(DIK_SPACE))|| triggerButtonTime_ == 1) {
 
 
 			Vector3 velocity = { 0.0f,0.0f,0.8f };
@@ -134,10 +154,10 @@ void Player::Update() {
 				return true;
 			}
 			return false;
-			});
+		});
 
 		if (isEnableMove_ == true) {
-			Rotate();
+			//Rotate();
 			Move();
 		}
 		if (isEnableAttack_ == true) {
