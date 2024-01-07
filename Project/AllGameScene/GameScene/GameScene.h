@@ -123,7 +123,7 @@ private:
 	//レールカメラ
 	std::unique_ptr<RailCamera> railCamera_ = nullptr;
 
-	static const int amount_ = 6;
+	static const int amount_ = 20;
 
 	Enemy* enemy_[amount_] = { nullptr };
 

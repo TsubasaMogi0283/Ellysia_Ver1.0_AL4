@@ -100,7 +100,7 @@ Vector3 Enemy::GetWorldPosition() {
 void Enemy::Update(){
 
 
-	worldTransform_.translate_.z -= 0.1f* speedOffset_;
+	worldTransform_.translate_.z -= 0.3f* speedOffset_;
 	//離脱になるまで発射
 	shotTime_ -= 1;
 

@@ -76,7 +76,21 @@ void GameScene::Initialize() {
 	enemy_[3]->Initialize({ 2.0f,4.0f,80.0f });
 	enemy_[4]->Initialize({ 4.0f,-5.0f,100.0f });
 	enemy_[5]->Initialize({ 1.0f,-2.0f,120.0f });
-
+	enemy_[6]->Initialize({ -3.0f,0.0f,140.0f });
+	enemy_[7]->Initialize({ -4.0f,-4.0f,160.0f });
+	enemy_[8]->Initialize({ -1.0f,6.0f,180.0f });
+	enemy_[9]->Initialize({ 0.0f,4.0f,200.0f });
+	enemy_[10]->Initialize({ 5.0f,-1.0f,220.0f });
+	enemy_[11]->Initialize({ 3.0f,-2.0f,240.0f });
+	enemy_[12]->Initialize({ -2.0f,0.0f,260.0f });
+	enemy_[13]->Initialize({ 0.0f,2.0f,280.0f });
+	enemy_[14]->Initialize({ 1.0f,3.0f,300.0f });
+	enemy_[15]->Initialize({ 2.0f,2.0f,320.0f });
+	enemy_[16]->Initialize({ -4.0f,-1.0f,340.0f });
+	enemy_[17]->Initialize({ 1.0f,0.0f,360.0f });
+	enemy_[18]->Initialize({ 2.0f,4.0f,380.0f });
+	enemy_[19]->Initialize({ 4.0f,2.0f,400.0f });
+	
 
 
 	//BlackOut
