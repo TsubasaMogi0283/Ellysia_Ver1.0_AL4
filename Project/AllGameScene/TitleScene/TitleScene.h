@@ -10,6 +10,7 @@
 
 #include <memory>
 
+#include "Input.h"
 #include "Skydome/Skydome.h"
 #include "WorldTransform.h"
 //StatePatternを使う時は必ず前方宣言をするように

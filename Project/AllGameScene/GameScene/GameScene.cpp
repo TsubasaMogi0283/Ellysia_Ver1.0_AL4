@@ -133,6 +133,8 @@ void GameScene::Initialize() {
 void GameScene::DebugText() {
 #ifdef _DEBUG
 	ImGui::Begin("Game");
+	ImGui::InputInt("winLoadingTime_", &winLoadingTime_);
+	ImGui::InputInt("loseLoadingTime_", &loseLodingTime_);
 
 	ImGui::End();
 
@@ -375,7 +377,7 @@ void GameScene::CheckAllCollisions() {
 				//自弾の衝突時コールバックを呼び出す
 				player_->OnCollision();
 
-
+				scene_ = Scene::Lose;
 
 
 			}
@@ -463,9 +465,9 @@ void GameScene::PlaySceneUpdate(){
 
 
 	//負け
-	if (player_->GetIsDead() == true && countDown_->GetTime() > 0) {
-		scene_ = Scene::Lose;
-	}
+	//if (player_->GetIsDead() == true && countDown_->GetTime() > 0) {
+	//	scene_ = Scene::Lose;
+	//}
 
 }
 
@@ -579,7 +581,7 @@ void GameScene::Update(GameManager* gameManager) {
 
 	}
 
-	if (loseLodingTime_ > SECOND_ * 3) {
+	if (loseLodingTime_ > SECOND_ * 2) {
 		gameManager->ChangeScene(new LoseScene());
 	}
 	if (winLoadingTime_ > SECOND_ * 2) {

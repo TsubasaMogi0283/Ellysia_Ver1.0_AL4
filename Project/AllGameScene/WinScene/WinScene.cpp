@@ -32,8 +32,10 @@ void WinScene::Initialize(){
 }
 
 void WinScene::ShowImGui(){
+#ifdef _DEBUG
 	ImGui::Begin("Win");
 	ImGui::End();
+#endif
 }
 
 void WinScene::Update(GameManager* gamaManager){

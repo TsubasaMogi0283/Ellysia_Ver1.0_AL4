@@ -47,15 +47,17 @@ void TitleScene::Initialize(){
 }
 
 void TitleScene::DebugText() {
+#ifdef _DEBUG
 	ImGui::Begin("Title");
 
 	ImGui::End();
+#endif
 }
 
 
 void TitleScene::Update(GameManager* gameManager){
 	//デバッグ用
-	DebugText();
+	//DebugText();
 
 	skydome_->Update();
 	playerWorldTransform_.Update();
