@@ -4,31 +4,31 @@
 #include "Matrix4x4.h"
 #include "VectorCalculation.h"
 #include <Collider/CollisionConfig.h>
-
+#include "ImGuiManager.h"
 
 
 Enemy::Enemy(){
 	
 }
 
-void Enemy::Initialize(){
+void Enemy::Initialize(const Vector3& position){
 	model_ = std::make_unique<Model>();
 	model_.reset(Model::Create("Resources/Sample/Enemy", "enemy.obj"));
 
 	worldTransform_.Initialize();
 	worldTransform_.scale_ = { 0.5f,0.5f,0.5f };
 	worldTransform_.rotate_ = { 0.0f,0.0f,0.0f };
-	worldTransform_.translate_ = { 0.0f,0.0f,100.0f };
+	worldTransform_.translate_ = position;
 
 
-	state_ = new EnemyApproach();
-	radius_ = 1.0f;
-	num = state_->GetState();
+	//state_ = new EnemyApproach();
+	radius_ = 0.5f;
+	//num = state_->GetState();
 
 	SetCollisionAttribute(COLLISION_ATTRIBUTE_ENEMY);
 	SetCollisionMask(COLLISION_ATTRIBUTE_PLAYER);
 
-	FireAndReset();
+	//FireAndReset();
 }
 
 void Enemy::Fire() {
@@ -67,13 +67,13 @@ void Enemy::Fire() {
 
 
 void Enemy::ChangeState(IEnemy* newState) {
-	delete state_;
-	this->state_ = newState;
 	
 
 }
 
 void Enemy::OnCollision(){
+	isDead_ = true;
+
 
 }
 
@@ -98,36 +98,33 @@ Vector3 Enemy::GetWorldPosition() {
 }
 
 void Enemy::Update(){
-	ImGui::Begin("aaaa");
-	ImGui::InputInt("satet", &num);
-	ImGui::End();
+	
+
+	worldTransform_.translate_.z -= 0.3f* speedOffset_;
+	//離脱になるまで発射
+	shotTime_ -= 1;
+
+	
+
+	if (shotTime_ == 0) {
+		Fire();
 
 
-	if (state_->GetState() == 0) {
-		//離脱になるまで発射
-		shotTime_ -= 1;
-		if (shotTime_ == 0) {
-			Fire();
-			
-			
-		}
-		//範囲forでリストの全要素について回す
-		for (TimeCall* timedCall : timedCalls_) {
-			timedCall->Update();
-		}
-		
-
-		//デスフラグの立った玉を削除
-		bullets_.remove_if([](EnemyBullet* bullet) {
-			if (bullet->IsDead()) {
-				delete bullet;
-				return true;
-			}
-			return false;
-		});
 	}
+	//範囲forでリストの全要素について回す
+	/*for (TimeCall* timedCall : timedCalls_) {
+		timedCall->Update();
+	}*/
 
 
+	//デスフラグの立った玉を削除
+	/*bullets_.remove_if([](EnemyBullet* bullet) {
+		if (bullet->IsDead()) {
+			delete bullet;
+			return true;
+		}
+		return false;
+	});*/
 
 	//更新
 	/*for (EnemyBullet* bullet : bullets_) {
@@ -139,36 +136,36 @@ void Enemy::Update(){
 
 	//終了したタイマーを削除
 	//リストを削除するなら「remove_if」だよ！
-	timedCalls_.remove_if([](TimeCall* timedCall) {
+	/*timedCalls_.remove_if([](TimeCall* timedCall) {
         if (timedCall->IsFinished()) {
             delete timedCall;
             return true;
         }
         return false;
-    });
+    });*/
 
-	state_->Update(this);
+	//state_->Update(this);
 
 }
 
 void Enemy::Draw(){
-	model_->Draw(worldTransform_);
+	if (isDead_ == false) {
+		model_->Draw(worldTransform_);
+
+	}
+	
+
 	
 	//for (EnemyBullet* bullet : bullets_) {
 	//	bullet->Draw();
 	//}
 
-	//弾も
-	state_->Draw(this);
 }
 
 Enemy::~Enemy(){
 	for (EnemyBullet* bullet : bullets_) {
 		delete bullet;
 	}
-
-	delete state_;
-	
 
 	//timedCall_の解放
 	for (TimeCall* timedCall : timedCalls_) {

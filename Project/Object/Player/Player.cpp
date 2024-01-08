@@ -18,9 +18,9 @@ void Player::Initialize() {
 	worldTransform_.rotate_ = { 0.0f,0.0f,0.0f };
 	worldTransform_.translate_ = { 0.0f,0.0f,0.0f };
 
-	
+	isDead_ = false;
 
-	radius_ = 1.0f;
+	radius_ = 0.8f;
 	input_ = Input::GetInstance();
 
 	SetCollisionAttribute(COLLISION_ATTRIBUTE_PLAYER);
@@ -28,7 +28,7 @@ void Player::Initialize() {
 }
 
 void Player::OnCollision(){
-
+	isDead_ = true;
 }
 
 
@@ -48,18 +48,28 @@ void Player::Rotate() {
 }
 
 void Player::Move() {
+	Vector3 move = { 0.0f,0.0f,0.0f };
+	//左スティック
+	if (Input::GetInstance()->GetJoystickState(joyState_)) {
+		move.x += (float)joyState_.Gamepad.sThumbLX / SHRT_MAX * MOVE_AMOUNT_;
+		move.y += (float)joyState_.Gamepad.sThumbLY / SHRT_MAX * MOVE_AMOUNT_;
+
+	}
+
 	if (input_->IsPushKey(DIK_UP) == true) {
-		worldTransform_.translate_.y += MOVE_AMOUNT_;
+		move.y += MOVE_AMOUNT_;
 	}
 	if (input_->IsPushKey(DIK_DOWN) == true) {
-		worldTransform_.translate_.y -= MOVE_AMOUNT_;
+		move.y -= MOVE_AMOUNT_;
 	}
 	if (input_->IsPushKey(DIK_RIGHT) == true) {
-		worldTransform_.translate_.x += MOVE_AMOUNT_;
+		move.x += MOVE_AMOUNT_;
 	}
 	if (input_->IsPushKey(DIK_LEFT) == true) {
-		worldTransform_.translate_.x -= MOVE_AMOUNT_;
+		move.x -= MOVE_AMOUNT_;
 	}
+
+	worldTransform_.translate_ = Add(worldTransform_.translate_, move);
 
 	const float MOVE_LIMIT_X = 17.0f;
 	const float MOVE_LIMIT_Y = 7.0f;
@@ -76,22 +86,39 @@ void Player::Move() {
 
 
 void Player::Attack() {
-	if (input_->IsTriggerKey(DIK_SPACE)) {
-		
 
-		Vector3 velocity = { 0.0f,0.0f,0.8f };
 
-		
-		//Matrix4x4 worldmatrix = MakeAffineMatrix(transform_.scale, transform_.rotate, transform_.translate);
+	
 
-		//プレイヤーの向きに合わせて回転させる
-		velocity = TransformNormal(velocity,worldTransform_.matWorld_ );
+	if (isEnableAttack_ == true) {
+		if (Input::GetInstance()->GetJoystickState(joyState_)) {
+			if (joyState_.Gamepad.wButtons & XINPUT_GAMEPAD_B) {
+				triggerButtonTime_ += 1;
+			}
+		}
+		if ((joyState_.Gamepad.wButtons & XINPUT_GAMEPAD_B) == 0) {
+			triggerButtonTime_ = 0;
+		}
 
-		PlayerBullet* newBullet = new PlayerBullet();
-		newBullet->Initialize(worldTransform_.translate_,velocity);
-		
-		bullets_.push_back(newBullet);
+		if ((input_->IsTriggerKey(DIK_SPACE))|| triggerButtonTime_ == 1) {
+
+
+			Vector3 velocity = { 0.0f,0.0f,0.8f };
+
+
+			//Matrix4x4 worldmatrix = MakeAffineMatrix(transform_.scale, transform_.rotate, transform_.translate);
+
+			//プレイヤーの向きに合わせて回転させる
+			velocity = TransformNormal(velocity, worldTransform_.matWorld_);
+
+			PlayerBullet* newBullet = new PlayerBullet();
+			newBullet->Initialize(worldTransform_.translate_, velocity);
+
+			bullets_.push_back(newBullet);
+		}
 	}
+
+	
 }
 
 
@@ -111,13 +138,6 @@ Vector3 Player::GetWorldPosition() {
 void Player::Update() {
 
 	model_->SetColor(color_);
-	ImGui::Begin("Model");
-	ImGui::SliderFloat3("Scale", &worldTransform_.scale_.x, 1.0f, 10.0f);
-	ImGui::SliderFloat3("Rotate", &worldTransform_.rotate_.x, 0.0f, 10.0f);
-	ImGui::SliderFloat3("Translate", &worldTransform_.translate_.x, -10.0f, 10.0f);
-	ImGui::SliderFloat4("Color", &color_.x, 0.0f, 1.0f);
-	ImGui::End();
-
 	model_->SetScale(worldTransform_.scale_);
 	model_->SetRotate(worldTransform_.rotate_);
 	model_->SetTranslate(worldTransform_.translate_);
@@ -127,28 +147,40 @@ void Player::Update() {
 
 
 	//デスフラグの立った玉を削除
-	bullets_.remove_if([](PlayerBullet* bullet) {
-		if (bullet->IsDead()) {
-			delete bullet;
-			return true;
+	if (isDead_ == false) {
+		bullets_.remove_if([](PlayerBullet* bullet) {
+			if (bullet->IsDead()) {
+				delete bullet;
+				return true;
+			}
+			return false;
+		});
+
+		if (isEnableMove_ == true) {
+			//Rotate();
+			Move();
 		}
-		return false;
-	});
-
-	Rotate();
-	Move();
-	Attack();
-
-	for (PlayerBullet* bullet : bullets_) {
-		bullet->Update();
+		if (isEnableAttack_ == true) {
+			Attack();
+		}
+		for (PlayerBullet* bullet : bullets_) {
+			bullet->Update();
+		}
 	}
+	
+	
+
+	
 
 }
 
 //描画
 void Player::Draw() {
 	
-	model_->Draw(worldTransform_);
+	if (isDead_ == false) {
+		model_->Draw(worldTransform_);
+
+	}
 	
 	for (PlayerBullet* bullet : bullets_) {
 		bullet->Draw();

@@ -45,15 +45,35 @@ public:
 		return worldTransform_.translate_;
 	}
 	
+	void SetTranslate(Vector3 translate) {
+		this->worldTransform_.translate_ = translate;
+	}
 
-
-	void SetParent(const WorldTransform* parent) {
-		parentedMatrix_ = parent;
+	void SetTranslateZ(float translate) {
+		this->worldTransform_.translate_.z = translate;
 	}
 
 
 	//ワールド座標
 	Vector3 GetWorldPosition()override;
+
+
+	//弾が発射できるかどうかの関数
+
+	void SetIsEnableAttack(bool isEnableAttack) {
+		this->isEnableAttack_ = isEnableAttack;
+	}
+	void SetIsEnableMove(bool isEnableMove) {
+		this->isEnableMove_ = isEnableMove;
+	}
+
+	void SetParent(const WorldTransform* parent) {
+		worldTransform_.parent_ = parent;
+	}
+
+	bool GetIsDead() {
+		return isDead_;
+	}
 
 	//弾リストを取得
 	const std::list<PlayerBullet*> GetBullets()  {
@@ -74,7 +94,6 @@ private:
 
 	std::unique_ptr<Model> model_ = nullptr;
 
-	//Transform transform_ = {};
 	WorldTransform worldTransform_ = {};
 	const float MOVE_AMOUNT_ = 0.1f;
 	const float ROTATE_AMOUNT_ = 0.02f;
@@ -88,6 +107,17 @@ private:
 	std::list<PlayerBullet*>bullets_;
 
 	Vector4 color_ = { 1.0f,1.0f,1.0f,1.0f };
+
+	bool isDead_ = false;
+
+	//弾
+	bool isEnableAttack_ = false;
+	bool isEnableMove_ = false;
+
+
+	//ボタン
+	XINPUT_STATE joyState_;
+	int triggerButtonTime_=0;
 
 };
 

@@ -29,8 +29,16 @@ void SampleScene::Initialize() {
 	for (int i = 0; i < amount_; i++) {
 		enemy_[i] =new Enemy();
 		enemy_[i]->SetPlayer(player_);
-		enemy_[i]->Initialize();
-	
+
+		enemy_[0]->Initialize({0.0f,0.0f,20.0f});
+		enemy_[1]->Initialize({ 0.0f,-1.0f,40.0f });
+		enemy_[2]->Initialize({ 1.0f,2.0f,60.0f });
+		enemy_[3]->Initialize({ 2.0f,1.0f,80.0f });
+		enemy_[4]->Initialize({ 3.0f,-1.0f,100.0f });
+		enemy_[5]->Initialize({ 1.0f,-2.0f,120.0f });
+		
+
+		
 	}
 	
 

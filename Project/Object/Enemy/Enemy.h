@@ -25,7 +25,7 @@ public:
 	Enemy();
 
 	//初期化
-	void Initialize();
+	void Initialize(const Vector3& position);
 	void ChangeState(IEnemy* newState);
 	
 	//コールバック
@@ -68,6 +68,17 @@ public:
 		player_ = player;
 	}
 
+	bool IsDead() {
+		return isDead_;
+	}
+
+	void SetSpeedOffset(float speed) {
+		this->speedOffset_ = speed;
+	}
+
+	void SetPlayerLose(bool isDead) {
+		this->playerLose_ = isDead_;
+	}
 
 	//ワールド座標
 	Vector3 GetWorldPosition()override;
@@ -92,9 +103,8 @@ private:
 
 	float radius_;
 
-	IEnemy* state_ = nullptr;
-
-
+	bool isDead_ = false;
+	int32_t respornTime_ = 0;
 	
 	std::list<EnemyBullet*> bullets_;
 
@@ -109,7 +119,8 @@ private:
 	std::list<TimeCall*> timedCalls_;
 
 
-
+	bool playerLose_ = false;
+	float speedOffset_=1.0f;
 
 	Player* player_ = nullptr;
 

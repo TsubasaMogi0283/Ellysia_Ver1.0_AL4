@@ -11,15 +11,11 @@ public:
 
 	~IEnemy();
 
-	int GetState() {
-		return state_;
-	}
 
 private:
 
 
 
 protected:
-	int state_ = 0;
 };
 
