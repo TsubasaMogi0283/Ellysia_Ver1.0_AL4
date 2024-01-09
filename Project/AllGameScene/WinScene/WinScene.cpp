@@ -21,13 +21,13 @@ void WinScene::Initialize(){
 	text_.reset(Sprite::Create(textTexturehandle, { 0.0f,0.0f }));
 
 	//BGM
-	//bgm_ = Audio::GetInstance();
-	//selectBGMHandle_ = bgm_->LoadWave("Resources/Audio/BGM/Win.wav");
-	//bgm_->PlayWave(selectBGMHandle_, true);
+	bgm_ = Audio::GetInstance();
+	bgmHandle_ = bgm_->LoadWave("Resources/Audio/Result/Win.wav");
+	bgm_->PlayWave(bgmHandle_, true);
 
 	//DecideSE
-	//decideSE_ = Audio::GetInstance();
-	//decideSEHandle_ = decideSE_->LoadWave("Resources/Audio/Deside/Decide.wav");
+	decideSE_ = Audio::GetInstance();
+	decideSEHandle_ = decideSE_->LoadWave("Resources/Audio/Deside/Decide.wav");
 
 }
 
@@ -72,10 +72,10 @@ void WinScene::Update(GameManager* gamaManager){
 		}
 
 		if (Input::GetInstance()->IsTriggerKey(DIK_SPACE) == true || triggerButtonTime == 1) {
-			isFadeOut_ = true;
-			//decideSE_->PlayWave(decideSEHandle_, false);
-			//bgm_->StopWave(selectBGMHandle_);
 			
+			decideSE_->PlayWave(decideSEHandle_, false);
+			bgm_->StopWave(bgmHandle_);
+			isFadeOut_ = true;
 		}
 
 	}

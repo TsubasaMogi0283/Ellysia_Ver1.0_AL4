@@ -51,7 +51,7 @@ private:
 
 	//BGM
 	Audio* bgm_ = nullptr;
-	uint32_t selectBGMHandle_ = 0u;
+	uint32_t bgmHandle_ = 0u;
 	//DecideSE
 	Audio* decideSE_ = nullptr;
 	uint32_t decideSEHandle_ = 0u;

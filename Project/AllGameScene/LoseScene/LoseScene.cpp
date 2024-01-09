@@ -22,13 +22,13 @@ void LoseScene::Initialize(){
 	text_.reset(Sprite::Create(textTexturehandle, { 0.0f,0.0f }));
 
 	//BGM
-	//bgm_ = Audio::GetInstance();
-	//loseBGMHandle_ = bgm_->LoadWave("Resources/Audio/BGM/Lose.wav");
-	//bgm_->PlayWave(loseBGMHandle_, true);
+	bgm_ = Audio::GetInstance();
+	loseBGMHandle_ = bgm_->LoadWave("Resources/Audio/Result/Lose.wav");
+	bgm_->PlayWave(loseBGMHandle_, true);
 
-	////DecideSE
-	//decideSE_ = Audio::GetInstance();
-	//decideSEHandle_ = bgm_->LoadWave("Resources/Audio/Return/Return.wav");
+	//DecideSE
+	decideSE_ = Audio::GetInstance();
+	decideSEHandle_ = bgm_->LoadWave("Resources/Audio/Return/Return.wav");
 
 }
 
@@ -40,6 +40,7 @@ void LoseScene::ShowImGui(){
 
 void LoseScene::Update(GameManager* gamaManager){
 
+	//ShowImGui();
 	back_->SetTransparency(spriteTransparency_);
 
 	if (isFadeOut_ == false) {
@@ -68,8 +69,8 @@ void LoseScene::Update(GameManager* gamaManager){
 		}
 
 		if (Input::GetInstance()->IsTriggerKey(DIK_SPACE) == true || triggerButtonBTime == 1) {
-			//bgm_->StopWave(loseBGMHandle_);
-			//decideSE_->PlayWave(decideSEHandle_, false);
+			bgm_->StopWave(loseBGMHandle_);
+			decideSE_->PlayWave(decideSEHandle_, false);
 			isFadeOut_ = true;
 			
 			

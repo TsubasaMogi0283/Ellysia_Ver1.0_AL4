@@ -496,7 +496,7 @@ void GameScene::LoseSceneUpdate() {
 	if (blackTransparency_ > 1.0f) {
 		blackTransparency_ = 1.0f;
 		loseLodingTime_ += 1;
-
+		isLose_ = true;
 
 	}
 
@@ -531,6 +531,7 @@ void GameScene::WinSceneUpdate() {
 			whiteTransparency_ = 1.0f;
 			winLoadingTime_ += 1;
 			//finishDisplayTime_ += 1;
+			isWin_ = true;
 		}
 
 	}
@@ -581,10 +582,10 @@ void GameScene::Update(GameManager* gameManager) {
 
 	}
 
-	if (loseLodingTime_ > SECOND_ * 2) {
+	if (loseLodingTime_ > SECOND_ * 2 && isLose_==true) {
 		gameManager->ChangeScene(new LoseScene());
 	}
-	if (winLoadingTime_ > SECOND_ * 2) {
+	if (winLoadingTime_ > SECOND_ * 2 && isWin_==true) {
 		gameManager->ChangeScene(new WinScene());
 	}
 

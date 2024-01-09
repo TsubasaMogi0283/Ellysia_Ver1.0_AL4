@@ -189,6 +189,7 @@ private:
 	float theta_ = 0.0f;
 
 	int loseLodingTime_ = 0;
+	bool isLose_ = false;
 
 #pragma endregion
 
@@ -196,7 +197,7 @@ private:
 #pragma region 勝ち
 	int finishDisplayTime_ = 0;
 	int winLoadingTime_ = 0;
-
+	bool isWin_ = false;
 	std::unique_ptr<Sprite> finish_ = nullptr;
 
 #pragma endregion

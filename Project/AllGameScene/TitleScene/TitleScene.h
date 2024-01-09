@@ -6,7 +6,7 @@
 #include "SpritePosition.h"
 #include "Transform.h"
 #include "Model.h"
-
+#include "Audio.h"
 
 #include <memory>
 
@@ -70,6 +70,13 @@ private:
 	//ボタン
 	XINPUT_STATE joyState_;
 	int triggerButtonTime_ = 0;
+
+	//BGM
+	Audio* bgm_ = nullptr;
+	uint32_t bgmHandle_ = 0u;
+	//DecideSE
+	Audio* decideSE_ = nullptr;
+	uint32_t seHandle_ = 0u;
 
 };
 

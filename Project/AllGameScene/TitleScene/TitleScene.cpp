@@ -44,6 +44,16 @@ void TitleScene::Initialize(){
 	Camera::GetInstance()->SetTranslate(cameraTranslate_);
 	Camera::GetInstance()->SetRotate(cameraRotate_);
 
+	//BGM
+	bgm_ = Audio::GetInstance();
+	bgmHandle_ = bgm_->LoadWave("Resources/Audio/Title/Music/Title.wav");
+	bgm_->PlayWave(bgmHandle_, true);
+
+	//DecideSE
+	decideSE_ = Audio::GetInstance();
+	seHandle_ = decideSE_->LoadWave("Resources/Audio/Title/Music/StartSE.wav");
+
+
 }
 
 void TitleScene::DebugText() {
@@ -75,10 +85,12 @@ void TitleScene::Update(GameManager* gameManager){
 		triggerButtonTime_ = 0;
 	}
 
-
+	//スペースかBボタンでスタート
 	if ((Input::GetInstance()->IsTriggerKey(DIK_SPACE) == true)|| triggerButtonTime_ == 1) {
+		
+		decideSE_->PlayWave(seHandle_, false);
+		bgm_->StopWave(bgmHandle_);
 		isStart_ = true;
-		//gameManager->ChangeScene(new GameScene());
 	}
 
 	if (isStart_ == true) {
