@@ -61,16 +61,16 @@ void Player::Move() {
 
 	}
 
-	if (input_->IsPushKey(DIK_UP) == true) {
+	if ((input_->IsPushKey(DIK_UP) == true)|| (input_->IsPushKey(DIK_W) == true)) {
 		move.y += MOVE_AMOUNT_;
 	}
-	if (input_->IsPushKey(DIK_DOWN) == true) {
+	if ((input_->IsPushKey(DIK_DOWN) == true)|| (input_->IsPushKey(DIK_S) == true)) {
 		move.y -= MOVE_AMOUNT_;
 	}
-	if (input_->IsPushKey(DIK_RIGHT) == true) {
+	if ((input_->IsPushKey(DIK_RIGHT) == true)|| (input_->IsPushKey(DIK_D) == true)) {
 		move.x += MOVE_AMOUNT_;
 	}
-	if (input_->IsPushKey(DIK_LEFT) == true) {
+	if ((input_->IsPushKey(DIK_LEFT) == true)|| (input_->IsPushKey(DIK_A) == true)) {
 		move.x -= MOVE_AMOUNT_;
 	}
 

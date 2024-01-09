@@ -12,7 +12,7 @@ Ellysia::Ellysia() {
 
 void Ellysia::Initialize(){
 	//ここでタイトルバーの名前を決めてね
-	const wchar_t* titleBarName = L"Ellysia";
+	const wchar_t* titleBarName = L"LE2B_20_モギ_ツバサ_ニンジャ・イズ・アライブ!!";
 
 	//初期化
 	//ウィンドウ
