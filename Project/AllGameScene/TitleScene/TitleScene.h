@@ -14,8 +14,6 @@
 #include "Input.h"
 #include "Skydome/Skydome.h"
 #include "WorldTransform.h"
-#include "Enemy/Particle/EnemyParticle.h"
-#include "Particle3D.h"
 //StatePatternを使う時は必ず前方宣言をするように
 class Gamemanager;
 
@@ -73,6 +71,11 @@ private:
 	Sprite* titleLogoSprite_ = nullptr;
 	uint32_t titleLogoTexture = 0u;
 
+	//スタート
+	Sprite* start_ = nullptr;
+	uint32_t startHandle_ = 0u;
+	int flashTime_ = 0;
+	int fastFlashTime_ = 0;
 	//ボタン
 	XINPUT_STATE joyState_;
 	int triggerButtonTime_ = 0;
@@ -85,9 +88,6 @@ private:
 	uint32_t seHandle_ = 0u;
 
 
-	std::unique_ptr<Particle3D> model_ = nullptr;
-
-	uint32_t particleTextureHandle_=0u;
 	float initialCamerTranslate_ = 0.0f;
 };
 
