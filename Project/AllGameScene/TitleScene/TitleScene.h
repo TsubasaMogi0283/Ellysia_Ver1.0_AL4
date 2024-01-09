@@ -9,6 +9,7 @@
 #include "Audio.h"
 
 #include <memory>
+#include <cmath>
 
 #include "Input.h"
 #include "Skydome/Skydome.h"
@@ -55,12 +56,15 @@ private:
 	Vector3 cameraTranslate_ = {};
 	Vector3 cameraRotate_ = {};
 
+	//カメラ
+	float theta_ = 0.0f;
 
 
-	float transparency_ = 0.0f;
+	float transparency_ = 1.0f;
 	int32_t loadingTime_ = 0;
 	std::unique_ptr<Sprite> blackSprite_ = nullptr;
 
+	bool isFadeIn_ = false;
 	bool isStart_ = false;
 
 	//タイトル
@@ -78,5 +82,7 @@ private:
 	Audio* decideSE_ = nullptr;
 	uint32_t seHandle_ = 0u;
 
+
+	float initialCamerTranslate_ = 0.0f;
 };
 

@@ -48,7 +48,7 @@ void PlayerBullet::Update(){
 	model_->SetColor(color_);
 
 	worldTransform_.translate_ = Add(worldTransform_.translate_, velocity_);
-	worldTransform_.rotate_.y += 0.05f;
+	worldTransform_.rotate_.y += 0.2f;
 
 	worldTransform_.Update();
 

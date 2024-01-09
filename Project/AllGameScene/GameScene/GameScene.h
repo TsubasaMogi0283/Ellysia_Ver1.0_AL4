@@ -5,6 +5,7 @@
 #include "SpritePosition.h"
 #include "Transform.h"
 #include "Model.h"
+#include "Audio.h"
 
 #include <memory>
 #include <list>
@@ -16,6 +17,7 @@
 #include "Enemy/Enemy.h"
 #include "Collider/CollisionManager.h"
 #include <CountDown/CountDown.h>
+#include "Audio/IGameSceneAudio.h"
 
 class GameManager;
 
@@ -28,6 +30,13 @@ public:
 
 	/// 初期化
 	void Initialize()override;
+
+	//シーンチェンジ
+	void ChangeScene(IGameSceneAudio* newGameScene);
+	//シーンのナンバーを取得
+	int GetSceneNo() {
+		return sceneNo_;
+	}
 
 	/// 更新
 	void Update(GameManager* gameManager)override;
@@ -105,10 +114,12 @@ private:
 	};
 
 	Scene scene_ = Scene();
-
+	int sceneNo_ = 0;
 	//BlackOut
 	std::unique_ptr<Sprite> black_ = nullptr;
-	float blackTransparency_ = 0.0f;
+	float blackTransparency_ = 1.0f;
+
+	bool isFadeIn_ = true;
 
 	//WhiteOut
 	std::unique_ptr<Sprite> white_ = nullptr;
@@ -138,6 +149,11 @@ private:
 	//Enemy* enemy_ = nullptr;
 	Enemy* enemy_[amount_] = { nullptr };
 
+
+	//Audio
+	IGameSceneAudio* currentGamaSceneAudio_ = nullptr;
+
+
 #pragma region 説明
 	static const int EXPLANATION_NUMBER_ = 2;
 	std::unique_ptr<Sprite> explamnationSprite[EXPLANATION_NUMBER_] = { nullptr };
@@ -154,6 +170,14 @@ private:
 	
 	int32_t displayNumber_ = 3;
 	int32_t countDownTime_ = displayNumber_*SECOND_;
+
+
+	Audio* countSE_ = nullptr;
+	uint32_t countSEHandle_ = 0u;
+
+	Audio* startSE_ = nullptr;
+	uint32_t startSEHandle_ = 0u;
+
 #pragma endregion
 
 
@@ -177,8 +201,9 @@ private:
 	//カウントダウン
 	std::unique_ptr<CountDown> countDown_ = nullptr;
 
-
-
+	Audio* killSE_ = nullptr;
+	uint32_t killSEHandle_ = 0u;
+	int killTime_ = 0;
 
 
 #pragma endregion
@@ -191,6 +216,11 @@ private:
 	int loseLodingTime_ = 0;
 	bool isLose_ = false;
 
+	//DecideSE
+	Audio* damageSE_ = nullptr;
+	uint32_t damageSEHandle_ = 0u;
+	int damageTime_ = 0;
+
 #pragma endregion
 
 
@@ -199,6 +229,14 @@ private:
 	int winLoadingTime_ = 0;
 	bool isWin_ = false;
 	std::unique_ptr<Sprite> finish_ = nullptr;
+
+	Audio* finishSE_ = nullptr;
+	uint32_t finishSEHandle_ = 0u;
+
+	//DecideSE
+	Audio* clearSE_ = nullptr;
+	uint32_t clearSEHandle_ = 0u;
+	int clearTime_ = 0;
 
 #pragma endregion
 

@@ -4,11 +4,12 @@
 #include "SampleScene/SampleScene.h"
 #include "GameScene/GameScene.h"
 #include "Input.h"
+#include <numbers>
 TitleScene::TitleScene(){
 
 }
 
-void TitleScene::Initialize(){
+void TitleScene::Initialize() {
 	playerModel_ = std::unique_ptr<Model>();
 	playerModel_.reset(Model::Create("Resources/Sample/Player", "playre.obj"));
 
@@ -39,7 +40,8 @@ void TitleScene::Initialize(){
 	// スプライトの生成
 	titleLogoSprite_ = Sprite::Create(titleLogoTexture, { 0.0f, 0.0f });
 
-	cameraTranslate_ = {0.0f,0.0f,-30.0f};
+	cameraTranslate_ = { 0.0f,0.0f,-30.0f };
+	cameraTranslate_ = { 0.0f,0.0f,0.0f };
 	cameraRotate_ = {0.0f,0.0f,0.0f};
 	Camera::GetInstance()->SetTranslate(cameraTranslate_);
 	Camera::GetInstance()->SetRotate(cameraRotate_);
@@ -53,13 +55,13 @@ void TitleScene::Initialize(){
 	decideSE_ = Audio::GetInstance();
 	seHandle_ = decideSE_->LoadWave("Resources/Audio/Title/Music/StartSE.wav");
 
-
+	isFadeIn_ = true;
 }
 
 void TitleScene::DebugText() {
 #ifdef _DEBUG
 	ImGui::Begin("Title");
-
+	ImGui::SliderFloat("initialCamerTranslate_", &initialCamerTranslate_, -20.0f, 20.0);
 	ImGui::End();
 #endif
 }
@@ -67,34 +69,62 @@ void TitleScene::DebugText() {
 
 void TitleScene::Update(GameManager* gameManager){
 	//デバッグ用
-	//DebugText();
-
+	DebugText();
 	skydome_->Update();
 	playerWorldTransform_.Update();
 
-
 	blackSprite_->SetTransparency(transparency_);
-	
 
-	if (Input::GetInstance()->GetJoystickState(joyState_)) {
-		if (joyState_.Gamepad.wButtons & XINPUT_GAMEPAD_B) {
-			triggerButtonTime_ += 1;
+	const float RADIUS = 30.0f;
+
+	theta_ = 0.001f;
+	cameraTranslate_.z = RADIUS*std::sinf(theta_)+ initialCamerTranslate_;
+	cameraTranslate_.x = RADIUS*std::cosf(theta_);
+	const float INITIAL_CAMERA_ROTATE = float(std::numbers::pi) / 2.0f;
+	cameraRotate_.y = -theta_;
+	
+	Camera::GetInstance()->SetTranslate(cameraTranslate_);
+	Camera::GetInstance()->SetRotate(cameraRotate_);
+
+	const float TRANSPARENCY_INTERVAL = 0.05f;
+
+	if (isFadeIn_ == true) {
+		transparency_ -= TRANSPARENCY_INTERVAL;
+
+		if (transparency_ < 0.0f) {
+			isFadeIn_ = false;
 		}
 	}
-	if ((joyState_.Gamepad.wButtons & XINPUT_GAMEPAD_B) == 0) {
-		triggerButtonTime_ = 0;
-	}
 
-	//スペースかBボタンでスタート
-	if ((Input::GetInstance()->IsTriggerKey(DIK_SPACE) == true)|| triggerButtonTime_ == 1) {
-		
-		decideSE_->PlayWave(seHandle_, false);
-		bgm_->StopWave(bgmHandle_);
-		isStart_ = true;
+
+	
+	
+	if (isFadeIn_ == false&& isStart_ == false) {
+		if (Input::GetInstance()->GetJoystickState(joyState_)) {
+			if (joyState_.Gamepad.wButtons & XINPUT_GAMEPAD_B) {
+				triggerButtonTime_ += 1;
+			}
+		}
+		if ((joyState_.Gamepad.wButtons & XINPUT_GAMEPAD_B) == 0) {
+			triggerButtonTime_ = 0;
+		}
+
+
+
+
+
+		//スペースかBボタンでスタート
+		if ((Input::GetInstance()->IsTriggerKey(DIK_SPACE) == true) || triggerButtonTime_ == 1) {
+
+			decideSE_->PlayWave(seHandle_, false);
+			bgm_->StopWave(bgmHandle_);
+			isStart_ = true;
+		}
 	}
+	
 
 	if (isStart_ == true) {
-		const float TRANSPARENCY_INTERVAL = 0.05f;
+		
 		transparency_ += TRANSPARENCY_INTERVAL;
 
 		if (transparency_ > 1.0f) {

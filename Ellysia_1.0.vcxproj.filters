@@ -184,14 +184,20 @@
       <Filter>Project\Scene\Game\GameStage1</Filter>
     </ClCompile>
     <ClCompile Include="Project\AllGameScene\GameScene\GameScene1\Ready\GameScene1Ready.cpp" />
-    <ClCompile Include="Project\Object\CountDown\CountDown.cpp">
-      <Filter>Project\Object</Filter>
-    </ClCompile>
     <ClCompile Include="Project\AllGameScene\WinScene\WinScene.cpp">
       <Filter>Project\Scene\Win</Filter>
     </ClCompile>
     <ClCompile Include="Project\AllGameScene\LoseScene\LoseScene.cpp">
       <Filter>Project\Scene\lose</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Object\CountDown\CountDown.cpp">
+      <Filter>Project\Object\CountDown</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\AllGameScene\GameScene\Audio\Explanation\ExplanationSceneAudio.cpp">
+      <Filter>Project\Scene\Game\Audio\Explanation</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\AllGameScene\GameScene\Audio\Play\PlaySceneAudio.cpp">
+      <Filter>Project\Scene\Game\Audio\Play</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -412,14 +418,23 @@
       <Filter>Project\Scene\Game\GameStage1\IGameScene1</Filter>
     </ClInclude>
     <ClInclude Include="Project\AllGameScene\GameScene\GameScene1\Ready\GameScene1Ready.h" />
-    <ClInclude Include="Project\Object\CountDown\CountDown.h">
-      <Filter>Project\Object</Filter>
-    </ClInclude>
     <ClInclude Include="Project\AllGameScene\WinScene\WinScene.h">
       <Filter>Project\Scene\Win</Filter>
     </ClInclude>
     <ClInclude Include="Project\AllGameScene\LoseScene\LoseScene.h">
       <Filter>Project\Scene\lose</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Object\CountDown\CountDown.h">
+      <Filter>Project\Object\CountDown</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\AllGameScene\GameScene\Audio\IGameSceneAudio.h">
+      <Filter>Project\Scene\Game\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\AllGameScene\GameScene\Audio\Explanation\ExplanationSceneAudio.h">
+      <Filter>Project\Scene\Game\Audio\Explanation</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\AllGameScene\GameScene\Audio\Play\PlaySceneAudio.h">
+      <Filter>Project\Scene\Game\Audio\Play</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -613,6 +628,18 @@
     </Filter>
     <Filter Include="Project\Scene\lose">
       <UniqueIdentifier>{46ce1d14-59a2-4d9a-a5f7-3ca61b48479e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project\Object\CountDown">
+      <UniqueIdentifier>{c744dc07-c797-48f6-a6fd-dcb46b653f32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project\Scene\Game\Audio">
+      <UniqueIdentifier>{a40db44a-aa50-43b3-86dc-d837999985ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project\Scene\Game\Audio\Explanation">
+      <UniqueIdentifier>{d13ce3b9-7aac-42df-9d13-3906c324fddd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project\Scene\Game\Audio\Play">
+      <UniqueIdentifier>{a087c784-8c02-43cc-b59c-7e0dc46e0253}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
