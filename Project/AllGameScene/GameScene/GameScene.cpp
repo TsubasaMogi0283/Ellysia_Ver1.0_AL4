@@ -13,6 +13,8 @@
 #include <cmath>
 #include <fstream>
 
+#include "Explanation/ExplanationSceneAudio.h"
+
 GameScene::GameScene() {
 
 }
@@ -23,7 +25,7 @@ void GameScene::ExplanationSceneInitialize() {
 	for (int i = 0; i < EXPLANATION_NUMBER_; i++) {
 		explamnationSprite[i].reset(Sprite::Create(explanationTextureHandle_[i], {0.0f,0.0f}));
 	}
-
+	isFadeIn_ = true;
 	explanationTextureNumber_ = 1;
 	
 }
@@ -52,6 +54,13 @@ void GameScene::PlaySceneInitialize() {
 	countDown_->Initialize();
 
 
+	damageSE_ = Audio::GetInstance();
+	damageSEHandle_ = damageSE_->LoadWave("Resources/Audio/Action/Damege.wav");
+
+
+	killSE_ = Audio::GetInstance();
+	killSEHandle_ = killSE_->LoadWave("Resources/Audio/Action/Kill.wav");
+	
 }
 
 void GameScene::Initialize() {
@@ -122,6 +131,37 @@ void GameScene::Initialize() {
 	Camera::GetInstance()->SetTranslate(cameraTranslate_);
 	Camera::GetInstance()->SetRotate(cameraRotate_);
 
+#pragma region Audio
+	sceneNo_ = 0;
+
+	currentGamaSceneAudio_ = new ExplanationSceneAudio();
+	//今は言っているシーンが引数
+	currentGamaSceneAudio_->Initialize();
+
+
+
+
+
+	//カウント
+	countSE_ = Audio::GetInstance();
+	countSEHandle_ = countSE_->LoadWave("Resources/Audio/Ready/Count.wav");
+
+	//開始
+	startSE_ = Audio::GetInstance();
+	startSEHandle_ = startSE_->LoadWave("Resources/Audio/Ready/Start.wav");
+
+
+	//Finish
+	finishSE_ = Audio::GetInstance();
+	finishSEHandle_ = finishSE_->LoadWave("Resources/Audio/Finish/Finish.wav");
+	
+	clearSE_ = Audio::GetInstance();
+	clearSEHandle_ = clearSE_->LoadWave("Resources/Audio/Result/Clear.wav");
+	
+
+
+#pragma endregion
+
 	//説明
 	ExplanationSceneInitialize();
 	//カウントダウン
@@ -130,11 +170,18 @@ void GameScene::Initialize() {
 	PlaySceneInitialize();
 }
 
+void GameScene::ChangeScene(IGameSceneAudio* newGameScene){
+	//一度消してから次のシーンにいく
+	delete currentGamaSceneAudio_;
+	currentGamaSceneAudio_ = newGameScene;
+	//今は言っているシーンが引数
+	currentGamaSceneAudio_->Initialize();
+}
+
 void GameScene::DebugText() {
 #ifdef _DEBUG
 	ImGui::Begin("Game");
-	ImGui::InputInt("winLoadingTime_", &winLoadingTime_);
-	ImGui::InputInt("loseLoadingTime_", &loseLodingTime_);
+	ImGui::InputInt("sceneNo_", &sceneNo_);
 
 	ImGui::End();
 
@@ -144,13 +191,25 @@ void GameScene::DebugText() {
 
 #pragma region Update用
 void GameScene::ExplanationSceneUpdate(){
+	if (isFadeIn_ == true) {
+		blackTransparency_ -= 0.01f;
+		if (blackTransparency_ < 0.0f) {
+			blackTransparency_ = 0.0f;
+			isFadeIn_ = false;
+		}
 
-
-	if (Input::GetInstance()->IsTriggerKey(DIK_SPACE) == true) {
-		explanationTextureNumber_++;
 	}
+	black_->SetTransparency(blackTransparency_);
+
+	if (isFadeIn_ == false) {
+		if (Input::GetInstance()->IsTriggerKey(DIK_SPACE) == true) {
+			explanationTextureNumber_++;
+		}
+	}
+	
 
 	if (explanationTextureNumber_ >= 3) {
+		sceneNo_ = 1;
 		scene_ = Scene::Ready;
 	}
 	
@@ -162,18 +221,36 @@ void GameScene::ReadySceneUpdate(){
 	countDownTime_ -= 1;
 	
 	if (countDownTime_ < SECOND_*3 && countDownTime_ >= SECOND_ * 2) {
+		//カウント
+		if (countDownTime_ == (SECOND_ * 3) - 1) {
+			countSE_->PlayWave(countSEHandle_, false);
+		}
+
 		displayNumber_ = 3;
 	}
 	if (countDownTime_ < SECOND_ * 2 && countDownTime_ >= SECOND_ * 1) {
+		if (countDownTime_ == (SECOND_ * 2) - 1) {
+			countSE_->PlayWave(countSEHandle_, false);
+		}
 		displayNumber_ = 2;
 	}
 	if (countDownTime_ < SECOND_ * 1 && countDownTime_ >= SECOND_ * 0) {
+		if (countDownTime_ == (SECOND_ * 1) - 1) {
+			countSE_->PlayWave(countSEHandle_, false);
+		}
 		displayNumber_ = 1;
 	}
 	if (countDownTime_ < SECOND_ * 0 && countDownTime_ >= SECOND_ * -1) {
+		//開始
+		if (countDownTime_ == (SECOND_ * 0) - 1) {
+			startSE_->PlayWave(startSEHandle_, false);
+		}
+		
 		displayNumber_ = 0;
 	}
 	if (countDownTime_ < SECOND_ * -1) {
+		
+		sceneNo_ = 2;
 		scene_ = Scene::Play;
 	}
 	
@@ -193,101 +270,6 @@ void GameScene::GenerateEnemy(Vector3 position) {
 	//
 	//enemyes_.push_back(enemy_);
 }
-
-
-////敵発生データの読み込み
-//void GameScene::LoadEnemyPopData() {
-//	////ファイルを開く
-//	std::ifstream file;
-//
-//	file.open("Resources/enemyPop.csv");
-//	assert(file.is_open());
-//
-//	//ファイルの内容を文字列ストリームにコピー
-//	//enemyPopCommands_ << file.rdbuf();
-//
-//	//ファイルを閉じる
-//	file.close();
-//}
-//
-////敵発生コマンドの更新
-//void GameScene::UpdateEnemyPopCommands() {
-//
-//
-//	//待機処理
-//	if (isWait_ == true) {
-//		waitingTimer_--;
-//		if (waitingTimer_ <= 0) {
-//			//待機完了
-//			isWait_ = false;
-//		}
-//	}
-//
-//
-//
-//	//1行分の文字列を入れる変数
-//	std::string line;
-//
-//	//コマンド実行ループ
-//	while (getline(enemyPopCommands_, line)) {
-//		//1行分の文字列をストリームに変呼応して解析しやすくする
-//		std::istringstream line_stream(line);
-//
-//		std::string word;
-//		//「,」区切りの先頭文字列を取得
-//		getline(line_stream, word, ',');
-//
-//
-//		//"//"から始まる行はコメント
-//		if (word.find("//") == 0) {
-//			//コメント行を飛ばす
-//			continue;
-//		}
-//
-//		//POPコマンド
-//		if (word.find("POP") == 0) {
-//			//x座標
-//			getline(line_stream, word, ',');
-//			float x = (float)std::atof(word.c_str());
-//
-//			//y座標
-//			getline(line_stream, word, ',');
-//			float y = (float)std::atof(word.c_str());
-//
-//			//z座標
-//			getline(line_stream, word, ',');
-//			float z = (float)std::atof(word.c_str());
-//
-//			//敵を発生させる
-//			GenerateEnemy({ x,y,z });
-//
-//		}
-//		else if (word.find("WAIT") == 0) {
-//			getline(line_stream, word, ',');
-//
-//			//待ち時間
-//			int32_t waitTime = atoi(word.c_str());
-//
-//			//待機開始
-//			isWait_ = true;
-//			//待機タイマー
-//			waitingTimer_ = waitTime;
-//
-//
-//
-//			//コマンドループを抜ける
-//			break;
-//
-//
-//		}
-//
-//
-//	}
-//
-//
-//
-//}
-
 
 
 
@@ -333,7 +315,6 @@ void GameScene::CheckAllCollisions() {
 	//		//colliders.push_back(bullet);
 	//		collisionManager_->RegisterList(bullet);
 	//	}
-
 	//	collisionManager_->CheckAllCollision();
 	//}
 
@@ -350,8 +331,6 @@ void GameScene::CheckAllCollisions() {
 	Vector3 posD={};
 	//自弾リストの取得
 	const std::list<PlayerBullet*>& playerBullets = player_->GetBullets();
-	//敵弾リストの取得
-	//const std::list<EnemyBullet*>& enemyBullets = enemy_->GetBullets();
 
 #pragma region プレイヤーと敵の当たり判定
 	for (int i = 0; i < amount_; i++) {
@@ -376,7 +355,12 @@ void GameScene::CheckAllCollisions() {
 
 				//自弾の衝突時コールバックを呼び出す
 				player_->OnCollision();
+				damageTime_ += 1;
+				if (damageTime_ == 1) {
+					damageSE_->PlayWave(damageSEHandle_, false);
 
+				}
+				sceneNo_ = 4;
 				scene_ = Scene::Lose;
 
 
@@ -390,7 +374,7 @@ void GameScene::CheckAllCollisions() {
 
 #pragma region 自弾と敵キャラの当たり判定
 	
-			//敵キャラの位置
+	//敵キャラの位置
 	
 	for (int i = 0; i < amount_; i++) {
 		if (enemy_[i]->IsDead() == false) {
@@ -412,7 +396,21 @@ void GameScene::CheckAllCollisions() {
 					//敵キャラの衝突時コールバックを呼び出す
 					enemy_[i]->OnCollision();
 
+					//Particle3D* particle = new Particle3D();
 
+
+					killTime_ += 1;
+					if (killTime_ == 1) {
+						//パーティクルを描画
+						//EnemyParticle* particle3D = new EnemyParticle();
+						//particle3D->Initialize(enemy_[i]->GetWorldPosition());
+						//particle3D_.push_back(particle3D);
+
+
+						killSE_->PlayWave(killSEHandle_, false);
+						killSE_->ChangeVolume(killSEHandle_, 0.6f);
+						killTime_ = 0;
+					}
 
 					//自弾の衝突時コールバックを呼び出す
 					playerBullet->OnCollision();
@@ -426,8 +424,10 @@ void GameScene::CheckAllCollisions() {
 		}
 	}
 
+	
 
 #pragma endregion
+
 }
 
 
@@ -438,20 +438,17 @@ void GameScene::PlaySceneUpdate(){
 
 	countDown_->Update();
 
-	//UpdateEnemyPopCommands();
 	CheckAllCollisions();
-	//for (Enemy* enemy : enemyes_) {
-	//	enemy->Update();
-	//}
 	for (int i = 0; i < amount_; i++) {
 		enemy_[i]->Update();
 
 	}
-
-
-	/*enemyes_.remove_if([](Enemy* enemy) {
-		if (enemy->IsDead()) {
-			delete enemy;
+	/*for (EnemyParticle* particle : particle3D_) {
+		particle->Update();
+	}
+	particle3D_.remove_if([](EnemyParticle* particle) {
+		if (particle->IsDead()) {
+			delete particle;
 			return true;
 		}
 		return false;
@@ -460,22 +457,15 @@ void GameScene::PlaySceneUpdate(){
 
 	//勝ち
 	if (countDown_->GetTime() < 0) {
+		sceneNo_ = 3;
 		scene_ = Scene::Win;
 	}
-
-
-	//負け
-	//if (player_->GetIsDead() == true && countDown_->GetTime() > 0) {
-	//	scene_ = Scene::Lose;
-	//}
-
 }
 
 void GameScene::LoseSceneUpdate() {
 
 #ifdef _DEBUG
 	ImGui::Begin("Lose");
-
 	ImGui::End();
 
 #endif
@@ -496,7 +486,7 @@ void GameScene::LoseSceneUpdate() {
 	if (blackTransparency_ > 1.0f) {
 		blackTransparency_ = 1.0f;
 		loseLodingTime_ += 1;
-
+		isLose_ = true;
 
 	}
 
@@ -505,10 +495,10 @@ void GameScene::LoseSceneUpdate() {
 void GameScene::WinSceneUpdate() {
 #ifdef _DEBUG
 	ImGui::Begin("Win");
-
 	ImGui::End();
 
 #endif
+
 	for (int i = 0; i < amount_; i++) {
 		enemy_[i]->SetSpeedOffset(0.0f);
 	}
@@ -518,10 +508,20 @@ void GameScene::WinSceneUpdate() {
 
 
 	finishDisplayTime_ += 1;
-
+	if (finishDisplayTime_ == 1) {
+		finishSE_->PlayWave(finishSEHandle_,false);
+	}
 
 
 	if (finishDisplayTime_ > SECOND_ * 2) {
+
+		clearTime_ += 1;
+		if (clearTime_ == 1) {
+			clearSE_->PlayWave(clearSEHandle_, false);
+		}
+		
+		
+
 		whiteTransparency_ += 0.005f;
 		cameraVelocity_ += cameraAccel_;
 		
@@ -531,6 +531,7 @@ void GameScene::WinSceneUpdate() {
 			whiteTransparency_ = 1.0f;
 			winLoadingTime_ += 1;
 			//finishDisplayTime_ += 1;
+			isWin_ = true;
 		}
 
 	}
@@ -551,7 +552,10 @@ void GameScene::Update(GameManager* gameManager) {
 	player_->Update();
 	Camera::GetInstance()->SetTranslate(cameraTranslate_);
 
+	//Audioのステートパターン
+	currentGamaSceneAudio_->Update(this);
 
+	//これからゲームシーンからさらに分ける時はswitchでやった方が良いかなと思った。
 	switch (scene_) {
 	case Scene::Explanation:
 	default:
@@ -581,10 +585,10 @@ void GameScene::Update(GameManager* gameManager) {
 
 	}
 
-	if (loseLodingTime_ > SECOND_ * 2) {
+	if (loseLodingTime_ > SECOND_ * 2 && isLose_==true) {
 		gameManager->ChangeScene(new LoseScene());
 	}
-	if (winLoadingTime_ > SECOND_ * 2) {
+	if (winLoadingTime_ > SECOND_ * 2 && isWin_==true) {
 		gameManager->ChangeScene(new WinScene());
 	}
 
@@ -617,6 +621,9 @@ void GameScene::PlaySceneDraw(){
 	for (int i = 0; i < amount_; i++) {
 		enemy_[i]->Draw();
 	}
+	/*for (EnemyParticle* particle : particle3D_) {
+		particle->Draw();
+	}*/
 
 }
 
@@ -680,5 +687,7 @@ GameScene::~GameScene() {
 	for (int i = 0; i < amount_; i++) {
 		delete enemy_[i];
 	}
-
+	for (EnemyParticle* particle : particle3D_) {
+		delete particle;
+	}
 }

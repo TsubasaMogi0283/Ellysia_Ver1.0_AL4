@@ -5,6 +5,7 @@
 #include "VectorCalculation.h"
 #include <Collider/CollisionConfig.h>
 #include "ImGuiManager.h"
+#include <Particle3D.h>
 
 
 Enemy::Enemy(){
@@ -73,6 +74,9 @@ void Enemy::ChangeState(IEnemy* newState) {
 
 void Enemy::OnCollision(){
 	isDead_ = true;
+
+	
+
 
 
 }

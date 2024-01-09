@@ -8,7 +8,7 @@
 #include <list>
 #include "Collider/Collider.h"
 #include "WorldTransform.h"
-
+#include "Audio.h"
 
 //Colliderを継承
 class Player:public Collider{
@@ -118,6 +118,11 @@ private:
 	//ボタン
 	XINPUT_STATE joyState_;
 	int triggerButtonTime_=0;
+
+
+	//DecideSE
+	Audio* attackSE_ = nullptr;
+	uint32_t attackSEHandle_ = 0u;
 
 };
 
