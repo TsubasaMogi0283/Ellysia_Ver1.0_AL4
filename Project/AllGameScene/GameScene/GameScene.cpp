@@ -14,7 +14,6 @@
 #include <fstream>
 
 #include "Explanation/ExplanationSceneAudio.h"
-#include <Particle3D.h>
 
 GameScene::GameScene() {
 
@@ -402,6 +401,12 @@ void GameScene::CheckAllCollisions() {
 
 					killTime_ += 1;
 					if (killTime_ == 1) {
+						//パーティクルを描画
+						//EnemyParticle* particle3D = new EnemyParticle();
+						//particle3D->Initialize(enemy_[i]->GetWorldPosition());
+						//particle3D_.push_back(particle3D);
+
+
 						killSE_->PlayWave(killSEHandle_, false);
 						killSE_->ChangeVolume(killSEHandle_, 0.6f);
 						killTime_ = 0;
@@ -419,6 +424,7 @@ void GameScene::CheckAllCollisions() {
 		}
 	}
 
+	
 
 #pragma endregion
 
@@ -437,6 +443,17 @@ void GameScene::PlaySceneUpdate(){
 		enemy_[i]->Update();
 
 	}
+	/*for (EnemyParticle* particle : particle3D_) {
+		particle->Update();
+	}
+	particle3D_.remove_if([](EnemyParticle* particle) {
+		if (particle->IsDead()) {
+			delete particle;
+			return true;
+		}
+		return false;
+	});*/
+	
 
 	//勝ち
 	if (countDown_->GetTime() < 0) {
@@ -604,6 +621,9 @@ void GameScene::PlaySceneDraw(){
 	for (int i = 0; i < amount_; i++) {
 		enemy_[i]->Draw();
 	}
+	/*for (EnemyParticle* particle : particle3D_) {
+		particle->Draw();
+	}*/
 
 }
 
@@ -667,5 +687,7 @@ GameScene::~GameScene() {
 	for (int i = 0; i < amount_; i++) {
 		delete enemy_[i];
 	}
-
+	for (EnemyParticle* particle : particle3D_) {
+		delete particle;
+	}
 }

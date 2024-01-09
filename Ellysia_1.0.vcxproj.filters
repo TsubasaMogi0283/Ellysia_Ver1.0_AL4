@@ -199,6 +199,7 @@
     <ClCompile Include="Project\AllGameScene\GameScene\Audio\Play\PlaySceneAudio.cpp">
       <Filter>Project\Scene\Game\Audio\Play</Filter>
     </ClCompile>
+    <ClCompile Include="Project\Object\Enemy\Particle\EnemyParticle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ellysia\Audio\Audio.h">
@@ -436,6 +437,7 @@
     <ClInclude Include="Project\AllGameScene\GameScene\Audio\Play\PlaySceneAudio.h">
       <Filter>Project\Scene\Game\Audio\Play</Filter>
     </ClInclude>
+    <ClInclude Include="Project\Object\Enemy\Particle\EnemyParticle.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Shader\Object2D\Object2d.hlsli">
