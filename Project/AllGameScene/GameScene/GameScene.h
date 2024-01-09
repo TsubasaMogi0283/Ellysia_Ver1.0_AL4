@@ -6,6 +6,7 @@
 #include "Transform.h"
 #include "Model.h"
 #include "Audio.h"
+#include <Particle3D.h>
 
 #include <memory>
 #include <list>
@@ -18,6 +19,7 @@
 #include "Collider/CollisionManager.h"
 #include <CountDown/CountDown.h>
 #include "Audio/IGameSceneAudio.h"
+#include <Enemy/Particle/EnemyParticle.h>
 
 class GameManager;
 
@@ -204,6 +206,8 @@ private:
 	Audio* killSE_ = nullptr;
 	uint32_t killSEHandle_ = 0u;
 	int killTime_ = 0;
+	//パーティクル
+	std::list<EnemyParticle*>particle3D_;
 
 
 #pragma endregion

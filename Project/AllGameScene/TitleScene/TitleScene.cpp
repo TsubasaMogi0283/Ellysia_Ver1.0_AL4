@@ -41,7 +41,7 @@ void TitleScene::Initialize() {
 	titleLogoSprite_ = Sprite::Create(titleLogoTexture, { 0.0f, 0.0f });
 
 	cameraTranslate_ = { 0.0f,0.0f,-30.0f };
-	cameraTranslate_ = { 0.0f,0.0f,0.0f };
+	//cameraTranslate_ = { 0.0f,0.0f,0.0f };
 	cameraRotate_ = {0.0f,0.0f,0.0f};
 	Camera::GetInstance()->SetTranslate(cameraTranslate_);
 	Camera::GetInstance()->SetRotate(cameraRotate_);
@@ -56,6 +56,29 @@ void TitleScene::Initialize() {
 	seHandle_ = decideSE_->LoadWave("Resources/Audio/Title/Music/StartSE.wav");
 
 	isFadeIn_ = true;
+
+
+	int count = 3;
+
+	//0.5秒ごとに発生
+	float frequency = 0.5f;
+	//発生頻度用の時刻。0.0で初期化
+	float frequencyTime = 0.0f;
+
+	//model_ = std::make_unique<Particle3D>();
+	//model_->Create("Resources/05_02", "plane.obj");
+	
+
+
+
+
+	particleTextureHandle_ = TextureManager::GetInstance()->LoadTexture("Resources/CG3/circle.png");
+
+	//model_->SetCount(count);
+	//model_->SetFrequency(frequency);
+	//model_->SetFrequencyTime(frequencyTime);
+
+	
 }
 
 void TitleScene::DebugText() {
@@ -77,11 +100,11 @@ void TitleScene::Update(GameManager* gameManager){
 
 	const float RADIUS = 30.0f;
 
-	theta_ = 0.001f;
+	/*theta_ = 0.001f;
 	cameraTranslate_.z = RADIUS*std::sinf(theta_)+ initialCamerTranslate_;
 	cameraTranslate_.x = RADIUS*std::cosf(theta_);
 	const float INITIAL_CAMERA_ROTATE = float(std::numbers::pi) / 2.0f;
-	cameraRotate_.y = -theta_;
+	cameraRotate_.y = -theta_;*/
 	
 	Camera::GetInstance()->SetTranslate(cameraTranslate_);
 	Camera::GetInstance()->SetRotate(cameraRotate_);
@@ -95,8 +118,7 @@ void TitleScene::Update(GameManager* gameManager){
 			isFadeIn_ = false;
 		}
 	}
-
-
+	//model_->Update();
 	
 	
 	if (isFadeIn_ == false&& isStart_ == false) {
@@ -142,7 +164,7 @@ void TitleScene::Draw(){
 	playerModel_->Draw(playerWorldTransform_);
 	skydome_->Draw();
 
-
+	//model_->Draw(particleTextureHandle_);
 	//スプライト
 	titleLogoSprite_->Draw();
 

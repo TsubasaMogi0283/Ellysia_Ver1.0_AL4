@@ -1,10 +1,12 @@
 #include "Particle3D.h" 
-#include <Camera.h>
-#include <TextureManager.h>
-#include <PipelineManager.h>
-#include "DirectXSetup.h"
+#include <Camera/Camera.h>
+#include <TextureManager/TextureManager.h>
+#include <PipelineManager/PipelineManager.h>
+#include "Common/DirectX/DirectXSetup.h"
+#include "Camera/Camera.h"
 
 
+#include "Particle.h"
 #include <numbers>
 static uint32_t modelIndex;
 static uint32_t descriptorSizeSRV_ = 0u;
@@ -17,7 +19,7 @@ Particle3D::Particle3D() {
 
 
 //モデルデータの読み込み
-ModelData Particle3D::LoadObjectFile(const std::string& directoryPath,const std::string& fileName) {
+ModelData Particle3D::LoadObjectFile(const std::string& directoryPath, const std::string& fileName) {
 	//1.中で必要となる変数の宣言
 	ModelData modelData;
 	//位置
@@ -33,7 +35,7 @@ ModelData Particle3D::LoadObjectFile(const std::string& directoryPath,const std:
 	//2.ファイルを開く
 	std::ifstream file(directoryPath + "/" + fileName);
 	assert(file.is_open());
-	 
+
 	//3.実際にファイルを読み、ModelDataを構築していく
 
 	//getline...streamから1行読んでstringに格納する
@@ -82,13 +84,13 @@ ModelData Particle3D::LoadObjectFile(const std::string& directoryPath,const std:
 				std::istringstream v(vertexDefinition);
 				uint32_t elementIndices[3];
 
-				
+
 				for (int32_t element = 0; element < 3; ++element) {
 					std::string index;
 					// 「/」区切りでインデックスを読んでいく
 					std::getline(v, index, '/');
 					elementIndices[element] = std::stoi(index);
-					
+
 
 				}
 				//要素へのIndexから実際の要素の値を取得して、頂点を構築する
@@ -99,8 +101,8 @@ ModelData Particle3D::LoadObjectFile(const std::string& directoryPath,const std:
 				//modelData.vertices.push_back(vertex);
 
 				triangle[faceVertex] = { position,texcoord,normal };
-				
-				
+
+
 
 			}
 			//頂点を逆順で登録することで、回り順を逆にする
@@ -120,9 +122,9 @@ ModelData Particle3D::LoadObjectFile(const std::string& directoryPath,const std:
 
 	}
 
-	
-	
-	
+
+
+
 
 	//4.ModelDataを返す
 	return modelData;
@@ -131,28 +133,28 @@ ModelData Particle3D::LoadObjectFile(const std::string& directoryPath,const std:
 //mtlファイルを読む関数
 MaterialData Particle3D::LoadMaterialTemplateFile(const std::string& directoryPath, const std::string& fileName) {
 
-	#pragma region 1.中で必要となる変数の宣言
+#pragma region 1.中で必要となる変数の宣言
 	//構築するMaterialData
 	MaterialData materialData;
 	//ファイルから読んだ1行を格納するもの
 	std::string line;
-	
-	#pragma endregion
+
+#pragma endregion
 
 
 
-	#pragma region 2.ファイルを開く
+#pragma region 2.ファイルを開く
 	std::ifstream file(directoryPath + "/" + fileName);
 	//開かなかったら止める
 	assert(file.is_open());
 
-	#pragma endregion
-
-	
+#pragma endregion
 
 
-	#pragma region  実際にファイルを読みMaterialDataを構築していく
-	while (std::getline(file,line)){
+
+
+#pragma region  実際にファイルを読みMaterialDataを構築していく
+	while (std::getline(file, line)) {
 		std::string identifier;
 		std::istringstream s(line);
 		s >> identifier;
@@ -166,12 +168,12 @@ MaterialData Particle3D::LoadMaterialTemplateFile(const std::string& directoryPa
 			materialData.textureFilePath = directoryPath + "/" + textureFileName;
 
 		}
-		
+
 
 
 	}
 
-	#pragma endregion
+#pragma endregion
 
 	//4.MaterialDataを返す
 
@@ -185,13 +187,13 @@ MaterialData Particle3D::LoadMaterialTemplateFile(const std::string& directoryPa
 //RandomParticle用
 ///パーティクルだけはvoid型で初期化する
 void Particle3D::Create(const std::string& directoryPath, const std::string& fileName) {
-	
+
 	//初期化の所でやってね、Update,Drawでやるのが好ましいけど凄く重くなった。
 	//ブレンドだけに仕様と思う
 	//ブレンドモードの設定
 	//Addでやるべきとのこと
 	PipelineManager::GetInstance()->GenerateParticle3DPSO();
-	
+
 
 	//デフォルトの設定
 	//Setterで変えてね
@@ -211,11 +213,11 @@ void Particle3D::Create(const std::string& directoryPath, const std::string& fil
 	ModelData modelDataNew = LoadObjectFile(directoryPath, fileName);
 	modelDataNew.name = fileName;
 	modelInformationList_.push_back(modelDataNew);
-	
+
 
 
 	////マテリアル用のリソースを作る。今回はcolor1つ分のサイズを用意する
-	material_= std::make_unique<CreateMaterial>();
+	material_ = std::make_unique<CreateMaterial>();
 	material_->Initialize();
 
 
@@ -229,9 +231,9 @@ void Particle3D::Create(const std::string& directoryPath, const std::string& fil
 
 	//インスタンシング
 	instancingResource_ = DirectXSetup::GetInstance()->CreateBufferResource(sizeof(ParticleForGPU) * MAX_INSTANCE_NUMBER_);
-	
-	descriptorSizeSRV_ =  DirectXSetup::GetInstance()->GetDevice()->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
-	
+
+	descriptorSizeSRV_ = DirectXSetup::GetInstance()->GetDevice()->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
+
 
 	D3D12_SHADER_RESOURCE_VIEW_DESC instancingSrvDesc{};
 	instancingSrvDesc.Format = DXGI_FORMAT_UNKNOWN;
@@ -250,16 +252,16 @@ void Particle3D::Create(const std::string& directoryPath, const std::string& fil
 	DirectXSetup::GetInstance()->GetDevice()->CreateShaderResourceView(
 		instancingResource_.Get(), &instancingSrvDesc, instancingSrvHandleCPU_);
 
-	
+
 
 	isBillBordMode_ = true;
 
 	//Lighting
-	directionalLight_=std::make_unique<CreateDirectionalLight>();
+	directionalLight_ = std::make_unique<CreateDirectionalLight>();
 	directionalLight_->Initialize();
 
-	
-	
+
+
 
 
 	//初期は白色
@@ -280,16 +282,16 @@ Particle Particle3D::MakeNewParticle(std::mt19937& randomEngine) {
 	particle.transform.rotate = { 0.0f,0.0f,0.0f };
 	//ランダムの値
 	Vector3 randomTranslate = { distribute(randomEngine),distribute(randomEngine),distribute(randomEngine) };
-	particle.transform.translate = Add(emitter_.transform.translate,randomTranslate);
-	
+	particle.transform.translate = Add(emitter_.transform.translate, randomTranslate);
+
 	//速度
 	std::uniform_real_distribution<float>distVelocity(-1.0f, 1.0f);
-	particle.velocity = {distVelocity(randomEngine),distVelocity(randomEngine),distVelocity(randomEngine)};
+	particle.velocity = { distVelocity(randomEngine),distVelocity(randomEngine),distVelocity(randomEngine) };
 
 	//Color
 	std::uniform_real_distribution<float> distColor(0.0f, 1.0f);
 	particle.color = { distColor(randomEngine),distColor(randomEngine),distColor(randomEngine),1.0f };
-	
+
 
 	//時間
 	std::uniform_real_distribution<float> distTime(1.0f, 3.0f);
@@ -303,7 +305,7 @@ Particle Particle3D::MakeNewParticle(std::mt19937& randomEngine) {
 }
 
 //エミッタ
-std::list<Particle> Particle3D::Emission(const Emitter& emmitter, std::mt19937& randomEngine){
+std::list<Particle> Particle3D::Emission(const Emitter& emmitter, std::mt19937& randomEngine) {
 	std::list<Particle> particles;
 
 	for (uint32_t count = 0; count < emmitter.count; ++count) {
@@ -316,13 +318,13 @@ std::list<Particle> Particle3D::Emission(const Emitter& emmitter, std::mt19937& 
 
 
 //更新
-void Particle3D::Update(){
-	
+void Particle3D::Update() {
+
 
 	//C++でいうsrandみたいなやつ
 	std::random_device seedGenerator;
 	std::mt19937 randomEngine(seedGenerator());
-	
+
 	///時間経過
 	emitter_.frequencyTime += DELTA_TIME;
 	//頻度より大きいなら
@@ -337,20 +339,20 @@ void Particle3D::Update(){
 	//座標の計算など
 	numInstance_ = 0;
 	for (std::list<Particle>::iterator particleIterator = particles_.begin();
-		particleIterator != particles_.end();++particleIterator) {
+		particleIterator != particles_.end(); ++particleIterator) {
 		if ((*particleIterator).lifeTime <= (*particleIterator).currentTime) {
-			
+
 			continue;
 		}
-		
-		
+
+
 		particleIterator->currentTime += DELTA_TIME;
 		particleIterator->transform.translate.x += particleIterator->velocity.x * DELTA_TIME;
 		particleIterator->transform.translate.y += particleIterator->velocity.y * DELTA_TIME;
 		particleIterator->transform.translate.z += particleIterator->velocity.z * DELTA_TIME;
-		
 
-		
+
+
 
 
 		//ビルボード有り
@@ -368,11 +370,11 @@ void Particle3D::Update(){
 
 			Matrix4x4 scaleMatrix = MakeScaleMatrix(particleIterator->transform.scale);
 			Matrix4x4 translateMatrix = MakeTranslateMatrix(particleIterator->transform.translate);
-			
+
 
 			//パーティクル個別のRotateは関係ないよ
-			Matrix4x4 worldMatrix = Multiply(scaleMatrix,Multiply(billBoardMatrix,translateMatrix));
-			
+			Matrix4x4 worldMatrix = Multiply(scaleMatrix, Multiply(billBoardMatrix, translateMatrix));
+
 			//WVP行列を作成
 			Matrix4x4 worldViewProjectionMatrix = Multiply(worldMatrix, Multiply(Camera::GetInstance()->GetViewMatrix(), Camera::GetInstance()->GetProjectionMatrix_()));
 
@@ -384,12 +386,12 @@ void Particle3D::Update(){
 
 				//アルファはVector4でいうwだね
 				float alpha = 1.0f - (particleIterator->currentTime / particleIterator->lifeTime);
-				instancingData_[numInstance_].color.w=alpha;
+				instancingData_[numInstance_].color.w = alpha;
 
 				++numInstance_;
 			}
 
-			
+
 
 		}
 		//ビルボード無し
@@ -399,7 +401,7 @@ void Particle3D::Update(){
 				particleIterator->transform.scale,
 				particleIterator->transform.rotate,
 				particleIterator->transform.translate);
-			
+
 			//WVP行列を作成
 			Matrix4x4 worldViewProjectionMatrix = Multiply(worldMatrix, Multiply(Camera::GetInstance()->GetViewMatrix(), Camera::GetInstance()->GetProjectionMatrix_()));
 
@@ -416,33 +418,33 @@ void Particle3D::Update(){
 				++numInstance_;
 			}
 		}
-		
 
-		
-		
+
+
+
 	}
 
 
 }
 
 //描画
-void Particle3D::Draw(uint32_t textureHandle){
+void Particle3D::Draw(uint32_t textureHandle) {
 	//マテリアルにデータを書き込む
 	//書き込むためのアドレスを取得
 	//reinterpret_cast...char* から int* へ、One_class* から Unrelated_class* へなどの変換に使用
 
-	material_->SetInformation(color_,isEnableLighting_);
+	material_->SetInformation(color_, isEnableLighting_);
 
 	//書き込むためのデータを書き込む
 	//頂点データをリソースにコピー
-	
+
 	//コマンドを積む
 	DirectXSetup::GetInstance()->GetCommandList()->SetGraphicsRootSignature(PipelineManager::GetInstance()->GetParticle3DRootSignature().Get());
 	DirectXSetup::GetInstance()->GetCommandList()->SetPipelineState(PipelineManager::GetInstance()->GetParticle3DGraphicsPipelineState().Get());
 
 
 	//mesh_->GraphicsCommand();
-	
+
 	////RootSignatureを設定。PSOに設定しているけど別途設定が必要
 	//DirectXSetup::GetInstance()->GetCommandList()->IASetVertexBuffers(0, 1, &vertexBufferView_);
 	////形状を設定。PSOに設定しているものとはまた別。同じものを設定すると考えよう
@@ -450,33 +452,33 @@ void Particle3D::Draw(uint32_t textureHandle){
 
 	//CBVを設定する
 	material_->GraphicsCommand();
-	
+
 	//Transformationいらなかったっす
 	//その代わりにInstancing
-	
-	
+
+
 	//DirectXSetup::GetInstance()->GetCommandList()->SetGraphicsRootDescriptorTable(1, instancingSrvHandleGPU_);
 
 	//SRVのDescriptorTableの先頭を設定。2はrootParameter[2]である
-	
-	if (textureHandle_!= 0) {
-		TextureManager::GraphicsCommand(textureHandle );
+
+	if (textureHandle_ != 0) {
+		TextureManager::GraphicsCommand(textureHandle);
 
 	}
-	
+
 
 	//Light
 	directionalLight_->GraphicsCommand();
-	
+
 	//インスタンシング
 	instancingResource_->Map(0, nullptr, reinterpret_cast<void**>(&instancingData_));
 
-	
-	
-	
+
+
+
 	mesh_->GraphicsCommand();
 	DirectXSetup::GetInstance()->GetCommandList()->SetGraphicsRootDescriptorTable(1, instancingSrvHandleGPU_);
-	
+
 	//DrawCall
 	mesh_->DrawCall(numInstance_);
 }
@@ -489,4 +491,3 @@ Particle3D::~Particle3D() {
 
 
 
-	

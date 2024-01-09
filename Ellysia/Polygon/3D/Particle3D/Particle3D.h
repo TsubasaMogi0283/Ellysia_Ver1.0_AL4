@@ -8,22 +8,24 @@
 #include <list>
 #include <random>
 
-#include <DirectXTeX.h>
+#include "ConvertLog.h"
+#include <DirectXTex.h>
+#include "ImGuiManager/ImGuiManager.h"
 #include "Matrix4x4.h"
-#include <Material.h>
+#include <Math/Vector/Material.h>
 #include <TransformationMatrix.h>
-#include <DirectionalLight.h>
+#include <Math/Vector/DirectionalLight.h>
 #include "MaterialData.h"
 #include "ModelData.h"
 
 
 #include "Vector4.h"
-#include "Matrix4x4Calculation.h"
-#include <VertexData.h>
+#include "Math/Matrix/Calculation/Matrix4x4Calculation.h"
+#include <Math/Vector/VertexData.h>
 
-#include <VectorCalculation.h>
+#include <Math/Vector/Calculation/VectorCalculation.h>
+
 #include <d3dx12.h>
-
 
 
 
@@ -64,7 +66,7 @@ private:
 	//mtlファイルの読み込み
 	MaterialData LoadMaterialTemplateFile(const std::string& directoryPath, const std::string& fileName);
 
-	
+
 
 #pragma endregion
 
@@ -86,7 +88,7 @@ public:
 	//void Draw();
 
 	//テクスチャを上書きをする描画
-	void Draw(uint32_t textureHandle_ );
+	void Draw(uint32_t textureHandle_);
 
 
 	//デストラクタ
@@ -106,7 +108,7 @@ public:
 	void SetTransparency(float transparency) {
 		this->color_.w = transparency;
 	}
-	
+
 	//ビルボードにするかどうか
 	//デフォルトではするようにしている
 	bool IsBillBordMode(bool isBillBordMode) {
@@ -115,14 +117,14 @@ public:
 
 
 #pragma region エミッタの中の設定
-	
 
-	#pragma region SRT
+
+#pragma region SRT
 	//Scale
 	void SetScale(Vector3 scale) {
 		this->emitter_.transform.scale = scale;
 	}
-	
+
 	//Rotate
 	void SetRotate(Vector3 rotate) {
 		this->emitter_.transform.rotate = rotate;
@@ -139,18 +141,18 @@ public:
 		return emitter_.transform.translate;
 	}
 
-	#pragma endregion
+#pragma endregion
 
 	//発生数
 	void SetCount(uint32_t count) {
 		this->emitter_.count = count;
 	}
 	//発生頻度
-	void SetFrequency(float frequency){
+	void SetFrequency(float frequency) {
 		this->emitter_.frequency = frequency;
 	}
 	//発生頻度を設定
-	void SetFrequencyTime(float frequencyTime){
+	void SetFrequencyTime(float frequencyTime) {
 		this->emitter_.frequencyTime = frequencyTime;
 	}
 
@@ -173,7 +175,7 @@ private:
 
 	//頂点データ
 	std::unique_ptr<Mesh> mesh_ = nullptr;
-	std::unique_ptr<Transformation> transformation_= nullptr ;
+	std::unique_ptr<Transformation> transformation_ = nullptr;
 	std::vector<VertexData> vertices;
 	//マテリアル用のリソースを作る
 	std::unique_ptr<CreateMaterial> material_ = nullptr;
@@ -186,7 +188,7 @@ private:
 	//基本はtrueで
 	bool isEnableLighting_ = true;
 	//方向
-	Vector3 lightingDirection_ = {0.0f,-1.0f,0.0f};
+	Vector3 lightingDirection_ = { 0.0f,-1.0f,0.0f };
 
 
 	D3D12_CPU_DESCRIPTOR_HANDLE instancingSrvHandleCPU_ = {};
