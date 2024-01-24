@@ -14,6 +14,7 @@
 #include <fstream>
 
 #include "Explanation/ExplanationSceneAudio.h"
+#include <numbers>
 
 GameScene::GameScene() {
 
@@ -210,6 +211,9 @@ void GameScene::ExplanationSceneUpdate(){
 
 	if (explanationTextureNumber_ >= 3) {
 		sceneNo_ = 1;
+
+		
+
 		scene_ = Scene::Ready;
 	}
 	
@@ -220,6 +224,13 @@ void GameScene::ReadySceneUpdate(){
 
 	countDownTime_ -= 1;
 	
+	playerRotateY_ += 0.11f;
+	player_->SetRotate({0.0f,playerRotateY_ ,0.0f});
+
+	if (player_->GetRotate().y > float(std::numbers::pi)) {
+		player_->SetRotate({ 0.0f,float(std::numbers::pi),0.0f });
+	}
+
 	if (countDownTime_ < SECOND_*3 && countDownTime_ >= SECOND_ * 2) {
 		//カウント
 		if (countDownTime_ == (SECOND_ * 3) - 1) {
@@ -455,6 +466,9 @@ void GameScene::PlaySceneUpdate(){
 	});*/
 	
 
+	player_->SetIsAnimation(true);
+
+
 	//勝ち
 	if (countDown_->GetTime() < 0) {
 		sceneNo_ = 3;
@@ -469,7 +483,7 @@ void GameScene::LoseSceneUpdate() {
 	ImGui::End();
 
 #endif
-
+	player_->SetIsAnimation(false);
 
 	theta_ += 1.0f;
 	cameraTranslate_.x += std::sinf(theta_) * 0.5f;
@@ -498,6 +512,8 @@ void GameScene::WinSceneUpdate() {
 	ImGui::End();
 
 #endif
+
+	player_->SetIsAnimation(false);
 
 	for (int i = 0; i < amount_; i++) {
 		enemy_[i]->SetSpeedOffset(0.0f);

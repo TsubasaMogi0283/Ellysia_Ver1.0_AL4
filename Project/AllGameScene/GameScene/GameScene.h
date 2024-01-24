@@ -144,6 +144,8 @@ private:
 	float move_ = 0.0f;
 	const float MOVE_AMOUNT_ = 0.1f;
 
+	float playerRotateY_ = 0.0f;
+
 	//レールカメラ
 	std::unique_ptr<RailCamera> railCamera_ = nullptr;
 

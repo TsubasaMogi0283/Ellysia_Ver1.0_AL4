@@ -74,7 +74,16 @@ void Player::Move() {
 		move.x -= MOVE_AMOUNT_;
 	}
 
-	worldTransform_.translate_ = Add(worldTransform_.translate_, move);
+	if (isAnimation_ == true) {
+		playerMoveTheta_ += 0.1f;
+		const float offset = 0.015f;
+
+		animationMove_.y = float(std::sinf(playerMoveTheta_)) * offset;
+	}
+	
+
+
+	worldTransform_.translate_ = Add(worldTransform_.translate_, Add(move, animationMove_));
 
 	const float MOVE_LIMIT_X = 17.0f;
 	const float MOVE_LIMIT_Y = 7.0f;
@@ -108,7 +117,7 @@ void Player::Attack() {
 		if ((input_->IsTriggerKey(DIK_SPACE))|| triggerButtonTime_ == 1) {
 
 
-			Vector3 velocity = { 0.0f,0.0f,0.8f };
+			Vector3 velocity = { 0.0f,0.0f,-0.8f };
 
 
 			//Matrix4x4 worldmatrix = MakeAffineMatrix(transform_.scale, transform_.rotate, transform_.translate);

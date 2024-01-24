@@ -45,6 +45,10 @@ public:
 		return worldTransform_.translate_;
 	}
 	
+	void SetRotate(Vector3 rotate) {
+		this->worldTransform_.rotate_ = rotate;
+	}
+
 	void SetTranslate(Vector3 translate) {
 		this->worldTransform_.translate_ = translate;
 	}
@@ -80,6 +84,10 @@ public:
 		return bullets_;
 	}
 
+	void SetIsAnimation(bool isAnimation) {
+		this->isAnimation_ = isAnimation;
+	}
+
 #pragma endregion
 
 private:
@@ -100,6 +108,10 @@ private:
 
 	float radius_;
 
+	//簡易アニメーション
+	bool isAnimation_ = false;
+	float playerMoveTheta_ = 0.0f;
+	Vector3 animationMove_ = {};
 
 	Matrix4x4 worldMatrix_ = {};
 	const WorldTransform* parentedMatrix_ = {};
