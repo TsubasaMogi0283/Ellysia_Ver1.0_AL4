@@ -53,7 +53,7 @@ private:
 	std::unique_ptr<Model> playerModel_ = nullptr;
 	WorldTransform playerWorldTransform_ = {};
 
-	Vector3 cameraTranslate_ = {};
+	Vector3 playerTranslate_ = {};
 	Vector3 cameraRotate_ = {};
 
 	//カメラ
@@ -70,6 +70,15 @@ private:
 	//タイトル
 	Sprite* titleLogoSprite_ = nullptr;
 	uint32_t titleLogoTexture = 0u;
+
+	//プレイヤーモデルの動きについて
+	bool isPlayerModelMove_ = false;
+	uint32_t playerModelMoveTime_ = 0;
+	Vector3 playerVelocity_ = {};
+	const float accel_ = 0.05f;
+
+	float playerMoveTheta_ = 0.0f;
+	float playerModelRotate_ = 0.0f;
 
 	//スタート
 	Sprite* start_ = nullptr;

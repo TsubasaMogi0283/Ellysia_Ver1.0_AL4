@@ -20,6 +20,10 @@ void TitleScene::Initialize() {
 	playerWorldTransform_.rotate_ = { 0.0f, 0.0f, 0.0f };
 	playerWorldTransform_.translate_ = { 0.0f, 0.0f, 0.0f };
 
+
+	
+	playerVelocity_ = {0.0f,0.0f,0.0f};
+
 	// 生成
 	skydome_ = new Skydome();
 
@@ -42,10 +46,10 @@ void TitleScene::Initialize() {
 	start_ = Sprite::Create(startHandle_, { 0.0f, 0.0f });
 	;
 
-	cameraTranslate_ = { 0.0f, 0.0f, -30.0f };
+	playerTranslate_ = { 0.0f, 0.0f, -30.0f };
 	// cameraTranslate_ = { 0.0f,0.0f,0.0f };
 	cameraRotate_ = { 0.0f, 0.0f, 0.0f };
-	Camera::GetInstance()->SetTranslate(cameraTranslate_);
+	Camera::GetInstance()->SetTranslate(playerTranslate_);
 	Camera::GetInstance()->SetRotate(cameraRotate_);
 
 	// BGM
@@ -73,6 +77,9 @@ void TitleScene::Update(GameManager* gameManager) {
 	// デバッグ用
 	DebugText();
 	skydome_->Update();
+
+	playerWorldTransform_.rotate_ = Add(playerWorldTransform_.rotate_, { 0.0f,playerModelRotate_,0.0f });
+	playerWorldTransform_.translate_ = Add(playerWorldTransform_.translate_, playerVelocity_);
 	playerWorldTransform_.Update();
 
 	blackSprite_->SetTransparency(transparency_);
@@ -85,7 +92,7 @@ void TitleScene::Update(GameManager* gameManager) {
 	const float INITIAL_CAMERA_ROTATE = float(std::numbers::pi) / 2.0f;
 	cameraRotate_.y = -theta_;*/
 
-	Camera::GetInstance()->SetTranslate(cameraTranslate_);
+	Camera::GetInstance()->SetTranslate(playerTranslate_);
 	Camera::GetInstance()->SetRotate(cameraRotate_);
 
 	const float TRANSPARENCY_INTERVAL = 0.05f;
@@ -107,6 +114,12 @@ void TitleScene::Update(GameManager* gameManager) {
 		if ((joyState_.Gamepad.wButtons & XINPUT_GAMEPAD_B) == 0) {
 			triggerButtonTime_ = 0;
 		}
+
+		//Playerのアニメーション
+		playerMoveTheta_ += 0.1f;
+		const float offset = 0.2f;
+		playerWorldTransform_.translate_.y = float(std::sinf(playerMoveTheta_))*offset;
+
 
 		flashTime_ += 1;
 		if (flashTime_ > 0) {
@@ -162,9 +175,36 @@ void TitleScene::Update(GameManager* gameManager) {
 				start_->SetInvisible(true);
 			}
 			if (fastFlashTime_ > FLASH_INTERVAL * 8) {
-				transparency_ += TRANSPARENCY_INTERVAL;
+
+				isPlayerModelMove_ = true;
+
+
+				
 			}
 		}
+
+		if (isPlayerModelMove_ == true) {
+
+			playerModelRotate_ += 0.005f;
+
+			
+			//反対向きに向いて加速する
+			if (playerWorldTransform_.rotate_.y >float( std::numbers::pi)) {
+				playerWorldTransform_.rotate_.y =float( std::numbers::pi);
+				//向いたら加速
+				playerVelocity_.z += accel_;
+
+
+				playerModelMoveTime_ += 1;
+				if (playerModelMoveTime_ > 80) {
+					transparency_ += TRANSPARENCY_INTERVAL;
+				}
+
+			}
+
+			
+		}
+
 
 		if (transparency_ > 1.0f) {
 			loadingTime_ += 1;
@@ -182,7 +222,7 @@ void TitleScene::Draw() {
 	start_->Draw();
 
 	// スプライト
-	titleLogoSprite_->Draw();
+	//titleLogoSprite_->Draw();
 
 	blackSprite_->Draw();
 }
