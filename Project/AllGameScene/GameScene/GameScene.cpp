@@ -222,6 +222,8 @@ void GameScene::ExplanationSceneUpdate(){
 
 void GameScene::ReadySceneUpdate(){
 
+	player_->SetIsAura(true);
+
 	countDownTime_ -= 1;
 	
 	playerRotateY_ += 0.11f;
@@ -484,6 +486,7 @@ void GameScene::LoseSceneUpdate() {
 
 #endif
 	player_->SetIsAnimation(false);
+	player_->SetIsAura(false);
 
 	theta_ += 1.0f;
 	cameraTranslate_.x += std::sinf(theta_) * 0.5f;
@@ -514,6 +517,7 @@ void GameScene::WinSceneUpdate() {
 #endif
 
 	player_->SetIsAnimation(false);
+	player_->SetIsAura(false);
 
 	for (int i = 0; i < amount_; i++) {
 		enemy_[i]->SetSpeedOffset(0.0f);

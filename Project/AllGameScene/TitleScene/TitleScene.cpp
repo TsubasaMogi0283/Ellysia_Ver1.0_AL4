@@ -222,7 +222,7 @@ void TitleScene::Draw() {
 	start_->Draw();
 
 	// スプライト
-	//titleLogoSprite_->Draw();
+	titleLogoSprite_->Draw();
 
 	blackSprite_->Draw();
 }

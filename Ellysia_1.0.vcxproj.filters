@@ -111,9 +111,6 @@
     <ClCompile Include="Project\Object\Player\Player.cpp">
       <Filter>Project\Object\Player</Filter>
     </ClCompile>
-    <ClCompile Include="Project\Object\Player\Bullet\PlayerBullet.cpp">
-      <Filter>Project\Object\Player</Filter>
-    </ClCompile>
     <ClCompile Include="Project\Object\RailCamera\RailCamera.cpp">
       <Filter>Project\Object\RailCamera</Filter>
     </ClCompile>
@@ -200,6 +197,12 @@
       <Filter>Project\Scene\Game\Audio\Play</Filter>
     </ClCompile>
     <ClCompile Include="Project\Object\Enemy\Particle\EnemyParticle.cpp" />
+    <ClCompile Include="Project\Object\Player\Bullet\PlayerBullet.cpp">
+      <Filter>Project\Object\Player\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Object\Player\Aura\PlayerAura.cpp">
+      <Filter>Project\Object\Player\Aura</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ellysia\Audio\Audio.h">
@@ -299,9 +302,6 @@
       <Filter>Ellysia\Pipeline</Filter>
     </ClInclude>
     <ClInclude Include="Project\Object\Player\Player.h">
-      <Filter>Project\Object\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Object\Player\Bullet\PlayerBullet.h">
       <Filter>Project\Object\Player</Filter>
     </ClInclude>
     <ClInclude Include="Project\Object\RailCamera\RailCamera.h">
@@ -438,6 +438,12 @@
       <Filter>Project\Scene\Game\Audio\Play</Filter>
     </ClInclude>
     <ClInclude Include="Project\Object\Enemy\Particle\EnemyParticle.h" />
+    <ClInclude Include="Project\Object\Player\Bullet\PlayerBullet.h">
+      <Filter>Project\Object\Player\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Object\Player\Aura\PlayerAura.h">
+      <Filter>Project\Object\Player\Aura</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Shader\Object2D\Object2d.hlsli">
@@ -642,6 +648,12 @@
     </Filter>
     <Filter Include="Project\Scene\Game\Audio\Play">
       <UniqueIdentifier>{a087c784-8c02-43cc-b59c-7e0dc46e0253}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project\Object\Player\Bullet">
+      <UniqueIdentifier>{67df2383-c715-4ce4-b993-fd78fea7ec8c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project\Object\Player\Aura">
+      <UniqueIdentifier>{7b6ed42b-6aff-468e-94be-cb918265bebc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

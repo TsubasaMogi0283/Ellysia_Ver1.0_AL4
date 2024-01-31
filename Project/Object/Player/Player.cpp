@@ -1,7 +1,7 @@
 #include "Player.h"
 #include <Collider/CollisionConfig.h>
 #include <VectorCalculation.h>
-
+#include <numbers>
 //コンストラクタ
 Player::Player() {
 
@@ -13,6 +13,7 @@ void Player::Initialize() {
 	model_ = std::unique_ptr<Model>();
 	model_.reset(Model::Create("Resources/Sample/Player", "playre.obj"));
 
+	
 	worldTransform_.Initialize();
 	worldTransform_.scale_ = { 1.0f,1.0f,1.0f };
 	worldTransform_.rotate_ = { 0.0f,0.0f,0.0f };
@@ -26,6 +27,15 @@ void Player::Initialize() {
 	//DecideSE
 	attackSE_ = Audio::GetInstance();
 	attackSEHandle_ = attackSE_->LoadWave("Resources/Audio/Action/Attack.wav");
+
+	for (int i = 0; i < AURA_AMOUNT_; i++) {
+		playerAura_[i] = std::make_unique<PlayerAura>();
+
+		
+		auraPosition_[i] = { worldTransform_.translate_ };
+		playerAura_[i]->Initialize(worldTransform_.translate_);
+
+	}
 
 
 	SetCollisionAttribute(COLLISION_ATTRIBUTE_PLAYER);
@@ -100,9 +110,6 @@ void Player::Move() {
 
 
 void Player::Attack() {
-
-
-	
 
 	if (isEnableAttack_ == true) {
 		if (Input::GetInstance()->GetJoystickState(joyState_)) {
@@ -189,7 +196,20 @@ void Player::Update() {
 	}
 	
 	
+	for (int i = 0; i < AURA_AMOUNT_; i++) {
+		theta += 0.05f;
+		const float HEIGHT_INTERVAL = 0.6f;
+		const float AURA_INTERVAL = 1.5f;
+		auraPosition_[i] = {
+			worldTransform_.translate_.x + std::sinf(theta + i * AURA_INTERVAL)*2.0f,
+			worldTransform_.translate_.y + i * HEIGHT_INTERVAL-0.7f,
+			worldTransform_.translate_.z + std::cosf(theta + i * AURA_INTERVAL) * 2.0f
+		};
 
+		playerAura_[i]->SetPosition(auraPosition_[i]);
+		playerAura_[i]->Update();
+
+	}
 	
 
 }
@@ -205,7 +225,14 @@ void Player::Draw() {
 	for (PlayerBullet* bullet : bullets_) {
 		bullet->Draw();
 	}
-	
+
+
+	for (int i = 0; i < AURA_AMOUNT_; i++) {
+		if (isAura_ == true) {
+			playerAura_[i]->Draw();
+		}
+
+	}
 }
 
 
